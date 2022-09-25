@@ -1,17 +1,25 @@
 {
   search(expression, data): self.compile(expression).search(data),
-  compile(expression):(
+  patch(expression, patch): self.compile(expression).patch(patch),
+  compile(expression): (
     local splitId = std.splitLimit(expression, '.', 2);
-    local next = if std.length(splitId) == 1 then null else
+    local next = if std.length(splitId) == 1 then self.Identity() else
       self.compile(splitId[1])
     ;
-    self.IdSegment(splitId[0], next)
+    if std.type(expression) == 'string' then
+      self.IdSegment(splitId[0], next)
+    else expression
   ),
   IdSegment(id, next): {
     id: id,
     next: next,
-    search(data)::
-      local result = data[id];
-      if self.next == null then result else self.next.search(result)
+    search(data):: self.next.search(data[id]),
+    patch(patch)::
+      local next = self.next;
+      { [self.id]+: next.patch(patch) },
+  },
+  Identity(): {
+    search(data):: data,
+    patch(patch):: patch,
   },
 }
