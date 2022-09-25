@@ -13,7 +13,9 @@
   IdSegment(id, next): {
     id: id,
     next: next,
-    search(data):: self.next.search(data[id]),
+    search(data)::
+      if !std.objectHasAll(data, self.id) then null
+      else self.next.search(data[id]),
     patch(patch)::
       local next = self.next;
       { [self.id]+: next.patch(patch) },

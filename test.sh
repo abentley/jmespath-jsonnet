@@ -1,2 +1,2 @@
 #!/bin/sh
-jsonnet -SJ src tests/test_identifier.jsonnet
+jsonnet -SJ src -J tests tests/test_identifier.jsonnet

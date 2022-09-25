@@ -1,8 +1,7 @@
 local jmespath = import 'jmespath.libsonnet';
-local test_eq(expected, actual) = (
-  if actual == expected then 'SUCCESS' else
-    error '%s != %s' % [actual, expected]
-);
+local test = import 'test.libsonnet';
+local test_eq = test.test_eq;
+
 local results = {
   test1: test_eq('baz', jmespath.search('foo.bar', { foo: { bar: 'baz' } })),
   test2: test_eq('bar', jmespath.search('foo.bar', { foo: { bar: 'bar' } })),
@@ -13,5 +12,7 @@ local results = {
   test4:
     test_eq('baz', jmespath.search(jmespath.compile('foo.bar'),
                                    { foo: { bar: 'baz' } })),
+  test5: test_eq(null, jmespath.search('boo.bar', { foo: { bar: 'baz' } })),
+  test6: test_eq(null, jmespath.search('foo.far', { foo: { bar: 'baz' } })),
 };
-std.join('\n', ['%s: %s' % [n, results[n]] for n in std.objectFields(results)])
+test.render_results(results)
