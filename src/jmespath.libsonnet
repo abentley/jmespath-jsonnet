@@ -12,11 +12,13 @@
   ),
   between(char, lowest, highest):
     std.codepoint(char) >= std.codepoint(lowest) && std.codepoint(char) <= std.codepoint(highest),
+  idChar(char): (
+      self.between(char, 'a', 'z') ||
+      self.between(char, 'A', 'Z')
+    ),
   token(expression):
-    if (
-      self.between(expression[0], 'a', 'z') ||
-      self.between(expression[0], 'A', 'Z')
-    ) then self.idToken(expression) else if expression[0] == '[' then (
+    if self.idChar(expression[0]) then self.idToken(expression) else
+    if expression[0] == '[' then (
       self.indexToken(expression)
     ),
   idToken(expression):
