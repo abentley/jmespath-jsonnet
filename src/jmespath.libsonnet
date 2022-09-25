@@ -1,6 +1,8 @@
 {
   search(expression, data): self.compile(expression).search(data),
   patch(expression, patch): self.compile(expression).patch(patch),
+  doPatch(data, expression, patch): self.compile(expression).doPatch(data,
+                                                                     patch),
   compile(expression): (
     local token = self.token(expression);
     local next = if std.length(token) == 2 then self.Identity() else
@@ -8,7 +10,8 @@
     ;
     if std.type(expression) != 'string' then expression else
       if token[0] == 'id' then self.IdSegment(token[1], next)
-      else if token[0] == 'index' then self.Index(token[1], next) else error token[0]
+      else if token[0] == 'index' then self.Index(token[1], next)
+      else error token[0]
   ),
   between(char, lowest, highest):
     std.codepoint(char) >= std.codepoint(lowest)
@@ -26,7 +29,7 @@
       self.indexToken(expression)
     ),
 
-  idToken(expression, offset=1):
+  idToken(expression, offset=0):
     local rawRemainder = if expression[offset] == '.' then
       expression[offset + 1:]
     else expression[offset:];
@@ -54,7 +57,12 @@
       else self.next.search(data[id]),
     patch(patch)::
       local next = self.next;
-      { [self.id]+: next.patch(patch) },
+      if std.objectHasAll(next, 'arrayPatch') then
+        next.arrayPatch(self.id, patch)
+      else { [self.id]+: next.patch(patch) },
+    doPatch(data, patch)::
+      local id = self.id;
+      data { [id]+: next.doPatch(data[id], patch) },
   },
 
   Index(index, next): {
@@ -62,10 +70,23 @@
     next: next,
     search(data):
       self.next.search(data[self.index]),
+    arrayPatch(field, patch): local index = self.index; {
+      local data = super[field],
+      [field]: std.mapWithIndex(
+        function(i, e) if i == index then e + next.patch(patch) else e,
+        data
+      ),
+    },
+    doPatch(data, patch)::
+      std.mapWithIndex(
+        function(i, e) if i == self.index then next.doPatch(e, patch) else e,
+        data,
+      ),
   },
 
   Identity(): {
     search(data):: data,
     patch(patch):: patch,
+    doPatch(data, patch):: data + patch,
   },
 }

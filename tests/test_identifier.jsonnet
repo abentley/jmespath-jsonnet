@@ -9,6 +9,10 @@ local results = {
     local data = { foo: { bar: { baz: 'spam' } } };
     local expected = { foo: { bar: { baz: 'eggs' } } };
     test_eq(expected, data + jmespath.patch('foo.bar', { baz: 'eggs' })),
+  test3a:
+    local data = { foo: { bar: { baz: 'spam' } } };
+    local expected = { foo: { bar: { baz: 'eggs' } } };
+    test_eq(expected, jmespath.doPatch(data, 'foo.bar', { baz: 'eggs' })),
   test4:
     test_eq('baz', jmespath.search(jmespath.compile('foo.bar'),
                                    { foo: { bar: 'baz' } })),
