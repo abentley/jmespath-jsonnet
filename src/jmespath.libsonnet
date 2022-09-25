@@ -1,8 +1,15 @@
 {
+  // Return matching items
   search(expression, data): self.compile(expression).search(data),
+
+  // Return a patch that can be added to an object
   patch(expression, patch): self.compile(expression).patch(patch),
+
+  // Apply a patch to an object
   doPatch(data, expression, patch): self.compile(expression).doPatch(data,
                                                                      patch),
+
+  // Return an object representing the expression
   compile(expression): (
     local token = self.token(expression);
     local next = if std.length(token) == 2 then self.Identity() else
@@ -13,15 +20,23 @@
       else if token[0] == 'index' then self.Index(token[1], next)
       else error token[0]
   ),
+
+  // Return true if a character is in the supplied range (false otherwise)
   between(char, lowest, highest):
     std.codepoint(char) >= std.codepoint(lowest)
     && std.codepoint(char) <= std.codepoint(highest),
+
+  // Return true if the character can be part of an unquoted identifier.
+  // first: if true, this would be the first character of the identifier
   idChar(char, first): (
     self.between(char, 'a', 'z') ||
     self.between(char, 'A', 'Z') || (
       if first then false else self.between(char, '0', '9')
     )
   ),
+
+  // Return a token name, text, and remainder
+  // Note: the returned text may omit some unneded syntax
   token(expression):
     if self.idChar(expression[0], first=true) then
       self.idToken(expression)
@@ -57,12 +72,11 @@
       else self.next.search(data[id]),
     patch(patch)::
       local next = self.next;
-      if std.objectHasAll(next, 'arrayPatch') then
-        next.arrayPatch(self.id, patch)
-      else { [self.id]+: next.patch(patch) },
-    doPatch(data, patch)::
       local id = self.id;
-      data { [id]+: next.doPatch(data[id], patch) },
+      if !std.objectHasAll(next, 'patch') then
+        { [id]: next.doPatch(super[id], patch) }
+      else { [self.id]+: next.patch(patch) },
+    doPatch(data, patch):: data + self.patch(patch),
   },
 
   Index(index, next): {
@@ -70,13 +84,6 @@
     next: next,
     search(data):
       self.next.search(data[self.index]),
-    arrayPatch(field, patch): local index = self.index; {
-      local data = super[field],
-      [field]: std.mapWithIndex(
-        function(i, e) if i == index then e + next.patch(patch) else e,
-        data
-      ),
-    },
     doPatch(data, patch)::
       std.mapWithIndex(
         function(i, e) if i == self.index then next.doPatch(e, patch) else e,
