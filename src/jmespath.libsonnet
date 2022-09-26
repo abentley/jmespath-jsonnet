@@ -9,10 +9,21 @@
   doPatch(data, expression, patch): self.compile(expression).doPatch(data,
                                                                      patch),
 
+  set(data, expression, value):
+    local compiled = self.compile(expression);
+    local extracted = self.extractLast(compiled);
+    (compiled + extracted[0]).doPatch(data, extracted[1].genSetPatch(value)),
+
+  extractLast(compiled, patch={}):
+    local deeper=self.extractLast(compiled.next);
+    if !std.objectHasAll(compiled.next, 'next') then
+      [self.Terminator(), compiled]
+    else [compiled + {next: deeper[0]}, deeper[1]],
+
   // Return an object representing the expression
   compile(expression): (
     local token = self.token(expression);
-    local next = if std.length(token) == 2 then self.Identity() else
+    local next = if std.length(token) == 2 then self.Terminator() else
       self.compile(token[2])
     ;
     if std.type(expression) != 'string' then expression else
@@ -77,6 +88,7 @@
         { [id]: next.doPatch(super[id], patch) }
       else { [self.id]+: next.patch(patch) },
     doPatch(data, patch):: data + self.patch(patch),
+    genSetPatch(value):: {[self.id]: value},
   },
 
   Index(index, next): {
@@ -91,7 +103,7 @@
       ),
   },
 
-  Identity(): {
+  Terminator(): {
     search(data):: data,
     patch(patch):: patch,
     doPatch(data, patch):: data + patch,

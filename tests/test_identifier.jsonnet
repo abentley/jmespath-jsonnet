@@ -18,5 +18,13 @@ local results = {
                                    { foo: { bar: 'baz' } })),
   test5: test_eq(null, jmespath.search('boo.bar', { foo: { bar: 'baz' } })),
   test6: test_eq(null, jmespath.search('foo.far', { foo: { bar: 'baz' } })),
+  test7:
+    local data = { foo: { bar: { baz: 'spam' } } };
+    local expected = { foo: { bar: { baz: 'eggs' } } };
+    test_eq(expected, jmespath.set(data, 'foo.bar.baz', 'eggs')),
+  test8:
+    test_eq(
+      [jmespath.compile('foo.bar'), jmespath.compile('baz')],
+      jmespath.extractLast(jmespath.compile('foo.bar.baz'))),
 };
 test.render_results(results)
