@@ -27,10 +27,14 @@ local results = {
     local data = { a: [{ b: 'c', d: { e: 'f' } }] };
     test_eq({ a: [{ b: 'c', d: { e: 'g' } }] },
             data + jmespath.patch('a[0]d', { e: 'g' })),
-  test6: test_eq(
+  test6:: test_eq(
     [{ b: 'd' }, { b: 'c' }], jmespath.set(
-      [{ b: 'c' }, { b: 'c' }], '[0]', 'd'
+      [{ b: 'c' }, { b: 'c' }], '[0]b', 'd'
     )
   ),
+  test7::
+    local extracted = jmespath.extractLast(jmespath.compile('[0]b')); test_eq(
+      {}, extracted[1].genSetPatch('d'),
+    ),
 };
-test.render_results(results)
+test.asTest(results)

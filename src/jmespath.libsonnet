@@ -12,9 +12,9 @@
   set(data, expression, value):
     local compiled = self.compile(expression);
     local extracted = self.extractLast(compiled);
-    (compiled + extracted[0]).doPatch(data, extracted[1].genSetPatch(value)),
+    (extracted[0]).doPatch(data, extracted[1].genSetPatch(value)),
 
-  extractLast(compiled, patch={}):
+  extractLast(compiled):
     local deeper=self.extractLast(compiled.next);
     if !std.objectHasAll(compiled.next, 'next') then
       [self.Terminator(), compiled]
@@ -94,7 +94,7 @@
   Index(index, next): {
     index: std.parseInt(index),
     next: next,
-    search(data):
+    search(data)::
       self.next.search(data[self.index]),
     doPatch(data, patch)::
       std.mapWithIndex(

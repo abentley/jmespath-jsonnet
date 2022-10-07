@@ -25,6 +25,7 @@ local results = {
   test8:
     test_eq(
       [jmespath.compile('foo.bar'), jmespath.compile('baz')],
-      jmespath.extractLast(jmespath.compile('foo.bar.baz'))),
+      jmespath.extractLast(jmespath.compile('foo.bar.baz'))
+    ),
 };
-test.render_results(results)
+test.asTest(results)
