@@ -29,7 +29,7 @@ local results = {
             data + jmespath.patch('a[0]d', { e: 'g' })),
   test6: test_eq(
     [{ b: 'd' }, { b: 'c' }], jmespath.set(
-      [{ b: 'c' }, { b: 'c' }], '[0]b', 'd'
+      [{ b: 'c' }, { b: 'c' }], '[0].b', 'd'
     )
   ),
   test7::

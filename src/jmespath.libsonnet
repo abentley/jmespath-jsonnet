@@ -1,3 +1,9 @@
+local rawToken(name, content, remainder=null) = {
+  name: name,
+  content: content,
+  remainder: remainder,
+};
+
 {
   // Return matching items
   search(expression, data): self.compile(expression).search(data),
@@ -25,14 +31,14 @@
   // Return an object representing the expression
   compile(expression): (
     local token = self.token(expression);
-    local next = if std.length(token) == 2 then self.Terminator() else
-      self.compile(token[2])
+    local next = if token.remainder == null then self.Terminator() else
+      self.compile(token.remainder)
     ;
     if std.type(expression) != 'string' then expression else
-      if token[0] == 'id' then self.IdSegment(token[1], next)
-      else if token[0] == 'index' then self.Index(token[1], next)
-      else if token[0] == 'subexpression' then next
-      else error token[0]
+      if token.name == 'id' then self.IdSegment(token.content, next)
+      else if token.name == 'index' then self.Index(token.content, next)
+      else if token.name == 'subexpression' then next
+      else error token.name
   ),
 
   // Return true if a character is in the supplied range (false otherwise)
@@ -61,24 +67,23 @@
 
   idToken(expression, offset=0):
     local rawRemainder = expression[offset:];
-    local remainder = if std.length(rawRemainder) == 0 then [] else [
-      rawRemainder,
-    ];
+    local remainder =
+      if std.length(rawRemainder) == 0 then null else rawRemainder;
     if offset + 1 == std.length(expression) then
-      ['id', expression]
+      rawToken('id', expression)
     else if self.idChar(expression[offset], first=false) then
       self.idToken(expression, offset + 1)
-    else ['id', expression[:offset]] + remainder,
+    else rawToken('id', expression[:offset], remainder),
 
   indexToken(expression):
     local splitResult = std.splitLimit(expression[1:], ']', 2);
     local remainder =
-      if std.length(splitResult) == 2 && splitResult[1] == '' then []
-      else splitResult[1:];
-    ['index', splitResult[0]] + remainder,
+      if std.length(splitResult) == 2 && splitResult[1] == '' then null
+      else splitResult[1];
+    rawToken('index', splitResult[0], remainder),
 
   subExpressionToken(expression):
-    ['subexpression', [], expression[1:]],
+    rawToken('subexpression', [], expression[1:]),
 
   ImplIdSegment: {
     search(data)::
