@@ -36,5 +36,28 @@ local results = {
     local extracted = jmespath.extractLast(jmespath.compile('[0]b')); test_eq(
       {}, extracted[1].genSetPatch('d'),
     ),
+  test9:
+    test_eq({
+      type: 'joiner',
+      left: {
+        type: 'index',
+        index: 1,
+        next: {
+          type: 'index',
+          index: 2,
+          next: {
+            type: 'terminator',
+          },
+        },
+      },
+      next: {
+        type: 'index',
+        index: 2,
+        next: {
+          type: 'terminator',
+        },
+      },
+    }, jmespath.compile('[1][2]')),
+
 };
 test.asTest(results)
