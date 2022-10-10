@@ -31,6 +31,7 @@
     if std.type(expression) != 'string' then expression else
       if token[0] == 'id' then self.IdSegment(token[1], next)
       else if token[0] == 'index' then self.Index(token[1], next)
+      else if token[0] == 'subexpression' then next
       else error token[0]
   ),
 
@@ -55,12 +56,11 @@
       self.idToken(expression)
     else if expression[0] == '[' then (
       self.indexToken(expression)
-    ),
+    )
+    else if expression[0] == '.' then self.subExpressionToken(expression),
 
   idToken(expression, offset=0):
-    local rawRemainder = if expression[offset] == '.' then
-      expression[offset + 1:]
-    else expression[offset:];
+    local rawRemainder = expression[offset:];
     local remainder = if std.length(rawRemainder) == 0 then [] else [
       rawRemainder,
     ];
@@ -76,6 +76,9 @@
       if std.length(splitResult) == 2 && splitResult[1] == '' then []
       else splitResult[1:];
     ['index', splitResult[0]] + remainder,
+
+  subExpressionToken(expression):
+    ['subexpression', [], expression[1:]],
 
   ImplIdSegment: {
     search(data)::
