@@ -11,6 +11,9 @@
       '%s: %s' % [n, results[n]]
       for n in testNames
     ]),
-  asTest(results): function(testName=null) self.render_results(results,
-                                                               testName),
+  listTests(results):
+    std.join('', ['%s\n' % n for n in std.objectFields(results)]),
+  asTest(results): function(testName=null, cmd='render')
+    if cmd == 'render' then self.render_results(results, testName)
+    else if cmd == 'list' then self.listTests(results),
 }
