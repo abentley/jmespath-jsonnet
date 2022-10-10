@@ -12,13 +12,15 @@
   set(data, expression, value):
     local compiled = self.compile(expression);
     local extracted = self.extractLast(compiled);
-    (extracted[0]).doPatch(data, extracted[1].genSetPatch(value)),
+    local intermediate = extracted[0];
+    local terminal = extracted[1];
+    intermediate.doPatch(data, terminal.genSetPatch(value)),
 
   extractLast(compiled):
-    local deeper=self.extractLast(compiled.next);
+    local deeper = self.extractLast(compiled.next);
     if !std.objectHasAll(compiled.next, 'next') then
       [self.Terminator(), compiled]
-    else [compiled + {next: deeper[0]}, deeper[1]],
+    else [compiled { next: deeper[0] }, deeper[1]],
 
   // Return an object representing the expression
   compile(expression): (
@@ -75,12 +77,10 @@
       else splitResult[1:];
     ['index', splitResult[0]] + remainder,
 
-  IdSegment(id, next): {
-    id: id,
-    next: next,
+  ImplIdSegment: {
     search(data)::
       if !std.objectHasAll(data, self.id) then null
-      else self.next.search(data[id]),
+      else self.next.search(data[self.id]),
     patch(patch)::
       local next = self.next;
       local id = self.id;
@@ -88,24 +88,37 @@
         { [id]: next.doPatch(super[id], patch) }
       else { [self.id]+: next.patch(patch) },
     doPatch(data, patch):: data + self.patch(patch),
-    genSetPatch(value):: {[self.id]: value},
+    genSetPatch(value):: local patch = { [self.id]: value }; patch,
+  },
+  IdSegment(id, next): self.ImplIdSegment {
+    type: 'id',
+    id: id,
+    next: next,
   },
 
-  Index(index, next): {
-    index: std.parseInt(index),
-    next: next,
+  ImplIndex: {
     search(data)::
       self.next.search(data[self.index]),
     doPatch(data, patch)::
+      local patch1 = std.trace(std.toString(data), patch);
       std.mapWithIndex(
-        function(i, e) if i == self.index then next.doPatch(e, patch) else e,
+        function(i, e)
+          if i == self.index then self.next.doPatch(e, patch1)
+          else e,
         data,
       ),
   },
 
+  Index(index, next): self.ImplIndex {
+    type: 'index',
+    index: std.parseInt(index),
+    next: next,
+  },
+
   Terminator(): {
+    type: 'terminator',
     search(data):: data,
     patch(patch):: patch,
-    doPatch(data, patch):: data + patch,
+    doPatch(data, patch):: std.trace(std.toString(patch), data) + patch,
   },
 }
