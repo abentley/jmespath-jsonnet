@@ -4,7 +4,53 @@ local rawToken(name, content, remainder=null) = {
   remainder: remainder,
 };
 
-local tokenFactory = {
+local tokens = {
+  // Return true if a character is in the supplied range (false otherwise)
+  between(char, lowest, highest):
+    std.codepoint(char) >= std.codepoint(lowest)
+    && std.codepoint(char) <= std.codepoint(highest),
+
+  // Return true if the character can be part of an unquoted identifier.
+  // first: if true, this would be the first character of the identifier
+  idChar(char, first): (
+    self.between(char, 'a', 'z') ||
+    self.between(char, 'A', 'Z') || (
+      if first then false else self.between(char, '0', '9')
+    )
+  ),
+
+  // Return a token name, text, and remainder
+  // Note: the returned text may omit some unneded syntax
+  token(expression):
+    if self.idChar(expression[0], first=true) then
+      self.idToken(expression)
+    else if expression[0] == '[' then (
+      self.indexToken(expression)
+    )
+    else if expression[0] == '.' then self.subExpressionToken(expression),
+
+  idToken(expression, offset=0):
+    local rawRemainder = expression[offset:];
+    local remainder =
+      if std.length(rawRemainder) == 0 then null else rawRemainder;
+    if offset + 1 == std.length(expression) then
+      rawToken('id', expression)
+    else if self.idChar(expression[offset], first=false) then
+      self.idToken(expression, offset + 1)
+    else rawToken('id', expression[:offset], remainder),
+
+  indexToken(expression):
+    local splitResult = std.splitLimit(expression[1:], ']', 2);
+    local remainder =
+      if std.length(splitResult) == 2 && splitResult[1] == '' then null
+      else splitResult[1];
+    rawToken('index', splitResult[0], remainder),
+
+  subExpressionToken(expression):
+    rawToken('subexpression', expression[1:], null),
+};
+
+local exprFactory = {
   ImplIdSegment: {
     search(data)::
       if !std.objectHasAll(data, self.id) then null
@@ -51,7 +97,7 @@ local tokenFactory = {
 
   subexpression(content, next): self.ImplSubExpression {
     type: 'subexpression',
-    next: next,
+    next: $.compile(content),
   },
 
   Terminator(): {
@@ -60,7 +106,18 @@ local tokenFactory = {
     patch(patch):: patch,
     doPatch(data, patch):: std.trace(std.toString(patch), data) + patch,
   },
+  // Return an object representing the expression
+  // Expression must be a string
+  compile(expression): (
+    local token = tokens.token(expression);
+    local next =
+      if token.remainder == null then exprFactory.Terminator()
+      else self.compile(token.remainder)
+    ;
+    exprFactory[token.name](token.content, next)
+  ),
 };
+
 
 local jmespath = {
   // Return matching items
@@ -83,64 +140,11 @@ local jmespath = {
   extractLast(compiled):
     local deeper = self.extractLast(compiled.next);
     if !std.objectHasAll(compiled.next, 'next') then
-      [tokenFactory.Terminator(), compiled]
+      [exprFactory.Terminator(), compiled]
     else [compiled { next: deeper[0] }, deeper[1]],
 
-  // Return an object representing the expression
-  compile(expression): (
-    if std.type(expression) != 'string' then expression
-    else
-      local token = self.token(expression);
-      local next =
-        if token.remainder == null then tokenFactory.Terminator()
-        else self.compile(token.remainder)
-      ;
-      tokenFactory[token.name](token.content, next)
-  ),
-
-  // Return true if a character is in the supplied range (false otherwise)
-  between(char, lowest, highest):
-    std.codepoint(char) >= std.codepoint(lowest)
-    && std.codepoint(char) <= std.codepoint(highest),
-
-  // Return true if the character can be part of an unquoted identifier.
-  // first: if true, this would be the first character of the identifier
-  idChar(char, first): (
-    self.between(char, 'a', 'z') ||
-    self.between(char, 'A', 'Z') || (
-      if first then false else self.between(char, '0', '9')
-    )
-  ),
-
-  // Return a token name, text, and remainder
-  // Note: the returned text may omit some unneded syntax
-  token(expression):
-    if self.idChar(expression[0], first=true) then
-      self.idToken(expression)
-    else if expression[0] == '[' then (
-      self.indexToken(expression)
-    )
-    else if expression[0] == '.' then self.subExpressionToken(expression),
-
-  idToken(expression, offset=0):
-    local rawRemainder = expression[offset:];
-    local remainder =
-      if std.length(rawRemainder) == 0 then null else rawRemainder;
-    if offset + 1 == std.length(expression) then
-      rawToken('id', expression)
-    else if self.idChar(expression[offset], first=false) then
-      self.idToken(expression, offset + 1)
-    else rawToken('id', expression[:offset], remainder),
-
-  indexToken(expression):
-    local splitResult = std.splitLimit(expression[1:], ']', 2);
-    local remainder =
-      if std.length(splitResult) == 2 && splitResult[1] == '' then null
-      else splitResult[1];
-    rawToken('index', splitResult[0], remainder),
-
-  subExpressionToken(expression):
-    rawToken('subexpression', expression[1:], expression[1:]),
+  compile(expression): if std.type(expression) != 'string' then expression else
+    exprFactory.compile(expression),
 };
 
 jmespath
