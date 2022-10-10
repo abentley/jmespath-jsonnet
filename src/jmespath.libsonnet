@@ -4,6 +4,55 @@ local rawToken(name, content, remainder=null) = {
   remainder: remainder,
 };
 
+local tokenFactory = {
+  ImplIdSegment: {
+    search(data)::
+      if !std.objectHasAll(data, self.id) then null
+      else self.next.search(data[self.id]),
+    patch(patch)::
+      local next = self.next;
+      local id = self.id;
+      if !std.objectHasAll(next, 'patch') then
+        { [id]: next.doPatch(super[id], patch) }
+      else { [self.id]+: next.patch(patch) },
+    doPatch(data, patch):: data + self.patch(patch),
+    genSetPatch(value):: local patch = { [self.id]: value }; patch,
+  },
+  id(id, next): self.ImplIdSegment {
+    type: 'id',
+    id: id,
+    next: next,
+  },
+
+  ImplIndex: {
+    search(data)::
+      self.next.search(data[self.index]),
+    doPatch(data, patch)::
+      local patch1 = std.trace(std.toString(data), patch);
+      std.mapWithIndex(
+        function(i, e)
+          if i == self.index then self.next.doPatch(e, patch1)
+          else e,
+        data,
+      ),
+  },
+
+  index(index, next): self.ImplIndex {
+    type: 'index',
+    index: std.parseInt(index),
+    next: next,
+  },
+
+  subexpression(content, next): next,
+
+  Terminator(): {
+    type: 'terminator',
+    search(data):: data,
+    patch(patch):: patch,
+    doPatch(data, patch):: std.trace(std.toString(patch), data) + patch,
+  },
+};
+
 {
   // Return matching items
   search(expression, data): self.compile(expression).search(data),
@@ -25,20 +74,19 @@ local rawToken(name, content, remainder=null) = {
   extractLast(compiled):
     local deeper = self.extractLast(compiled.next);
     if !std.objectHasAll(compiled.next, 'next') then
-      [self.Terminator(), compiled]
+      [tokenFactory.Terminator(), compiled]
     else [compiled { next: deeper[0] }, deeper[1]],
 
   // Return an object representing the expression
   compile(expression): (
-    local token = self.token(expression);
-    local next = if token.remainder == null then self.Terminator() else
-      self.compile(token.remainder)
-    ;
-    if std.type(expression) != 'string' then expression else
-      if token.name == 'id' then self.IdSegment(token.content, next)
-      else if token.name == 'index' then self.Index(token.content, next)
-      else if token.name == 'subexpression' then next
-      else error token.name
+    if std.type(expression) != 'string' then expression
+    else
+      local token = self.token(expression);
+      local next =
+        if token.remainder == null then tokenFactory.Terminator()
+        else self.compile(token.remainder)
+      ;
+      tokenFactory[token.name](token.content, next)
   ),
 
   // Return true if a character is in the supplied range (false otherwise)
@@ -84,49 +132,4 @@ local rawToken(name, content, remainder=null) = {
 
   subExpressionToken(expression):
     rawToken('subexpression', [], expression[1:]),
-
-  ImplIdSegment: {
-    search(data)::
-      if !std.objectHasAll(data, self.id) then null
-      else self.next.search(data[self.id]),
-    patch(patch)::
-      local next = self.next;
-      local id = self.id;
-      if !std.objectHasAll(next, 'patch') then
-        { [id]: next.doPatch(super[id], patch) }
-      else { [self.id]+: next.patch(patch) },
-    doPatch(data, patch):: data + self.patch(patch),
-    genSetPatch(value):: local patch = { [self.id]: value }; patch,
-  },
-  IdSegment(id, next): self.ImplIdSegment {
-    type: 'id',
-    id: id,
-    next: next,
-  },
-
-  ImplIndex: {
-    search(data)::
-      self.next.search(data[self.index]),
-    doPatch(data, patch)::
-      local patch1 = std.trace(std.toString(data), patch);
-      std.mapWithIndex(
-        function(i, e)
-          if i == self.index then self.next.doPatch(e, patch1)
-          else e,
-        data,
-      ),
-  },
-
-  Index(index, next): self.ImplIndex {
-    type: 'index',
-    index: std.parseInt(index),
-    next: next,
-  },
-
-  Terminator(): {
-    type: 'terminator',
-    search(data):: data,
-    patch(patch):: patch,
-    doPatch(data, patch):: std.trace(std.toString(patch), data) + patch,
-  },
 }
