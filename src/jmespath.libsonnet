@@ -43,7 +43,16 @@ local tokenFactory = {
     next: next,
   },
 
-  subexpression(content, next): next,
+  ImplSubExpression: {
+    search(data):: self.next.search(data),
+    patch(patch):: self.next.patch(patch),
+    doPatch(data, patch):: self.next.doPatch(data, patch),
+  },
+
+  subexpression(content, next): self.ImplSubExpression {
+    type: 'subexpression',
+    next: next,
+  },
 
   Terminator(): {
     type: 'terminator',
@@ -53,7 +62,7 @@ local tokenFactory = {
   },
 };
 
-{
+local jmespath = {
   // Return matching items
   search(expression, data): self.compile(expression).search(data),
 
@@ -131,5 +140,7 @@ local tokenFactory = {
     rawToken('index', splitResult[0], remainder),
 
   subExpressionToken(expression):
-    rawToken('subexpression', [], expression[1:]),
-}
+    rawToken('subexpression', expression[1:], expression[1:]),
+};
+
+jmespath
