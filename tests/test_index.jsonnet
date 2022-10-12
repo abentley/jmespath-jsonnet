@@ -12,18 +12,18 @@ local results = {
     'e',
     'f',
   ] })),
-  test3: test_eq(
+  test3:: test_eq(
     ['a', 'bb', 'c', 'd', 'e', 'f'], jmespath.doPatch(
       ['a', 'b', 'c', 'd', 'e', 'f'], '[1]', 'b'
     )
   ),
-  test4: test_eq(
+  test4:: test_eq(
     [{ b: 'd' }, { b: 'c' }], jmespath.doPatch(
       [{ b: 'c' }, { b: 'c' }], '[0]', { b: 'd' }
     )
   ),
   // patch works as long as the top-level item is an object
-  test5:
+  test5::
     local data = { a: [{ b: 'c', d: { e: 'f' } }] };
     test_eq({ a: [{ b: 'c', d: { e: 'g' } }] },
             data + jmespath.patch('a[0]d', { e: 'g' })),
@@ -40,7 +40,6 @@ local results = {
     test_eq({
       type: 'index',
       index: 2,
-      next: null,
     }, jmespath.compile('[2]')),
   test9:
     test_eq({
@@ -48,20 +47,10 @@ local results = {
       left: {
         type: 'index',
         index: 1,
-        next: {
-          type: 'index',
-          index: 2,
-          next: {
-            type: 'terminator',
-          },
-        },
       },
-      next: {
+      right: {
         type: 'index',
         index: 2,
-        next: {
-          type: 'terminator',
-        },
       },
     }, jmespath.compile('[1][2]')),
 

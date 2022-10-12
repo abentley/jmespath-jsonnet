@@ -52,93 +52,68 @@ local tokens = {
 
 local exprFactory = {
   ImplIdSegment: {
-    search(data)::
+    search(data, next)::
       if !std.objectHasAll(data, self.id) then null
-      else local result = data[self.id]; if self.next == null then result else self.next.search(result),
-    patch(patch)::
-      local next = self.next;
-      local id = self.id;
-      if next != null && !std.objectHasAll(next, 'patch') then
-        { [id]: next.doPatch(super[id], patch) }
-      else { [self.id]+: if next == null then patch else next.patch(patch) },
-    doPatch(data, patch):: data + self.patch(patch),
-    genSetPatch(value):: local patch = { [self.id]: value }; patch,
+      else
+        local result = data[self.id];
+        if next == null then result else next.search(result, null),
+    set(data, value, next)::
+      local contents =
+        if next == null then value else next.set(data[self.id], value, null);
+      if !std.objectHasAll(data, self.id) then data
+      else data { [self.id]: std.trace(std.toString(contents), contents) },
   },
-  id(id, next=null, prev=null): self.ImplIdSegment {
+
+  id(id, prev=null): self.ImplIdSegment {
     type: 'id',
     id: id,
-    next: next,
   },
 
   ImplIndex: {
-    search(data)::
-      if self.next == null then data[self.index] else self.next.search(data[self.index]),
-    doPatch(data, patch)::
-      local patch1 = patch;
+    search(data, next)::
+      if std.trace(std.toString(data), next) == null then data[self.index]
+      else next.search(data[self.index], next),
+    set(data, value, next)::
       std.mapWithIndex(
         function(i, e)
-          if i == self.index then if self.next == null then e + patch1 else self.next.doPatch(e, patch1)
+          if i == self.index then
+            if next == null then value else next.set(e, value, null)
           else e,
         data,
       ),
   },
 
-  index(index, next=null, prev=null):
+  index(index, prev=null):
     local value = self.ImplIndex {
       type: 'index',
       index: std.parseInt(index),
-      next: if prev == null then null else next,
     };
     if prev != null then self.joiner(prev, value) else value,
 
   ImplJoiner: {
-    search(data):: self.active.search(data),
-    patch(patch):: self.active.patch(patch),
-    doPatch(data, patch):: self.active.doPatch(data, patch),
+    search(data, next):: self.left.search(data, self.right),
+    set(data, value, next):: self.left.set(data, value, self.right),
   },
 
   joiner(left, right): self.ImplJoiner {
     type: 'joiner',
-    next: right,
-    local tmpnext = self.next,
-    local withNext(item, value) =
-      item {
-        next:
-          if !std.objectHas(item, 'next') || item.next == null then value
-          else withNext(item.next, value),
-      },
-    [if left != null then 'left']: withNext(left, tmpnext),
-    active:: if std.objectHas(self, 'left') then self.left else self.next,
+    right: right,
+    left: left,
   },
 
-  subexpression(content, next=null, prev=null):
-    self.joiner(right=self.compile2(content, prev), left=prev) {
+  subexpression(content, prev=null):
+    self.joiner(right=self.compile(content, prev), left=prev) {
       type: 'subexpression',
     },
-  Terminator(): {
-    type: 'terminator',
-    search(data):: data,
-    patch(patch):: patch,
-    doPatch(data, patch):: data + patch,
-  },
+
   // Return an object representing the expression
   // Expression must be a string
   compile(expression, prev=null): (
     local token = tokens.token(expression);
-    local next =
-      if token.remainder == null then exprFactory.Terminator()
-      else self.compile(token.remainder)
-    ;
-    exprFactory[token.name](token.content, next, prev=prev)
-  ),
-  compile2(expression, prev=null): (
-    local token = tokens.token(expression);
-    local next =
-      if token.remainder == null then exprFactory.Terminator()
-      else self.compile(token.remainder)
-    ;
-    local expr = exprFactory[token.name](token.content, next=next, prev=prev);
-    local result = if token.remainder == null then expr else self.compile2(token.remainder, expr);
+    local expr = exprFactory[token.name](token.content, prev=prev);
+    local result =
+      if token.remainder == null then expr
+      else self.compile(token.remainder, expr);
     result
   ),
 };
@@ -146,30 +121,14 @@ local exprFactory = {
 
 local jmespath = {
   // Return matching items
-  search(expression, data): self.compile(expression).search(data),
-
-  // Return a patch that can be added to an object
-  patch(expression, patch): self.compile(expression).patch(patch),
-
-  // Apply a patch to an object
-  doPatch(data, expression, patch): self.compile(expression).doPatch(data,
-                                                                     patch),
+  search(expression, data): self.compile(expression).search(data, null),
 
   set(data, expression, value):
     local compiled = self.compile(expression);
-    local extracted = self.extractLast(compiled);
-    local intermediate = extracted[0];
-    local terminal = extracted[1];
-    intermediate.doPatch(data, terminal.genSetPatch(value)),
-
-  extractLast(compiled):
-    local deeper = self.extractLast(compiled.next);
-    if compiled.next == null || !std.objectHasAll(compiled.next, 'next') then
-      [exprFactory.Terminator(), compiled]
-    else [compiled { next: deeper[0] }, deeper[1]],
+    compiled.set(data, value, null),
 
   compile(expression): if std.type(expression) != 'string' then expression else
-    exprFactory.compile2(expression),
+    local x = exprFactory.compile(expression); std.trace(std.manifestJson(x), x),
 };
 
 jmespath

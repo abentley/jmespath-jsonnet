@@ -1,7 +1,7 @@
 {
   test_eq(expected, actual): (
     if actual == expected then 'SUCCESS' else
-      error '%s != %s' % [actual, expected]
+      error '%s != %s' % [std.manifestJson(actual), std.manifestJson(expected)]
   ),
   render_results(results, testName=null):
     local testNames = (
