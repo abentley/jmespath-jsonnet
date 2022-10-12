@@ -53,6 +53,9 @@ local results = {
         index: 2,
       },
     }, jmespath.compile('[1][2]')),
-
+  test10:
+    test_eq('[1][2]', jmespath.compile('[1][2]').repr()),
+  test11:
+    test_eq('[1].[2]', jmespath.compile('[1].[2]').repr()),
 };
 test.asTest(results)

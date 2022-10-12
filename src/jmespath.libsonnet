@@ -22,11 +22,8 @@ local tokens = {
   // Return a token name, text, and remainder
   // Note: the returned text may omit some unneded syntax
   token(expression):
-    if self.idChar(expression[0], first=true) then
-      self.idToken(expression)
-    else if expression[0] == '[' then (
-      self.indexToken(expression)
-    )
+    if self.idChar(expression[0], first=true) then self.idToken(expression)
+    else if expression[0] == '[' then self.indexToken(expression)
     else if expression[0] == '.' then self.subExpressionToken(expression),
 
   idToken(expression, offset=0):
@@ -40,10 +37,8 @@ local tokens = {
     else self.rawToken('id', expression[:offset], remainder),
 
   indexToken(expression):
-    local splitResult = std.splitLimit(expression[1:], ']', 2);
-    local remainder =
-      if std.length(splitResult) < 2 || splitResult[1] == '' then null
-      else splitResult[1];
+    local splitResult = std.splitLimit(expression[1:], ']', 1);
+    local remainder = if splitResult[1] == '' then null else splitResult[1];
     self.rawToken('index', splitResult[0], remainder),
 
   subExpressionToken(expression):
@@ -61,17 +56,17 @@ local exprFactory = {
       local contents =
         if next == null then value else next.set(data[self.id], value, null);
       if !std.objectHasAll(data, self.id) then data
-      else data { [self.id]: std.trace(std.toString(contents), contents) },
+      else data { [self.id]: contents },
+    repr():: self.id,
   },
 
-  id(id, prev=null): self.ImplIdSegment {
-    type: 'id',
-    id: id,
-  },
+  id(id, prev=null):
+    assert prev == null : std.toString(prev);
+    self.ImplIdSegment { type: 'id', id: id },
 
   ImplIndex: {
     search(data, next)::
-      if std.trace(std.toString(data), next) == null then data[self.index]
+      if next == null then data[self.index]
       else next.search(data[self.index], next),
     set(data, value, next)::
       std.mapWithIndex(
@@ -81,6 +76,7 @@ local exprFactory = {
           else e,
         data,
       ),
+    repr():: '[%d]' % self.index,
   },
 
   index(index, prev=null):
@@ -93,6 +89,7 @@ local exprFactory = {
   ImplJoiner: {
     search(data, next):: self.left.search(data, self.right),
     set(data, value, next):: self.left.set(data, value, self.right),
+    repr():: std.join('', [self.left.repr(), self.right.repr()]),
   },
 
   joiner(left, right): self.ImplJoiner {
@@ -101,8 +98,12 @@ local exprFactory = {
     left: left,
   },
 
-  subexpression(content, prev=null):
-    self.joiner(right=self.compile(content, prev), left=prev) {
+  implSubExpression: {
+    repr():: std.join('.', [self.left.repr(), self.right.repr()]),
+  },
+
+  subexpression(content, prev):
+    self.joiner(prev, self.compile(content, null)) + self.implSubExpression {
       type: 'subexpression',
     },
 
@@ -128,7 +129,7 @@ local jmespath = {
     compiled.set(data, value, null),
 
   compile(expression): if std.type(expression) != 'string' then expression else
-    local x = exprFactory.compile(expression); std.trace(std.manifestJson(x), x),
+    local x = exprFactory.compile(expression); x,
 };
 
 jmespath
