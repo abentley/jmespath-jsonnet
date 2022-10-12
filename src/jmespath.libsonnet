@@ -60,6 +60,7 @@ local exprFactory = {
     repr():: self.id,
   },
 
+  // A segment of an identifier.
   id(id, prev=null):
     assert prev == null : std.toString(prev);
     self.ImplIdSegment { type: 'id', id: id },
@@ -79,6 +80,7 @@ local exprFactory = {
     repr():: '[%d]' % self.index,
   },
 
+  // An expression object for looking up by index
   index(index, prev=null):
     local value = self.ImplIndex {
       type: 'index',
@@ -92,6 +94,8 @@ local exprFactory = {
     repr():: std.join('', [self.left.repr(), self.right.repr()]),
   },
 
+  // A mostly-invisible connector used for joining array accesses into one big
+  // connector
   joiner(left, right): self.ImplJoiner {
     type: 'joiner',
     right: right,
@@ -102,6 +106,7 @@ local exprFactory = {
     repr():: std.join('.', [self.left.repr(), self.right.repr()]),
   },
 
+  // Represent both sides of a dot.
   subexpression(content, prev):
     self.joiner(prev, self.compile(content, null)) + self.implSubExpression {
       type: 'subexpression',
@@ -124,7 +129,7 @@ local jmespath = {
   // Return matching items
   search(expression, data): self.compile(expression).search(data, null),
 
-  set(data, expression, value):
+  set(expression, data, value):
     local compiled = self.compile(expression);
     compiled.set(data, value, null),
 
