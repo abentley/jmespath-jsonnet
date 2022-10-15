@@ -23,7 +23,7 @@ local tokens = {
   // Note: the returned text may omit some unneded syntax
   token(expression):
     if self.idChar(expression[0], first=true) then self.idToken(expression)
-    else if expression[0] == '[' then self.indexToken(expression)
+    else if expression[0] == '[' then self.bracketToken(expression)
     else if expression[0] == '.' then self.subExpressionToken(expression),
 
   idToken(expression, offset=0):
@@ -36,10 +36,12 @@ local tokens = {
       self.idToken(expression, offset + 1)
     else self.rawToken('id', expression[:offset], remainder),
 
-  indexToken(expression):
+  bracketToken(expression):
     local splitResult = std.splitLimit(expression[1:], ']', 1);
     local remainder = if splitResult[1] == '' then null else splitResult[1];
-    self.rawToken('index', splitResult[0], remainder),
+    local contents = splitResult[0];
+    local name = if std.member(contents, ':') then 'slice' else 'index';
+    self.rawToken(name, contents, remainder),
 
   subExpressionToken(expression):
     self.rawToken('subexpression', expression[1:], null),
@@ -85,6 +87,39 @@ local exprFactory = {
     local value = self.ImplIndex {
       type: 'index',
       index: std.parseInt(index),
+    };
+    if prev != null then self.joiner(prev, value) else value,
+
+  ImplSlice: {
+    slice(data):
+      local length = std.length(data);
+      local realStart = if self.start == null then 0
+      else if self.start < 0 then length + self.start else self.start;
+      local realStop =
+        if self.stop == null then length
+        else if self.stop < 0 then length + self.stop
+        else self.stop;
+      local realStep = if self.step == null then 1 else std.abs(self.step);
+      local ordered =
+        if self.step == null || self.step >= 0 then data else std.reverse(data);
+      ordered[realStart:realStop:realStep],
+    search(data, next):
+      local result = self.slice(data);
+      if next == null then result else next.search(result, null),
+  },
+
+  slice(sliceExpr, prev=null):
+    local splitExpr = std.splitLimit(sliceExpr, ':', 3);
+    local intOrNull(expr) = if expr == '' then null else std.parseInt(expr);
+    local start = intOrNull(splitExpr[0]);
+    local stop =
+      if std.length(splitExpr) < 2 then null else intOrNull(splitExpr[1]);
+    local step =
+      if std.length(splitExpr) < 3 then null else intOrNull(splitExpr[2]);
+    local value = self.ImplSlice {
+      start: start,
+      stop: stop,
+      step: step,
     };
     if prev != null then self.joiner(prev, value) else value,
 
