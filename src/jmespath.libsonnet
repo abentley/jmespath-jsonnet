@@ -120,6 +120,11 @@ local exprFactory = {
           else e,
         data,
       ),
+    repr(): '[%s:%s%s]' % [
+      if self.start == null then '' else self.start,
+      if self.stop == null then '' else self.stop,
+      if self.step == null then '' else ':%d' % self.step,
+    ],
   },
 
   slice(sliceExpr, prev=null):

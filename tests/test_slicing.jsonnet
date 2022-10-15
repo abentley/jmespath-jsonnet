@@ -83,5 +83,21 @@ local results = {
     [0, 1, 2, 3, 4, 5, 12, 7, 8, 9],
     jmespath.set('[::2][3]', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 12)
   ),
+  test21: test_eq(
+    '[5:10][2]',
+    jmespath.compile('[5:10][2]').repr()
+  ),
+  test22: test_eq(
+    '[:10][2]',
+    jmespath.compile('[:10][2]').repr()
+  ),
+  test23: test_eq(
+    '[5:][2]',
+    jmespath.compile('[5:][2]').repr()
+  ),
+  test24: test_eq(
+    '[5::2][2]',
+    jmespath.compile('[5::2][2]').repr()
+  ),
 };
 test.asTest(results)
