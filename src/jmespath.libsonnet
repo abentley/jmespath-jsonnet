@@ -110,21 +110,16 @@ local exprFactory = {
       local affectedIndices = self.search(
         std.range(0, std.length(data) - 1), null
       );
-      if next == null then std.mapWithIndex(
+      local subResult =
+        if next == null then std.repeat([value], std.length(affectedIndices))
+        else next.set(self.search(data, null), value, null);
+      std.mapWithIndex(
         function(i, e)
-          if std.member(affectedIndices, i) then value
+          local matches = std.find(i, affectedIndices);
+          if matches != [] then subResult[matches[0]]
           else e,
-        std.trace(std.toString(data), data),
-      )
-      else
-        local subResult = next.set(self.search(data, null), value, null);
-        std.mapWithIndex(
-          function(i, e)
-            local matches = std.find(i, affectedIndices);
-            if matches != [] then subResult[matches[0]]
-            else e,
-          data,
-        ),
+        data,
+      ),
   },
 
   slice(sliceExpr, prev=null):
