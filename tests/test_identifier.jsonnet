@@ -29,5 +29,8 @@ local results = {
     ),
   test9:
     test_eq('ab.cd', jmespath.compile('ab.cd').repr()),
+  test10:
+    local data = [{ foo: { bar: { baz: 'spam' } } }];
+    test_eq(data, jmespath.set('foo.bar.baz', data, 'eggs')),
 };
 test.asTest(results)

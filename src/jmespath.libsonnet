@@ -57,7 +57,7 @@ local exprFactory = {
     set(data, value, next)::
       local contents =
         if next == null then value else next.set(data[self.id], value, null);
-      if !std.objectHasAll(data, self.id) then data
+      if std.type(data) != 'object' || !std.objectHasAll(data, self.id) then data
       else data { [self.id]: contents },
     repr():: self.id,
   },
@@ -69,10 +69,11 @@ local exprFactory = {
 
   ImplIndex: {
     search(data, next)::
-      if next == null then data[self.index]
-      else next.search(data[self.index], next),
+      if std.type(data) != 'array' then null else
+        if next == null then data[self.index]
+        else next.search(data[self.index], next),
     set(data, value, next)::
-      std.mapWithIndex(
+      if std.type(data) != 'array' then data else std.mapWithIndex(
         function(i, e)
           if i == self.index then
             if next == null then value else next.set(e, value, null)
@@ -105,18 +106,21 @@ local exprFactory = {
       ordered[realStart:realStop:realStep],
     search(data, next):
       local result = self.slice(data);
-      if next == null then result else next.search(result, null),
+      if next == null then result else [
+        r
+        for r in [next.search(v, null) for v in result]
+        if r != null
+      ],
     set(data, value, next)::
       local affectedIndices = self.search(
         std.range(0, std.length(data) - 1), null
       );
-      local subResult =
-        if next == null then std.repeat([value], std.length(affectedIndices))
-        else next.set(self.search(data, null), value, null);
       std.mapWithIndex(
         function(i, e)
           local matches = std.find(i, affectedIndices);
-          if matches != [] then subResult[matches[0]]
+          if matches != [] then
+            if next != null then next.set(e, value, null)
+            else value
           else e,
         data,
       ),
