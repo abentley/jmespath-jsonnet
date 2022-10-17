@@ -24,7 +24,23 @@ local tokens = {
   token(expression):
     if self.idChar(expression[0], first=true) then self.idToken(expression)
     else if expression[0] == '[' then self.bracketToken(expression)
-    else if expression[0] == '.' then self.subExpressionToken(expression),
+    else if expression[0] == '.' then self.subExpressionToken(expression)
+    else if std.member('=<>!', expression[0:1]) then
+      self.comparatorToken(expression)
+    else if expression[0] == "'" then self.rawStringToken(expression)
+    else if expression[0] == '`' then self.jsonLiteralToken(expression)
+    else error 'Unhandled expression: %s' % std.manifestJson(expression),
+
+  // Return an array of all tokens
+  // Expression must be a string
+  alltokens(expression, curTokens): (
+    local token = self.token(expression);
+    local result =
+      curTokens + [token];
+    assert token != null : expression;
+    if token.remainder == null then result
+    else self.alltokens(token.remainder, result)
+  ),
 
   idToken(expression, offset=0):
     local rawRemainder = expression[offset:];
@@ -40,12 +56,57 @@ local tokens = {
     local splitResult = std.splitLimit(expression[1:], ']', 1);
     local remainder = if splitResult[1] == '' then null else splitResult[1];
     local contents = splitResult[0];
-    local name = if std.member(contents, ':') then 'slice' else 'index';
+    local name =
+      if contents[0:1] == '?' then 'filterProjection'
+      else if std.member(contents, ':') then 'slice'
+      else 'index';
     self.rawToken(name, contents, remainder),
 
   subExpressionToken(expression):
     self.rawToken('subexpression', expression[1:], null),
+
+  comparatorToken(expression):
+    self.rawToken('comparator', expression, null),
+
+  rawStringToken(expression):
+    local splitResult = std.splitLimit(expression[1:], "'", 1);
+    local remainder = if splitResult[1] == '' then null else splitResult[1];
+    self.rawToken('rawString', splitResult[0], remainder),
+
+  jsonLiteralToken(expression):
+    local splitResult = std.splitLimit(expression[1:], '`', 1);
+    local remainder = if splitResult[1] == '' then null else splitResult[1];
+    self.rawToken('jsonLiteral', splitResult[0], remainder),
 };
+
+local compareExprFactory = {
+  ImplComparator:: {
+    evaluate(data): self.opFunc[self.op](self.left.search(data, null), self.right.search(data, null)),
+    opFunc: {
+      '==': function(l, r) l == r,
+      '!=': function(l, r) l != r,
+      '<': function(l, r)
+        if std.type(l) != 'number' || std.type(r) != 'number' then false
+        else l < r,
+      '<=': function(l, r)
+        if std.type(l) != 'number' || std.type(r) != 'number' then false
+        else l <= r,
+      '>=': function(l, r)
+        if std.type(l) != 'number' || std.type(r) != 'number' then false
+        else l >= r,
+    },
+    repr(): '%s%s%s' % [self.left.repr(), self.op, self.right.repr()],
+  },
+  comparator(expr, prev)::
+    local compile = self.compile;
+    self.ImplComparator {
+      local op = if expr[1:2] == '=' then expr[0:2] else expr[0:1],
+      left: prev,
+      right: compile(expr[std.length(op):]),
+      op: op,
+    },
+};
+
 
 local exprFactory = {
   ImplIdSegment: {
@@ -146,6 +207,20 @@ local exprFactory = {
     };
     if prev != null then self.joiner(prev, value) else value,
 
+  ImplFilterProjection:: {
+    search(data, next): [
+      d
+      for d in data
+      if self.comparator.evaluate(d)
+    ],
+    repr(): '[?%s]' % self.comparator.repr(),
+  },
+  filterProjection(sliceExpr, prev=null)::
+    local comparator = (self + compareExprFactory).compile(sliceExpr[1:]);
+    self.ImplFilterProjection {
+      comparator: comparator,
+    },
+
   ImplJoiner: {
     search(data, next):: self.left.search(data, self.right),
     set(data, value, next):: self.left.set(data, value, self.right),
@@ -170,18 +245,43 @@ local exprFactory = {
       type: 'subexpression',
     },
 
+  ImplRawString: {
+    search(data, next): self.string,
+    repr():
+      local escaped = std.escapeStringJson(self.string);
+      "'%s'" % escaped[1:std.length(escaped) - 1],
+  },
+
+  rawString(string, prev): self.ImplRawString {
+    string: string,
+  },
+
+  ImplJsonLiteral: {
+    search(data, next): self.literal,
+    repr():
+      local contents =
+        if std.type(self.literal) == 'string' then std.escapeStringJson(
+          self.literal
+        )
+        else std.toString(self.literal);
+      '`%s`' % contents,
+  },
+
+  jsonLiteral(content, prev): self.ImplJsonLiteral {
+    literal: std.parseJson(content),
+  },
+
+
   // Return an object representing the expression
   // Expression must be a string
   compile(expression, prev=null): (
-    local token = tokens.token(expression);
-    local expr = exprFactory[token.name](token.content, prev=prev);
-    local result =
-      if token.remainder == null then expr
-      else self.compile(token.remainder, expr);
-    result
+    std.foldl(
+      function(prev, token) self[token.name](token.content, prev=prev),
+      tokens.alltokens(expression, []),
+      null
+    )
   ),
 };
-
 
 local jmespath = {
   // Return matching items
