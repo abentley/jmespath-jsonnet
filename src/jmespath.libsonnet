@@ -36,6 +36,7 @@ local tokens = {
       self.comparatorToken(expression)
     else if expression[0] == "'" then self.rawStringToken(expression)
     else if expression[0] == '`' then self.jsonLiteralToken(expression)
+    else if expression[0] == '*' then self.objectWildcardToken(expression)
     else error 'Unhandled expression: %s' % std.manifestJson(expression),
 
   // Return an array of all tokens
@@ -67,8 +68,14 @@ local tokens = {
       if contents[0:1] == '?' then 'filterProjection'
       else if std.member(contents, ':') then 'slice'
       else if contents == '' then 'flatten'
+      else if contents == '*' then 'arrayWildcard'
       else 'index';
     self.rawToken(name, contents, remainder),
+
+  objectWildcardToken(expression):
+    local rawRemainder = expression[1:];
+    local remainder = if rawRemainder == '' then null else rawRemainder;
+    self.rawToken('objectWildcard', expression[0], remainder),
 
   subExpressionToken(expression):
     self.rawToken('subexpression', expression[1:], null),
@@ -97,7 +104,8 @@ local exprFactory = {
   },
   ImplIdSegment: self.ImplMember {
     searchResult(data):
-      if !std.objectHasAll(data, self.id) then null else data[self.id],
+      if std.type(data) != 'object' || !std.objectHasAll(data, self.id) then null
+      else data[self.id],
 
     set(data, value, next)::
       local result = self.searchResult(data);
@@ -139,7 +147,7 @@ local exprFactory = {
       [data[i] for i in countUp(data) if matching[i]],
 
     searchNext(result, next):
-      if next == null then result else [
+      if result == null || next == null then result else [
         r
         for r in [next.search(v, null) for v in result]
         if r != null
@@ -193,6 +201,21 @@ local exprFactory = {
         for e in data
       ],
     repr():: '[]',
+  }; if prev != null then self.joiner(prev, value) else value,
+
+  arrayWildcard(expr, prev):: local value = self.ImplProjection {
+    searchResult(data):: data,
+    set(data, value, next)::
+      [contents(e, value, next) for e in data],
+    repr():: '[*]',
+  }; if prev != null then self.joiner(prev, value) else value,
+
+  objectWildcard(expr, prev):: local value = self.ImplProjection {
+    searchResult(data)::
+      if std.type(data) == 'object' then std.objectValues(data),
+    set(data, value, next)::
+      { [f]: contents(data[f], value, next) for f in std.objectFields(data) },
+    repr():: '*',
   }; if prev != null then self.joiner(prev, value) else value,
 
   slice(sliceExpr, prev=null):
