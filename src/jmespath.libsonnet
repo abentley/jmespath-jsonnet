@@ -1,4 +1,8 @@
 local countUp(items) = std.range(0, std.length(items) - 1);
+
+local contents(data, value, next) =
+  if next == null then value else next.set(data, value, null);
+
 local tokens = {
   rawToken(name, content, remainder=null): {
     token: {
@@ -62,6 +66,7 @@ local tokens = {
     local name =
       if contents[0:1] == '?' then 'filterProjection'
       else if std.member(contents, ':') then 'slice'
+      else if contents == '' then 'flatten'
       else 'index';
     self.rawToken(name, contents, remainder),
 
@@ -89,17 +94,15 @@ local exprFactory = {
       else next.search(result, null),
     search(data, next)::
       self.searchNext(self.searchResult(data), next),
-    contents(data, value, next)::
-      if next == null then value else next.set(data, value, null),
   },
   ImplIdSegment: self.ImplMember {
     searchResult(data):
       if !std.objectHasAll(data, self.id) then null else data[self.id],
 
     set(data, value, next)::
-      local contents = self.contents(self.searchResult(data), value, next);
+      local result = self.searchResult(data);
       if std.type(data) != 'object' || !std.objectHasAll(data, self.id) then data
-      else data { [self.id]: contents },
+      else data { [self.id]: contents(result, value, next) },
     repr():: self.id,
   },
 
@@ -115,9 +118,7 @@ local exprFactory = {
     set(data, value, next)::
       if std.type(data) != 'array' then data else std.mapWithIndex(
         function(i, e)
-          if i == self.index then
-            self.contents(e, value, next)
-          else e,
+          if i == self.index then contents(e, value, next) else e,
         data,
       ),
     repr():: '[%d]' % self.index,
@@ -150,11 +151,7 @@ local exprFactory = {
     set(data, value, next)::
       local matching = self.getMatching(data);
       std.mapWithIndex(
-        function(i, e)
-          if matching[i] then
-            if next != null then next.set(e, value, null)
-            else value
-          else e,
+        function(i, e) if matching[i] then contents(e, value, next) else e,
         data,
       ),
   },
@@ -184,6 +181,19 @@ local exprFactory = {
       if self.step == null then '' else ':%d' % self.step,
     ],
   },
+
+  flatten(flattenExpr, prev):: local value = self.ImplProjection {
+    searchResult(data):: std.foldl(
+      function(l, r) l + if std.type(r) == 'array' then r else [r], data, []
+    ),
+    set(data, value, next)::
+      [
+        if std.type(e) == 'array' then [contents(f, value, next) for f in e]
+        else contents(e, value, next)
+        for e in data
+      ],
+    repr():: '[]',
+  }; if prev != null then self.joiner(prev, value) else value,
 
   slice(sliceExpr, prev=null):
     local splitExpr = std.splitLimit(sliceExpr, ':', 3);
