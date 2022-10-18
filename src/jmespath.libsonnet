@@ -199,8 +199,8 @@ local exprFactory = {
       ],
     getAffectedBool(data)::
       local dataIndices = countUp(data);
-      local included = self.search(dataIndices, null);
-      [std.member(included, di) for di in dataIndices],
+      local included = std.set(self.search(dataIndices, null));
+      [std.setMember(di, included) for di in dataIndices],
     repr(): '[%s:%s%s]' % [
       if self.start == null then '' else self.start,
       if self.stop == null then '' else self.stop,
