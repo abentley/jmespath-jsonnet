@@ -82,37 +82,6 @@ local tokens = {
     self.rawToken('jsonLiteral', splitResult[0], remainder),
 };
 
-local compareExprFactory = {
-  ImplComparator:: {
-    evaluate(data): self.opFunc[self.op](
-      self.left.search(data, null), self.right.search(data, null)
-    ),
-    opFunc: {
-      '==': function(l, r) l == r,
-      '!=': function(l, r) l != r,
-      '<': function(l, r)
-        if std.type(l) != 'number' || std.type(r) != 'number' then false
-        else l < r,
-      '<=': function(l, r)
-        if std.type(l) != 'number' || std.type(r) != 'number' then false
-        else l <= r,
-      '>=': function(l, r)
-        if std.type(l) != 'number' || std.type(r) != 'number' then false
-        else l >= r,
-    },
-    repr(): '%s%s%s' % [self.left.repr(), self.op, self.right.repr()],
-  },
-  comparator(expr, prev)::
-    local compile = self.compile;
-    self.ImplComparator {
-      local op = if expr[1:2] == '=' then expr[0:2] else expr[0:1],
-      left: prev,
-      right: compile(expr[std.length(op):]),
-      op: op,
-    },
-};
-
-
 local exprFactory = {
   ImplMember: {
     searchNext(result, next)::
@@ -238,7 +207,7 @@ local exprFactory = {
   },
 
   filterProjection(sliceExpr, prev=null)::
-    local comparator = (self + compareExprFactory).compile(sliceExpr[1:]);
+    local comparator = self.compile(sliceExpr[1:]);
     self.ImplFilterProjection {
       comparator: comparator,
     },
@@ -292,6 +261,38 @@ local exprFactory = {
     literal: string,
   },
 
+  ImplComparator:: {
+    evaluate(data): self.opFunc[self.op](
+      self.left.search(data, null), self.right.search(data, null)
+    ),
+    search(data, next): self.evaluate(data),
+    set(data, next, value): data,
+    opFunc: {
+      '==': function(l, r) l == r,
+      '!=': function(l, r) l != r,
+      '<': function(l, r)
+        if std.type(l) != 'number' || std.type(r) != 'number' then false
+        else l < r,
+      '<=': function(l, r)
+        if std.type(l) != 'number' || std.type(r) != 'number' then false
+        else l <= r,
+      '>': function(l, r)
+        if std.type(l) != 'number' || std.type(r) != 'number' then false
+        else l > r,
+      '>=': function(l, r)
+        if std.type(l) != 'number' || std.type(r) != 'number' then false
+        else l >= r,
+    },
+    repr(): '%s%s%s' % [self.left.repr(), self.op, self.right.repr()],
+  },
+  comparator(expr, prev)::
+    local compile = self.compile;
+    self.ImplComparator {
+      local op = if expr[1:2] == '=' then expr[0:2] else expr[0:1],
+      left: prev,
+      right: compile(expr[std.length(op):]),
+      op: op,
+    },
   // Return an object representing the expression
   // Expression must be a string
   compile(expression, prev=null): (
