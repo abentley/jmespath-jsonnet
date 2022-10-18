@@ -1,3 +1,4 @@
+local countUp(items) = std.range(0, std.length(items) - 1);
 local tokens = {
   rawToken(name, content, remainder=null): {
     name: name,
@@ -152,7 +153,31 @@ local exprFactory = {
     };
     if prev != null then self.joiner(prev, value) else value,
 
-  ImplSlice: {
+  ImplProjection: {
+    search(data, next):
+      local affectedBool = self.getAffectedBool(data);
+      local result = [
+        data[i]
+        for i in countUp(data)
+        if affectedBool[i]
+      ];
+      if next == null then result else [
+        r
+        for r in [next.search(v, null) for v in result]
+        if r != null
+      ],
+    set(data, value, next)::
+      local affectedBool = self.getAffectedBool(data);
+      std.mapWithIndex(
+        function(i, e)
+          if affectedBool[i] then
+            if next != null then next.set(e, value, null)
+            else value
+          else e,
+        data,
+      ),
+  },
+  ImplSlice: self.ImplProjection {
     slice(data):
       local length = std.length(data);
       local realStart = if self.start == null then 0
@@ -172,19 +197,10 @@ local exprFactory = {
         for r in [next.search(v, null) for v in result]
         if r != null
       ],
-    set(data, value, next)::
-      local affectedIndices = self.search(
-        std.range(0, std.length(data) - 1), null
-      );
-      std.mapWithIndex(
-        function(i, e)
-          local matches = std.find(i, affectedIndices);
-          if matches != [] then
-            if next != null then next.set(e, value, null)
-            else value
-          else e,
-        data,
-      ),
+    getAffectedBool(data)::
+      local dataIndices = countUp(data);
+      local included = self.search(dataIndices, null);
+      [std.member(included, di) for di in dataIndices],
     repr(): '[%s:%s%s]' % [
       if self.start == null then '' else self.start,
       if self.stop == null then '' else self.stop,
@@ -207,12 +223,9 @@ local exprFactory = {
     };
     if prev != null then self.joiner(prev, value) else value,
 
-  ImplFilterProjection:: {
-    search(data, next): [
-      d
-      for d in data
-      if self.comparator.evaluate(d)
-    ],
+  ImplFilterProjection:: self.ImplProjection {
+    getAffectedBool(data):
+      [self.comparator.evaluate(d) for d in data],
     repr(): '[?%s]' % self.comparator.repr(),
   },
   filterProjection(sliceExpr, prev=null)::
@@ -270,7 +283,6 @@ local exprFactory = {
   jsonLiteral(content, prev): self.ImplJsonLiteral {
     literal: std.parseJson(content),
   },
-
 
   // Return an object representing the expression
   // Expression must be a string
