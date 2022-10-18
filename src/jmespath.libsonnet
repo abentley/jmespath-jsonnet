@@ -1,8 +1,10 @@
 local countUp(items) = std.range(0, std.length(items) - 1);
 local tokens = {
   rawToken(name, content, remainder=null): {
-    name: name,
-    content: content,
+    token: {
+      name: name,
+      content: content,
+    },
     remainder: remainder,
   },
 
@@ -35,12 +37,12 @@ local tokens = {
   // Return an array of all tokens
   // Expression must be a string
   alltokens(expression, curTokens): (
-    local token = self.token(expression);
+    local rawToken = self.token(expression);
     local result =
-      curTokens + [token];
-    assert token != null : expression;
-    if token.remainder == null then result
-    else self.alltokens(token.remainder, result)
+      curTokens + [rawToken.token];
+    assert rawToken != null : expression;
+    if rawToken.remainder == null then result
+    else self.alltokens(rawToken.remainder, result)
   ),
 
   idToken(expression, offset=0):
