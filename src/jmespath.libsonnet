@@ -110,15 +110,22 @@ local compareExprFactory = {
 
 
 local exprFactory = {
-  ImplIdSegment: {
+  ImplMember: {
+    searchNext(result, next)::
+      if next == null || result == null then result
+      else next.search(result, null),
     search(data, next)::
-      if !std.objectHasAll(data, self.id) then null
-      else
-        local result = data[self.id];
-        if next == null then result else next.search(result, null),
+      self.searchNext(self.searchResult(data), next),
+
+  },
+  ImplIdSegment: self.ImplMember {
+    searchResult(data):
+      if !std.objectHasAll(data, self.id) then null else data[self.id],
+
     set(data, value, next)::
       local contents =
-        if next == null then value else next.set(data[self.id], value, null);
+        if next == null then value
+        else next.set(self.searchResult(data), value, null);
       if std.type(data) != 'object' || !std.objectHasAll(data, self.id) then data
       else data { [self.id]: contents },
     repr():: self.id,
@@ -129,11 +136,9 @@ local exprFactory = {
     assert prev == null : std.toString(prev);
     self.ImplIdSegment { type: 'id', id: id },
 
-  ImplIndex: {
-    search(data, next)::
-      if std.type(data) != 'array' then null else
-        if next == null then data[self.index]
-        else next.search(data[self.index], next),
+  ImplIndex: self.ImplMember {
+    searchResult(data)::
+      if std.type(data) != 'array' then null else data[self.index],
     set(data, value, next)::
       if std.type(data) != 'array' then data else std.mapWithIndex(
         function(i, e)
@@ -154,20 +159,21 @@ local exprFactory = {
     if prev != null then self.joiner(prev, value) else value,
 
   ImplProjection: {
+
+    searchResult(data):
+      local matching = self.getMatching(data);
+      [data[i] for i in countUp(data) if matching[i]],
+
     searchNext(result, next):
       if next == null then result else [
         r
         for r in [next.search(v, null) for v in result]
         if r != null
       ],
+
     search(data, next):
-      local matching = self.getMatching(data);
-      local result = [
-        data[i]
-        for i in countUp(data)
-        if matching[i]
-      ];
-      self.searchNext(result, next),
+      self.searchNext(self.searchResult(data), next),
+
     set(data, value, next)::
       local matching = self.getMatching(data);
       std.mapWithIndex(
@@ -179,8 +185,9 @@ local exprFactory = {
         data,
       ),
   },
+
   ImplSlice: self.ImplProjection {
-    slice(data):
+    searchResult(data):
       local length = std.length(data);
       local realStart = if self.start == null then 0
       else if self.start < 0 then length + self.start else self.start;
@@ -192,12 +199,12 @@ local exprFactory = {
       local ordered =
         if self.step == null || self.step >= 0 then data else std.reverse(data);
       ordered[realStart:realStop:realStep],
-    search(data, next):
-      self.searchNext(self.slice(data), next),
+
     getMatching(data)::
       local dataIndices = countUp(data);
-      local included = std.set(self.slice(dataIndices));
+      local included = std.set(self.searchResult(dataIndices));
       [std.setMember(di, included) for di in dataIndices],
+
     repr(): '[%s:%s%s]' % [
       if self.start == null then '' else self.start,
       if self.stop == null then '' else self.stop,
@@ -225,6 +232,7 @@ local exprFactory = {
       [self.comparator.evaluate(d) for d in data],
     repr(): '[?%s]' % self.comparator.repr(),
   },
+
   filterProjection(sliceExpr, prev=null)::
     local comparator = (self + compareExprFactory).compile(sliceExpr[1:]);
     self.ImplFilterProjection {
@@ -255,17 +263,6 @@ local exprFactory = {
       type: 'subexpression',
     },
 
-  ImplRawString: {
-    search(data, next): self.string,
-    repr():
-      local escaped = std.escapeStringJson(self.string);
-      "'%s'" % escaped[1:std.length(escaped) - 1],
-  },
-
-  rawString(string, prev): self.ImplRawString {
-    string: string,
-  },
-
   ImplJsonLiteral: {
     search(data, next): self.literal,
     repr():
@@ -279,6 +276,16 @@ local exprFactory = {
 
   jsonLiteral(content, prev): self.ImplJsonLiteral {
     literal: std.parseJson(content),
+  },
+
+  ImplRawString: self.ImplJsonLiteral {
+    repr():
+      local escaped = std.escapeStringJson(self.literal);
+      "'%s'" % escaped[1:std.length(escaped) - 1],
+  },
+
+  rawString(string, prev): self.ImplRawString {
+    literal: string,
   },
 
   // Return an object representing the expression
