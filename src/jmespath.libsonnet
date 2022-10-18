@@ -132,13 +132,15 @@ local exprFactory = {
     repr():: '[%d]' % self.index,
   },
 
+  maybeJoin(prev, value):
+    if prev != null then self.joiner(prev, value) else value,
+
   // An expression object for looking up by index
   index(index, prev=null):
-    local value = self.ImplIndex {
+    self.maybeJoin(prev, self.ImplIndex {
       type: 'index',
       index: std.parseInt(index),
-    };
-    if prev != null then self.joiner(prev, value) else value,
+    }),
 
   ImplProjection: {
 
@@ -190,7 +192,7 @@ local exprFactory = {
     ],
   },
 
-  flatten(flattenExpr, prev):: local value = self.ImplProjection {
+  flatten(flattenExpr, prev):: self.maybeJoin(prev, self.ImplProjection {
     searchResult(data):: std.foldl(
       function(l, r) l + if std.type(r) == 'array' then r else [r], data, []
     ),
@@ -201,22 +203,22 @@ local exprFactory = {
         for e in data
       ],
     repr():: '[]',
-  }; if prev != null then self.joiner(prev, value) else value,
+  }),
 
-  arrayWildcard(expr, prev):: local value = self.ImplProjection {
+  arrayWildcard(expr, prev):: self.maybeJoin(prev, self.ImplProjection {
     searchResult(data):: data,
     set(data, value, next)::
       [contents(e, value, next) for e in data],
     repr():: '[*]',
-  }; if prev != null then self.joiner(prev, value) else value,
+  }),
 
-  objectWildcard(expr, prev):: local value = self.ImplProjection {
+  objectWildcard(expr, prev):: self.maybeJoin(prev, self.ImplProjection {
     searchResult(data)::
       if std.type(data) == 'object' then std.objectValues(data),
     set(data, value, next)::
       { [f]: contents(data[f], value, next) for f in std.objectFields(data) },
     repr():: '*',
-  }; if prev != null then self.joiner(prev, value) else value,
+  }),
 
   slice(sliceExpr, prev=null):
     local splitExpr = std.splitLimit(sliceExpr, ':', 3);
@@ -226,12 +228,11 @@ local exprFactory = {
       if std.length(splitExpr) < 2 then null else intOrNull(splitExpr[1]);
     local step =
       if std.length(splitExpr) < 3 then null else intOrNull(splitExpr[2]);
-    local value = self.ImplSlice {
+    self.maybeJoin(prev, self.ImplSlice {
       start: start,
       stop: stop,
       step: step,
-    };
-    if prev != null then self.joiner(prev, value) else value,
+    }),
 
   ImplFilterProjection:: self.ImplProjection {
     getMatching(data):
