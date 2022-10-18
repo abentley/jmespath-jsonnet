@@ -154,23 +154,25 @@ local exprFactory = {
     if prev != null then self.joiner(prev, value) else value,
 
   ImplProjection: {
-    search(data, next):
-      local affectedBool = self.getAffectedBool(data);
-      local result = [
-        data[i]
-        for i in countUp(data)
-        if affectedBool[i]
-      ];
+    searchNext(result, next):
       if next == null then result else [
         r
         for r in [next.search(v, null) for v in result]
         if r != null
       ],
+    search(data, next):
+      local matching = self.getMatching(data);
+      local result = [
+        data[i]
+        for i in countUp(data)
+        if matching[i]
+      ];
+      self.searchNext(result, next),
     set(data, value, next)::
-      local affectedBool = self.getAffectedBool(data);
+      local matching = self.getMatching(data);
       std.mapWithIndex(
         function(i, e)
-          if affectedBool[i] then
+          if matching[i] then
             if next != null then next.set(e, value, null)
             else value
           else e,
@@ -191,15 +193,10 @@ local exprFactory = {
         if self.step == null || self.step >= 0 then data else std.reverse(data);
       ordered[realStart:realStop:realStep],
     search(data, next):
-      local result = self.slice(data);
-      if next == null then result else [
-        r
-        for r in [next.search(v, null) for v in result]
-        if r != null
-      ],
-    getAffectedBool(data)::
+      self.searchNext(self.slice(data), next),
+    getMatching(data)::
       local dataIndices = countUp(data);
-      local included = std.set(self.search(dataIndices, null));
+      local included = std.set(self.slice(dataIndices));
       [std.setMember(di, included) for di in dataIndices],
     repr(): '[%s:%s%s]' % [
       if self.start == null then '' else self.start,
@@ -224,7 +221,7 @@ local exprFactory = {
     if prev != null then self.joiner(prev, value) else value,
 
   ImplFilterProjection:: self.ImplProjection {
-    getAffectedBool(data):
+    getMatching(data):
       [self.comparator.evaluate(d) for d in data],
     repr(): '[?%s]' % self.comparator.repr(),
   },
