@@ -145,5 +145,41 @@ local results = {
       { keep: 2, value: 3 },
     ]),
   ),
+  test17: test_eq(
+    [
+      { keep: 'true', value: 5 },
+      { keep: 'false', value: 1 },
+      { keep: 'true', value: 5 },
+    ],
+    jmespath.set("[?keep=='true'].value", [
+      { keep: 'true', value: 0 },
+      { keep: 'false', value: 1 },
+      { keep: 'true', value: 3 },
+    ], 5)
+  ),
+  test18: test_eq(
+    [
+      { keep: 'true', value: 0 },
+      { keep: 'false', value: 5 },
+      { keep: 'true', value: 3 },
+    ],
+    jmespath.set("[?keep!='true'].value", [
+      { keep: 'true', value: 0 },
+      { keep: 'false', value: 1 },
+      { keep: 'true', value: 3 },
+    ], 5)
+  ),
+  test19: test_eq(
+    [
+      { keep: 0, value: 0 },
+      { keep: 1, value: 5 },
+      { keep: 2, value: 5 },
+    ],
+    jmespath.set('[?keep>=`1`].value', [
+      { keep: 0, value: 0 },
+      { keep: 1, value: 1 },
+      { keep: 2, value: 3 },
+    ], 5),
+  ),
 };
 test.asTest(results)
