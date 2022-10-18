@@ -82,7 +82,9 @@ local tokens = {
 
 local compareExprFactory = {
   ImplComparator:: {
-    evaluate(data): self.opFunc[self.op](self.left.search(data, null), self.right.search(data, null)),
+    evaluate(data): self.opFunc[self.op](
+      self.left.search(data, null), self.right.search(data, null)
+    ),
     opFunc: {
       '==': function(l, r) l == r,
       '!=': function(l, r) l != r,
@@ -116,16 +118,15 @@ local exprFactory = {
       else next.search(result, null),
     search(data, next)::
       self.searchNext(self.searchResult(data), next),
-
+    contents(data, value, next)::
+      if next == null then value else next.set(data, value, null),
   },
   ImplIdSegment: self.ImplMember {
     searchResult(data):
       if !std.objectHasAll(data, self.id) then null else data[self.id],
 
     set(data, value, next)::
-      local contents =
-        if next == null then value
-        else next.set(self.searchResult(data), value, null);
+      local contents = self.contents(self.searchResult(data), value, next);
       if std.type(data) != 'object' || !std.objectHasAll(data, self.id) then data
       else data { [self.id]: contents },
     repr():: self.id,
@@ -139,11 +140,12 @@ local exprFactory = {
   ImplIndex: self.ImplMember {
     searchResult(data)::
       if std.type(data) != 'array' then null else data[self.index],
+
     set(data, value, next)::
       if std.type(data) != 'array' then data else std.mapWithIndex(
         function(i, e)
           if i == self.index then
-            if next == null then value else next.set(e, value, null)
+            self.contents(e, value, next)
           else e,
         data,
       ),
