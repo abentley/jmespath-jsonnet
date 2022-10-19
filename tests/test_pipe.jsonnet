@@ -25,8 +25,8 @@ local results = {
   test8: test_eq([5, 1], jmespath.set(
     '[:]|[0]', [0, 1], 5
   )),
-  test9:: test_eq([5, 1], jmespath.set(
-    '[]|[0]', [0, 1], 5
+  test9: test_eq([0, 1, [2, 5]], jmespath.set(
+    '[]|[3]', [0, 1, [2, 3]], 5
   )),
 };
 test.asTest(results)

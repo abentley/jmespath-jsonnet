@@ -198,15 +198,27 @@ local exprFactory = {
   },
 
   flatten(flattenExpr, prev):: self.maybeJoin(prev, self.ImplProjection {
+
     searchResult(data):: std.foldl(
       function(l, r) l + if std.type(r) == 'array' then r else [r], data, []
     ),
+
     set(data, value, next, allow_projection)::
-      [
+      if allow_projection then [
         if std.type(e) == 'array' then [contents(f, value, next) for f in e]
         else contents(e, value, next)
         for e in data
-      ],
+      ]
+      else self.unflatten(data, contents(self.searchResult(data),
+                                         value,
+                                         next)),
+    unflatten(original, flattened)::
+      local current = original[0];
+      if std.length(original) == 0 then []
+      else if std.type(current) == 'array' then
+        local end = std.length(current);
+        [flattened[0:end]] + self.unflatten(original[1:], flattened[:end])
+      else [flattened[0]] + self.unflatten(original[1:], flattened[1:]),
     repr():: '[]',
   }),
 
