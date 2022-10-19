@@ -1,7 +1,8 @@
 local countUp(items) = std.range(0, std.length(items) - 1);
 
 local contents(data, value, next) =
-  if next == null then value else next.set(data, value, null);
+  if next == null then value
+  else next.set(data, value, null, allow_projection=true);
 
 local tokens = {
   rawToken(name, content, remainder=null): {
@@ -32,6 +33,7 @@ local tokens = {
     if self.idChar(expression[0], first=true) then self.idToken(expression)
     else if expression[0] == '[' then self.bracketToken(expression)
     else if expression[0] == '.' then self.subExpressionToken(expression)
+    else if expression[0] == '|' then self.pipeToken(expression)
     else if std.member('=<>!', expression[0:1]) then
       self.comparatorToken(expression)
     else if expression[0] == "'" then self.rawStringToken(expression)
@@ -80,6 +82,9 @@ local tokens = {
   subExpressionToken(expression):
     self.rawToken('subexpression', expression[1:], null),
 
+  pipeToken(expression):
+    self.rawToken('pipe', expression[1:], null),
+
   comparatorToken(expression):
     self.rawToken('comparator', expression, null),
 
@@ -107,7 +112,7 @@ local exprFactory = {
       if std.type(data) != 'object' || !std.objectHasAll(data, self.id) then null
       else data[self.id],
 
-    set(data, value, next)::
+    set(data, value, next, allow_projection)::
       local result = self.searchResult(data);
       if std.type(data) != 'object' || !std.objectHasAll(data, self.id) then data
       else data { [self.id]: contents(result, value, next) },
@@ -123,7 +128,7 @@ local exprFactory = {
     searchResult(data)::
       if std.type(data) != 'array' then null else data[self.index],
 
-    set(data, value, next)::
+    set(data, value, next, allow_projection)::
       if std.type(data) != 'array' then data else std.mapWithIndex(
         function(i, e)
           if i == self.index then contents(e, value, next) else e,
@@ -158,12 +163,12 @@ local exprFactory = {
     search(data, next):
       self.searchNext(self.searchResult(data), next),
 
-    set(data, value, next)::
+    set(data, value, next, allow_projection)::
       local matching = self.getMatching(data);
-      std.mapWithIndex(
+      if allow_projection then std.mapWithIndex(
         function(i, e) if matching[i] then contents(e, value, next) else e,
         data,
-      ),
+      ) else contents(data, value, next),
   },
 
   ImplSlice: self.ImplProjection {
@@ -196,7 +201,7 @@ local exprFactory = {
     searchResult(data):: std.foldl(
       function(l, r) l + if std.type(r) == 'array' then r else [r], data, []
     ),
-    set(data, value, next)::
+    set(data, value, next, allow_projection)::
       [
         if std.type(e) == 'array' then [contents(f, value, next) for f in e]
         else contents(e, value, next)
@@ -207,16 +212,22 @@ local exprFactory = {
 
   arrayWildcard(expr, prev):: self.maybeJoin(prev, self.ImplProjection {
     searchResult(data):: data,
-    set(data, value, next)::
-      [contents(e, value, next) for e in data],
+    getMatching(data): std.repeat([true], std.length(data)),
     repr():: '[*]',
   }),
 
   objectWildcard(expr, prev):: self.maybeJoin(prev, self.ImplProjection {
     searchResult(data)::
       if std.type(data) == 'object' then std.objectValues(data),
-    set(data, value, next)::
-      { [f]: contents(data[f], value, next) for f in std.objectFields(data) },
+    set(data, value, next, allow_projection)::
+      local fieldsOrder = std.objectFields(data);
+      if allow_projection then {
+        [f]: contents(data[f], value, next)
+        for f in fieldsOrder
+      }
+      else
+        local values = contents([data[f] for f in fieldsOrder], value, next);
+        { [fieldsOrder[i]]: values[i] for i in countUp(fieldsOrder) },
     repr():: '*',
   }),
 
@@ -248,7 +259,7 @@ local exprFactory = {
 
   ImplJoiner: {
     search(data, next):: self.left.search(data, self.right),
-    set(data, value, next):: self.left.set(data, value, self.right),
+    set(data, value, next, allow_projection):: self.left.set(data, value, self.right, allow_projection=true),
     repr():: std.join('', [self.left.repr(), self.right.repr()]),
   },
 
@@ -268,6 +279,26 @@ local exprFactory = {
   subexpression(content, prev):
     self.joiner(prev, self.compile(content, null)) + self.implSubExpression {
       type: 'subexpression',
+    },
+
+  implPipe: {
+    search(data, next):
+      local rdata =
+        if self.left == null then data else self.left.search(data, null);
+      self.right.search(rdata, next),
+    set(data, value, next, allow_projection)::
+      if self.left == null then self.right.set(data,
+                                               value,
+                                               null,
+                                               allow_projection=false)
+      else self.left.set(data, value, self.right, allow_projection=false),
+    repr():: std.join('|', [self.left.repr(), self.right.repr()]),
+  },
+
+  // Represent both sides of a dot.
+  pipe(content, prev):
+    self.joiner(prev, self.compile(content, null)) + self.implPipe {
+      type: 'pipe',
     },
 
   ImplJsonLiteral: {
@@ -300,7 +331,7 @@ local exprFactory = {
       self.left.search(data, null), self.right.search(data, null)
     ),
     search(data, next): self.evaluate(data),
-    set(data, next, value): data,
+    set(data, next, value, allow_projection): data,
     opFunc: {
       '==': function(l, r) l == r,
       '!=': function(l, r) l != r,
@@ -344,7 +375,7 @@ local jmespath = {
 
   set(expression, data, value):
     local compiled = self.compile(expression);
-    compiled.set(data, value, null),
+    compiled.set(data, value, null, allow_projection=true),
 
   compile(expression): if std.type(expression) != 'string' then expression else
     local x = exprFactory.compile(expression); x,
