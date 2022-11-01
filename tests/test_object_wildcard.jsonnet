@@ -24,5 +24,12 @@ local results = {
   test5: test_eq({ '0': [5], '1': [5], '2': [5] },
                  jmespath.set('*[0]', { '0': [1], '1': [[2, 3]], '2': [4] }, 5)),
   test6: test_eq('*', jmespath.compile('*').repr()),
+  test7: test_eq(
+    { '0': 5, '1': 5, '2': 5 }, jmespath.map('*', {
+      '0': 1,
+      '1': [2, 3],
+      '2': 4,
+    }, function(x) 5)
+  ),
 };
 test.asTest(results)

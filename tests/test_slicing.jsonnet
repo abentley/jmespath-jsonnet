@@ -118,5 +118,21 @@ local results = {
       [4],
     ], 9)
   ),
+  test_projection4: test_eq(
+    [
+      [0],
+      [1],
+      [9],
+      [],
+      [9],
+    ],
+    jmespath.map('[2:5][0]', [
+      [0],
+      [1],
+      [2],
+      [],
+      [4],
+    ], function(x) 9)
+  ),
 };
 test.asTest(results)

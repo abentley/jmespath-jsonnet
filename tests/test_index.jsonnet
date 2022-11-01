@@ -61,5 +61,7 @@ local results = {
     test_eq(null, jmespath.search('[1]', 5)),
   test13:
     test_eq(5, jmespath.set('[1]', 5, 20)),
+  test14:
+    test_eq(5, jmespath.map('[1]', 5, function(x) 20)),
 };
 test.asTest(results)

@@ -11,5 +11,8 @@ local results = {
   ])),
   test3: test_eq([5, [5, 5], 5], jmespath.set('[]', [1, [2, 3], 4], 5)),
   test4: test_eq('[]', jmespath.compile('[]').repr()),
+  test5: test_eq(
+    [5, [5, 5], 5], jmespath.map('[]', [1, [2, 3], 4], function(x) 5)
+  ),
 };
 test.asTest(results)

@@ -181,5 +181,17 @@ local results = {
       { keep: 2, value: 3 },
     ], 5),
   ),
+  test20: test_eq(
+    [
+      { keep: 0, value: 0 },
+      { keep: 1, value: 5 },
+      { keep: 2, value: 5 },
+    ],
+    jmespath.map('[?keep>=`1`].value', [
+      { keep: 0, value: 0 },
+      { keep: 1, value: 1 },
+      { keep: 2, value: 3 },
+    ], function(x) 5),
+  ),
 };
 test.asTest(results)
