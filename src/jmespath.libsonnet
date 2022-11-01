@@ -1,8 +1,10 @@
 local countUp(items) = std.range(0, std.length(items) - 1);
 
-local contents(data, value, next) =
-  if next == null then value
-  else next.set(data, value, null, allow_projection=true);
+local makeSet(value) = function(d) value;
+
+local mapContents(data, func, next) =
+  if next == null then func(data)
+  else next.map(data, func, null, allow_projection=true);
 
 local tokens = {
   rawToken(name, content, remainder=null): {
@@ -113,9 +115,11 @@ local exprFactory = {
       else data[self.id],
 
     set(data, value, next, allow_projection)::
+      self.map(data, makeSet(value), next, allow_projection),
+    map(data, func, next, allow_projection)::
       local result = self.searchResult(data);
       if std.type(data) != 'object' || !std.objectHasAll(data, self.id) then data
-      else data { [self.id]: contents(result, value, next) },
+      else data { [self.id]: mapContents(result, func, next) },
     repr():: self.id,
   },
 
@@ -129,9 +133,11 @@ local exprFactory = {
       if std.type(data) != 'array' then null else data[self.index],
 
     set(data, value, next, allow_projection)::
+      self.map(data, makeSet(value), next, allow_projection),
+    map(data, func, next, allow_projection)::
       if std.type(data) != 'array' then data else std.mapWithIndex(
         function(i, e)
-          if i == self.index then contents(e, value, next) else e,
+          if i == self.index then mapContents(e, func, next) else e,
         data,
       ),
     repr():: '[%d]' % self.index,
@@ -164,11 +170,13 @@ local exprFactory = {
       self.searchNext(self.searchResult(data), next),
 
     set(data, value, next, allow_projection)::
+      self.map(data, makeSet(value), next, allow_projection),
+    map(data, func, next, allow_projection)::
       local matching = self.getMatching(data);
       if allow_projection then std.mapWithIndex(
-        function(i, e) if matching[i] then contents(e, value, next) else e,
+        function(i, e) if matching[i] then mapContents(e, func, next) else e,
         data,
-      ) else contents(data, value, next),
+      ) else mapContents(data, func, next),
   },
 
   ImplSlice: self.ImplProjection {
@@ -204,14 +212,16 @@ local exprFactory = {
     ),
 
     set(data, value, next, allow_projection)::
+      self.map(data, makeSet(value), next, allow_projection),
+    map(data, func, next, allow_projection)::
       if allow_projection then [
-        if std.type(e) == 'array' then [contents(f, value, next) for f in e]
-        else contents(e, value, next)
+        if std.type(e) == 'array' then [mapContents(f, func, next) for f in e]
+        else mapContents(e, func, next)
         for e in data
       ]
-      else self.unflatten(data, contents(self.searchResult(data),
-                                         value,
-                                         next)),
+      else self.unflatten(data, mapContents(
+        self.searchResult(data), func, next
+      )),
     unflatten(original, flattened)::
       local current = original[0];
       if std.length(original) == 0 then []
@@ -232,13 +242,15 @@ local exprFactory = {
     searchResult(data)::
       if std.type(data) == 'object' then std.objectValues(data),
     set(data, value, next, allow_projection)::
+      self.map(data, makeSet(value), next, allow_projection),
+    map(data, func, next, allow_projection)::
       local fieldsOrder = std.objectFields(data);
       if allow_projection then {
-        [f]: contents(data[f], value, next)
+        [f]: mapContents(data[f], func, next)
         for f in fieldsOrder
       }
       else
-        local values = contents([data[f] for f in fieldsOrder], value, next);
+        local values = mapContents([data[f] for f in fieldsOrder], func, next);
         { [fieldsOrder[i]]: values[i] for i in countUp(fieldsOrder) },
     repr():: '*',
   }),
@@ -271,7 +283,10 @@ local exprFactory = {
 
   ImplJoiner: {
     search(data, next):: self.left.search(data, self.right),
-    set(data, value, next, allow_projection):: self.left.set(data, value, self.right, allow_projection=true),
+    set(data, value, next, allow_projection)::
+      self.left.set(data, value, self.right, allow_projection=true),
+    map(data, func, next, allow_projection)::
+      self.left.map(data, func, self.right, allow_projection=true),
     repr():: std.join('', [self.left.repr(), self.right.repr()]),
   },
 
