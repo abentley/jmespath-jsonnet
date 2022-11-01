@@ -114,8 +114,6 @@ local exprFactory = {
       if std.type(data) != 'object' || !std.objectHasAll(data, self.id) then null
       else data[self.id],
 
-    set(data, value, next, allow_projection)::
-      self.map(data, makeSet(value), next, allow_projection),
     map(data, func, next, allow_projection)::
       local result = self.searchResult(data);
       if std.type(data) != 'object' || !std.objectHasAll(data, self.id) then data
@@ -132,8 +130,6 @@ local exprFactory = {
     searchResult(data)::
       if std.type(data) != 'array' then null else data[self.index],
 
-    set(data, value, next, allow_projection)::
-      self.map(data, makeSet(value), next, allow_projection),
     map(data, func, next, allow_projection)::
       if std.type(data) != 'array' then data else std.mapWithIndex(
         function(i, e)
@@ -169,8 +165,6 @@ local exprFactory = {
     search(data, next):
       self.searchNext(self.searchResult(data), next),
 
-    set(data, value, next, allow_projection)::
-      self.map(data, makeSet(value), next, allow_projection),
     map(data, func, next, allow_projection)::
       local matching = self.getMatching(data);
       if allow_projection then std.mapWithIndex(
@@ -211,8 +205,6 @@ local exprFactory = {
       function(l, r) l + if std.type(r) == 'array' then r else [r], data, []
     ),
 
-    set(data, value, next, allow_projection)::
-      self.map(data, makeSet(value), next, allow_projection),
     map(data, func, next, allow_projection)::
       if allow_projection then [
         if std.type(e) == 'array' then [mapContents(f, func, next) for f in e]
@@ -241,8 +233,6 @@ local exprFactory = {
   objectWildcard(expr, prev):: self.maybeJoin(prev, self.ImplProjection {
     searchResult(data)::
       if std.type(data) == 'object' then std.objectValues(data),
-    set(data, value, next, allow_projection)::
-      self.map(data, makeSet(value), next, allow_projection),
     map(data, func, next, allow_projection)::
       local fieldsOrder = std.objectFields(data);
       if allow_projection then {
@@ -283,8 +273,6 @@ local exprFactory = {
 
   ImplJoiner: {
     search(data, next):: self.left.search(data, self.right),
-    set(data, value, next, allow_projection)::
-      self.left.set(data, value, self.right, allow_projection=true),
     map(data, func, next, allow_projection)::
       self.left.map(data, func, self.right, allow_projection=true),
     repr():: std.join('', [self.left.repr(), self.right.repr()]),
@@ -313,12 +301,12 @@ local exprFactory = {
       local rdata =
         if self.left == null then data else self.left.search(data, null);
       self.right.search(rdata, next),
-    set(data, value, next, allow_projection)::
-      if self.left == null then self.right.set(data,
-                                               value,
+    map(data, func, next, allow_projection)::
+      if self.left == null then self.right.map(data,
+                                               func,
                                                null,
                                                allow_projection=false)
-      else self.left.set(data, value, self.right, allow_projection=false),
+      else self.left.map(data, func, self.right, allow_projection=false),
     repr():: std.join('|', [self.left.repr(), self.right.repr()]),
   },
 
@@ -358,7 +346,7 @@ local exprFactory = {
       self.left.search(data, null), self.right.search(data, null)
     ),
     search(data, next): self.evaluate(data),
-    set(data, next, value, allow_projection): data,
+    map(data, next, value, allow_projection): data,
     opFunc: {
       '==': function(l, r) l == r,
       '!=': function(l, r) l != r,
@@ -400,9 +388,11 @@ local jmespath = {
   // Return matching items
   search(expression, data): self.compile(expression).search(data, null),
 
-  set(expression, data, value):
+  set(expression, data, value): self.map(expression, data, makeSet(value)),
+
+  map(expression, data, func):
     local compiled = self.compile(expression);
-    compiled.set(data, value, null, allow_projection=true),
+    compiled.map(data, func, null, allow_projection=true),
 
   compile(expression): if std.type(expression) != 'string' then expression else
     local x = exprFactory.compile(expression); x,
