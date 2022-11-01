@@ -1,7 +1,5 @@
 local countUp(items) = std.range(0, std.length(items) - 1);
 
-local makeSet(value) = function(d) value;
-
 local mapContents(data, func, next) =
   if next == null then func(data)
   else next.map(data, func, null, allow_projection=true);
@@ -388,11 +386,14 @@ local jmespath = {
   // Return matching items
   search(expression, data): self.compile(expression).search(data, null),
 
-  set(expression, data, value): self.map(expression, data, makeSet(value)),
+  set(expression, data, value): self.map(expression, data, function(x) value),
 
   map(expression, data, func):
     local compiled = self.compile(expression);
     compiled.map(data, func, null, allow_projection=true),
+
+  patch(expression, data, patch):
+    self.map(expression, data, function(x) x + patch),
 
   compile(expression): if std.type(expression) != 'string' then expression else
     local x = exprFactory.compile(expression); x,

@@ -35,6 +35,17 @@ local results = {
   test11:
     local data = { foo: { bar: { baz: 'spam' } } };
     local expected = { foo: { bar: { baz: 'spameggs' } } };
-    test_eq(expected, jmespath.map('foo.bar.baz', data, function(x) x + 'eggs')),
+    test_eq(expected,
+            jmespath.map('foo.bar.baz', data, function(x) x + 'eggs')),
+  test12:
+    local data = { foo: { bar: { baz: 'spam' } } };
+    local expected = { foo: { bar: { baz: 'eggs' } } };
+    test_eq(expected,
+            jmespath.patch('foo.bar', data, { baz: 'eggs' })),
+  test13:
+    local data = [{ bar: { baz: 'spam' } }];
+    local expected = [{ bar: { baz: 'eggs' } }];
+    test_eq(expected,
+            jmespath.patch('[0].bar', data, { baz: 'eggs' })),
 };
 test.asTest(results)
