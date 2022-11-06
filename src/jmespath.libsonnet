@@ -62,39 +62,42 @@ local tokens = {
       self.idToken(expression, offset + 1)
     else self.rawToken('id', expression[:offset], remainder),
 
+  stringAdvance(expression, terminal, index):
+    index + 1,
+
   advance(expression, terminal, index):
+    local next = index + 1;
     if expression[index] == '"' then
-      self.parseI(expression, '"', index + 1, self.advance) + 1
+      self.parseI(expression, '"', next, self.stringAdvance) + 1
     else if expression[index] == '`' then
-      self.parseI(expression, '`', index + 1, self.advance) + 1
+      // This is a JSON string, so it can have single- and double- quotes in
+      // it, with approximately the same meaning.
+      self.parseI(expression, '`', next, self.advance) + 1
     else if expression[index] == "'" then
-      self.parseI(expression, "'", index + 1, self.advance) + 1
-    else index + 1,
+      self.parseI(expression, "'", next, self.stringAdvance) + 1
+    else next,
 
   parseI(expression, terminal, index, advance):
-    local next = advance(expression, terminal, index);
+    local next = std.trace(expression, advance(expression, terminal, index));
     if expression[index] == terminal then index
     else self.parseI(expression, terminal, next, advance),
 
-  parseUntil(expression, terminal):
-    local end = self.parseI(expression, terminal, 0, self.advance);
+  parseUntil(func, expression, terminal, advance):
+    local end = self.parseI(expression, terminal, 0, advance);
     local remainder =
       if end + 1 == std.length(expression) then null else expression[end + 1:];
-    { contents: expression[:end], remainder: remainder },
-
-  parseUntilToken(name, expression, terminal):
-    local result = self.parseUntil(expression, terminal);
-    self.rawToken(name, result.contents, result.remainder),
+    local contents = expression[:end];
+    self.rawToken(func(contents), contents, remainder),
 
   bracketToken(expression):
-    local parsed = self.parseUntil(expression[1:], ']');
-    local name =
-      if parsed.contents[0:1] == '?' then 'filterProjection'
-      else if std.member(parsed.contents, ':') then 'slice'
-      else if parsed.contents == '' then 'flatten'
-      else if parsed.contents == '*' then 'arrayWildcard'
-      else 'index';
-    self.rawToken(name, parsed.contents, parsed.remainder),
+    self.parseUntil((
+      function(contents)
+        std.trace(contents, if contents[0:1] == '?' then 'filterProjection'
+        else if std.member(contents, ':') then 'slice'
+        else if contents == '' then 'flatten'
+        else if contents == '*' then 'arrayWildcard'
+        else 'index',)
+    ), expression[1:], ']', self.advance),
 
   objectWildcardToken(expression):
     local rawRemainder = expression[1:];
@@ -111,10 +114,14 @@ local tokens = {
     self.rawToken('comparator', expression, null),
 
   rawStringToken(expression):
-    self.parseUntilToken('rawString', expression[1:], "'"),
+    self.parseUntil(
+      function(x) 'rawString', expression[1:], "'", self.stringAdvance
+    ),
 
   jsonLiteralToken(expression):
-    self.parseUntilToken('jsonLiteral', expression[1:], '`'),
+    self.parseUntil(
+      function(x) 'jsonLiteral', expression[1:], '`', self.advance
+    ),
 };
 
 local exprFactory = {
@@ -127,12 +134,14 @@ local exprFactory = {
   },
   ImplIdSegment: self.ImplMember {
     searchResult(data):
-      if std.type(data) != 'object' || !std.objectHasAll(data, self.id) then null
+      if std.type(data) != 'object' || !std.objectHasAll(data, self.id)
+      then null
       else data[self.id],
 
     map(data, func, next, allow_projection)::
       local result = self.searchResult(data);
-      if std.type(data) != 'object' || !std.objectHasAll(data, self.id) then data
+      if std.type(data) != 'object' || !std.objectHasAll(data, self.id)
+      then data
       else data { [self.id]: mapContents(result, func, next) },
     repr():: self.id,
   },
@@ -200,7 +209,8 @@ local exprFactory = {
         else self.stop;
       local realStep = if self.step == null then 1 else std.abs(self.step);
       local ordered =
-        if self.step == null || self.step >= 0 then data else std.reverse(data);
+        if self.step == null || self.step >= 0 then data
+        else std.reverse(data);
       ordered[realStart:realStop:realStep],
 
     getMatching(data)::

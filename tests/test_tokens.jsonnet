@@ -23,5 +23,9 @@ local results = {
     remainder: null,
     token: { content: "'asdf]'", name: 'index' },
   }, jmespath._tokens.token("['asdf]']")),
+  test6: test_eq({
+    remainder: null,
+    token: { content: 'asdf"', name: 'rawString' },
+  }, jmespath._tokens.token("'asdf\"'")),
 };
 test.asTest(results)
