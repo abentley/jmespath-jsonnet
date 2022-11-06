@@ -77,22 +77,25 @@
     if expression[index] == terminal then index
     else self.parseI(expression, terminal, next, advance),
 
-  parseUntil(func, expression, terminal, advance):
+  parseUntil(name, expression, terminal, advance):
     local end = self.parseI(expression, terminal, 0, advance);
     local remainder =
       if end + 1 == std.length(expression) then null else expression[end + 1:];
     local contents = expression[:end];
-    self.rawToken(func(contents), contents, remainder),
+    self.rawToken(name, contents, remainder),
 
   bracketToken(expression):
-    self.parseUntil((
-      function(contents)
-        std.trace(contents, if contents[0:1] == '?' then 'filterProjection'
+    // Name is deferred until contents are determined.
+    local raw = self.parseUntil(null, expression[1:], ']', self.advance);
+    local contents = raw.token.content;
+    raw { token+: {
+      name:
+        if contents[0:1] == '?' then 'filterProjection'
         else if std.member(contents, ':') then 'slice'
         else if contents == '' then 'flatten'
         else if contents == '*' then 'arrayWildcard'
-        else 'index',)
-    ), expression[1:], ']', self.advance),
+        else 'index',
+    } },
 
   objectWildcardToken(expression):
     local rawRemainder = expression[1:];
@@ -110,16 +113,16 @@
 
   rawStringToken(expression):
     self.parseUntil(
-      function(x) 'rawString', expression[1:], "'", self.stringAdvance
+      'rawString', expression[1:], "'", self.stringAdvance
     ),
 
   idStringToken(expression):
     self.parseUntil(
-      function(x) 'idString', expression[1:], '"', self.stringAdvance
+      'idString', expression[1:], '"', self.stringAdvance
     ),
 
   jsonLiteralToken(expression):
     self.parseUntil(
-      function(x) 'jsonLiteral', expression[1:], '`', self.advance
+      'jsonLiteral', expression[1:], '`', self.advance
     ),
 }
