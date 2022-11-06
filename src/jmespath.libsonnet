@@ -62,16 +62,13 @@ local tokens = {
       self.idToken(expression, offset + 1)
     else self.rawToken('id', expression[:offset], remainder),
 
-  oldparseUntil(expression, terminal):
-    local splitResult = std.splitLimit(expression, terminal, 1);
-    local remainder = if splitResult[1] == '' then null else splitResult[1];
-    local contents = splitResult[0];
-    { contents: contents, remainder: remainder },
-
   advance(expression, terminal, index):
-    if expression[index] == '"' then self.parseI(expression, '"', index + 1, self.advance) + 1
-    else if expression[index] == '`' then self.parseI(expression, '`', index + 1, self.advance) + 1
-    else if expression[index] == "'" then self.parseI(expression, "'", index + 1, self.advance) + 1
+    if expression[index] == '"' then
+      self.parseI(expression, '"', index + 1, self.advance) + 1
+    else if expression[index] == '`' then
+      self.parseI(expression, '`', index + 1, self.advance) + 1
+    else if expression[index] == "'" then
+      self.parseI(expression, "'", index + 1, self.advance) + 1
     else index + 1,
 
   parseI(expression, terminal, index, advance):
