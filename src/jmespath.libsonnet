@@ -308,7 +308,7 @@ local exprFactory = {
     repr():: std.join('|', [self.left.repr(), self.right.repr()]),
   },
 
-  // Represent both sides of a dot.
+  // Represent both sides of a pipe.
   pipe(content, prev):
     self.joiner(prev, self.compile(content, null)) + self.implPipe {
       type: 'pipe',
