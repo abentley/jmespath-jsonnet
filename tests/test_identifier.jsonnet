@@ -47,5 +47,9 @@ local results = {
     local expected = [{ bar: { baz: 'eggs' } }];
     test_eq(expected,
             jmespath.patch('[0].bar', data, { baz: 'eggs' })),
+  test14: test_eq('baz', jmespath.search('foo."bar"',
+                                         { foo: { bar: 'baz' } })),
+  test15: test_eq('baz', jmespath.search('foo."bar.bar"',
+                                         { foo: { 'bar.bar': 'baz' } })),
 };
 test.asTest(results)

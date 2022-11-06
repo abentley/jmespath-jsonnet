@@ -27,5 +27,13 @@ local results = {
     remainder: null,
     token: { content: 'asdf"', name: 'rawString' },
   }, jmespath._tokens.token("'asdf\"'")),
+  test7: test_eq({
+    remainder: null,
+    token: { content: 'asdf', name: 'idString' },
+  }, jmespath._tokens.token('"asdf"')),
+  test8: test_eq({
+    remainder: null,
+    token: { content: "asdf'", name: 'idString' },
+  }, jmespath._tokens.token('"asdf\'"')),
 };
 test.asTest(results)

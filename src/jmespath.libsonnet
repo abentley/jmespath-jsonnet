@@ -37,6 +37,7 @@ local tokens = {
     else if std.member('=<>!', expression[0:1]) then
       self.comparatorToken(expression)
     else if expression[0] == "'" then self.rawStringToken(expression)
+    else if expression[0] == '"' then self.idStringToken(expression)
     else if expression[0] == '`' then self.jsonLiteralToken(expression)
     else if expression[0] == '*' then self.objectWildcardToken(expression)
     else error 'Unhandled expression: %s' % std.manifestJson(expression),
@@ -118,6 +119,11 @@ local tokens = {
       function(x) 'rawString', expression[1:], "'", self.stringAdvance
     ),
 
+  idStringToken(expression):
+    self.parseUntil(
+      function(x) 'idString', expression[1:], '"', self.stringAdvance
+    ),
+
   jsonLiteralToken(expression):
     self.parseUntil(
       function(x) 'jsonLiteral', expression[1:], '`', self.advance
@@ -150,6 +156,11 @@ local exprFactory = {
   id(id, prev=null):
     assert prev == null : std.toString(prev);
     self.ImplIdSegment { type: 'id', id: id },
+
+  // A segment of an identifier.
+  idString(id, prev=null):
+    //TODO unescape characters such as \
+    self.id(id, prev),
 
   ImplIndex: self.ImplMember {
     searchResult(data)::
