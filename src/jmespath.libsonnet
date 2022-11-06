@@ -62,17 +62,42 @@ local tokens = {
       self.idToken(expression, offset + 1)
     else self.rawToken('id', expression[:offset], remainder),
 
-  bracketToken(expression):
-    local splitResult = std.splitLimit(expression[1:], ']', 1);
+  oldparseUntil(expression, terminal):
+    local splitResult = std.splitLimit(expression, terminal, 1);
     local remainder = if splitResult[1] == '' then null else splitResult[1];
     local contents = splitResult[0];
+    { contents: contents, remainder: remainder },
+
+  advance(expression, terminal, index):
+    if expression[index] == '"' then self.parseI(expression, '"', index + 1, self.advance) + 1
+    else if expression[index] == '`' then self.parseI(expression, '`', index + 1, self.advance) + 1
+    else if expression[index] == "'" then self.parseI(expression, "'", index + 1, self.advance) + 1
+    else index + 1,
+
+  parseI(expression, terminal, index, advance):
+    local next = advance(expression, terminal, index);
+    if expression[index] == terminal then index
+    else self.parseI(expression, terminal, next, advance),
+
+  parseUntil(expression, terminal):
+    local end = self.parseI(expression, terminal, 0, self.advance);
+    local remainder =
+      if end + 1 == std.length(expression) then null else expression[end + 1:];
+    { contents: expression[:end], remainder: remainder },
+
+  parseUntilToken(name, expression, terminal):
+    local result = self.parseUntil(expression, terminal);
+    self.rawToken(name, result.contents, result.remainder),
+
+  bracketToken(expression):
+    local parsed = self.parseUntil(expression[1:], ']');
     local name =
-      if contents[0:1] == '?' then 'filterProjection'
-      else if std.member(contents, ':') then 'slice'
-      else if contents == '' then 'flatten'
-      else if contents == '*' then 'arrayWildcard'
+      if parsed.contents[0:1] == '?' then 'filterProjection'
+      else if std.member(parsed.contents, ':') then 'slice'
+      else if parsed.contents == '' then 'flatten'
+      else if parsed.contents == '*' then 'arrayWildcard'
       else 'index';
-    self.rawToken(name, contents, remainder),
+    self.rawToken(name, parsed.contents, parsed.remainder),
 
   objectWildcardToken(expression):
     local rawRemainder = expression[1:];
@@ -89,14 +114,10 @@ local tokens = {
     self.rawToken('comparator', expression, null),
 
   rawStringToken(expression):
-    local splitResult = std.splitLimit(expression[1:], "'", 1);
-    local remainder = if splitResult[1] == '' then null else splitResult[1];
-    self.rawToken('rawString', splitResult[0], remainder),
+    self.parseUntilToken('rawString', expression[1:], "'"),
 
   jsonLiteralToken(expression):
-    local splitResult = std.splitLimit(expression[1:], '`', 1);
-    local remainder = if splitResult[1] == '' then null else splitResult[1];
-    self.rawToken('jsonLiteral', splitResult[0], remainder),
+    self.parseUntilToken('jsonLiteral', expression[1:], '`'),
 };
 
 local exprFactory = {
@@ -383,6 +404,8 @@ local exprFactory = {
 };
 
 local jmespath = {
+  _tokens:: tokens,
+
   // Return matching items
   search(expression, data): self.compile(expression).search(data, null),
 
