@@ -6,6 +6,12 @@
     },
     remainder: remainder,
   },
+  indexRawToken(name, expression, end):
+    local next = end + 1;
+    local remainder =
+      if next == std.length(expression) then null else expression[next:];
+    local contents = expression[:end];
+    self.rawToken(name, contents, remainder),
 
   // Return true if a character is in the supplied range (false otherwise)
   between(char, lowest, highest):
@@ -26,14 +32,20 @@
   token(expression):
     if self.idChar(expression[0], first=true) then self.idToken(expression)
     else if expression[0] == '[' then self.bracketToken(expression)
-    else if expression[0] == '.' then self.subExpressionToken(expression)
-    else if expression[0] == '|' then self.pipeToken(expression)
+    else if expression[0] == '.' then
+      self.rawToken('subexpression', expression[1:], null)
+    else if expression[0] == '|' then
+      self.rawToken('pipe', expression[1:], null)
     else if std.member('=<>!', expression[0:1]) then
-      self.comparatorToken(expression)
-    else if expression[0] == "'" then self.rawStringToken(expression)
-    else if expression[0] == '"' then self.idStringToken(expression)
-    else if expression[0] == '`' then self.jsonLiteralToken(expression)
-    else if expression[0] == '*' then self.objectWildcardToken(expression)
+      self.rawToken('comparator', expression, null)
+    else if expression[0] == "'" then
+      self.rawEndToken('rawString', expression, self.parseRawStringI)
+    else if expression[0] == '"' then
+      self.rawEndToken('idString', expression, self.parseUntildentifierStringI)
+    else if expression[0] == '`' then
+      self.rawEndToken('jsonLiteral', expression, self.parseJsonStringI)
+    else if expression[0] == '*' then
+      self.indexRawToken('objectWildcard', expression, 0)
     else error 'Unhandled expression: %s' % std.manifestJson(expression),
 
   // Return an array of all tokens
@@ -63,66 +75,48 @@
   advance(expression, terminal, index):
     local next = index + 1;
     if expression[index] == '"' then
-      self.parseI(expression, '"', next, self.stringAdvance) + 1
+      self.parseUntildentifierStringI(expression, next) + 1
     else if expression[index] == '`' then
-      // This is a JSON string, so it can have single- and double- quotes in
-      // it, with approximately the same meaning.
-      self.parseI(expression, '`', next, self.advance) + 1
+      self.parseJsonStringI(expression, next) + 1
     else if expression[index] == "'" then
-      self.parseI(expression, "'", next, self.stringAdvance) + 1
+      self.parseRawStringI(expression, next) + 1
     else next,
 
-  parseI(expression, terminal, index, advance):
-    local next = std.trace(expression, advance(expression, terminal, index));
-    if expression[index] == terminal then index
-    else self.parseI(expression, terminal, next, advance),
+  parseUntildentifierStringI(expression, index):
+    self.parseUntil(expression, '"', index, self.stringAdvance),
 
-  parseUntil(name, expression, terminal, advance):
-    local end = self.parseI(expression, terminal, 0, advance);
-    local remainder =
-      if end + 1 == std.length(expression) then null else expression[end + 1:];
-    local contents = expression[:end];
-    self.rawToken(name, contents, remainder),
+  parseRawStringI(expression, index):
+    self.parseUntil(expression, "'", index, self.stringAdvance),
+
+  parseJsonStringI(expression, index):
+    // This is a JSON string, so it can have single- and double- quotes in
+    // it, with approximately the same meaning.
+    self.parseUntil(expression, '`', index, self.advance),
+
+  parseUntil(expression, terminal, index, advance):
+    // return the index of the ending character in the expression
+    // terminal: The character that ends the token
+    // advance: A function to advance the index to the next candidate.
+    //  This is designed to support states, such as skipping forward in strings.
+    //  See advance and stringAdvance.
+    local next = advance(expression, terminal, index);
+    if expression[index] == terminal then index
+    else self.parseUntil(expression, terminal, next, advance),
 
   bracketToken(expression):
     // Name is deferred until contents are determined.
-    local raw = self.parseUntil(null, expression[1:], ']', self.advance);
-    local contents = raw.token.content;
-    raw { token+: {
-      name:
-        if contents[0:1] == '?' then 'filterProjection'
-        else if std.member(contents, ':') then 'slice'
-        else if contents == '' then 'flatten'
-        else if contents == '*' then 'arrayWildcard'
-        else 'index',
-    } },
+    local subExpression = expression[1:];
+    local end = self.parseUntil(subExpression, ']', 0, self.advance);
+    local contents = subExpression[:end];
+    local name =
+      if contents[0:1] == '?' then 'filterProjection'
+      else if std.member(contents, ':') then 'slice'
+      else if contents == '' then 'flatten'
+      else if contents == '*' then 'arrayWildcard'
+      else 'index';
+    self.indexRawToken(name, subExpression, end),
 
-  objectWildcardToken(expression):
-    local rawRemainder = expression[1:];
-    local remainder = if rawRemainder == '' then null else rawRemainder;
-    self.rawToken('objectWildcard', expression[0], remainder),
-
-  subExpressionToken(expression):
-    self.rawToken('subexpression', expression[1:], null),
-
-  pipeToken(expression):
-    self.rawToken('pipe', expression[1:], null),
-
-  comparatorToken(expression):
-    self.rawToken('comparator', expression, null),
-
-  rawStringToken(expression):
-    self.parseUntil(
-      'rawString', expression[1:], "'", self.stringAdvance
-    ),
-
-  idStringToken(expression):
-    self.parseUntil(
-      'idString', expression[1:], '"', self.stringAdvance
-    ),
-
-  jsonLiteralToken(expression):
-    self.parseUntil(
-      'jsonLiteral', expression[1:], '`', self.advance
-    ),
+  rawEndToken(name, expression, parseUntil):
+    local subExpression = expression[1:];
+    self.indexRawToken(name, subExpression, parseUntil(subExpression, 0)),
 }
