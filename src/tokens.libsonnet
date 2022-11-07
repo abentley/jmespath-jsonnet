@@ -69,10 +69,10 @@
       self.idToken(expression, offset + 1)
     else self.rawToken('id', expression[:offset], remainder),
 
-  stringAdvance(expression, terminal, index):
+  stringAdvance(expression, index):
     index + 1,
 
-  advance(expression, terminal, index):
+  advance(expression, index):
     local next = index + 1;
     if expression[index] == '"' then
       self.parseUntildentifierStringI(expression, next) + 1
@@ -99,7 +99,7 @@
     // advance: A function to advance the index to the next candidate.
     //  This is designed to support states, such as skipping forward in strings.
     //  See advance and stringAdvance.
-    local next = advance(expression, terminal, index);
+    local next = advance(expression, index);
     if expression[index] == terminal then index
     else self.parseUntil(expression, terminal, next, advance),
 
