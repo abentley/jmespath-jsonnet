@@ -4,14 +4,12 @@
       name: name,
       content: content,
     },
-    remainder: remainder,
+    remainder: if remainder == '' then null else remainder,
   },
   indexRawToken(name, expression, end):
     local next = end + 1;
-    local remainder =
-      if next == std.length(expression) then null else expression[next:];
     local contents = expression[:end];
-    self.rawToken(name, contents, remainder),
+    self.rawToken(name, contents, expression[next:]),
 
   // Return true if a character is in the supplied range (false otherwise)
   between(char, lowest, highest):
@@ -39,11 +37,11 @@
     else if std.member('=<>!', expression[0:1]) then
       self.rawToken('comparator', expression, null)
     else if expression[0] == "'" then
-      self.rawEndToken('rawString', expression, self.parseRawStringI)
+      self.rawEndToken('rawString', expression, self.parseRawString)
     else if expression[0] == '"' then
-      self.rawEndToken('idString', expression, self.parseUntildentifierStringI)
+      self.rawEndToken('idString', expression, self.parseIdentifierString)
     else if expression[0] == '`' then
-      self.rawEndToken('jsonLiteral', expression, self.parseJsonStringI)
+      self.rawEndToken('jsonLiteral', expression, self.parseJsonString)
     else if expression[0] == '*' then
       self.indexRawToken('objectWildcard', expression, 0)
     else error 'Unhandled expression: %s' % std.manifestJson(expression),
@@ -52,43 +50,38 @@
   // Expression must be a string
   alltokens(expression, curTokens): (
     local rawToken = self.token(expression);
-    local result =
-      curTokens + [rawToken.token];
+    local result = curTokens + [rawToken.token];
     assert rawToken != null : expression;
     if rawToken.remainder == null then result
     else self.alltokens(rawToken.remainder, result)
   ),
 
   idToken(expression, offset=0):
-    local rawRemainder = expression[offset:];
-    local remainder =
-      if std.length(rawRemainder) == 0 then null else rawRemainder;
     if offset + 1 == std.length(expression) then
       self.rawToken('id', expression)
     else if self.idChar(expression[offset], first=false) then
       self.idToken(expression, offset + 1)
-    else self.rawToken('id', expression[:offset], remainder),
+    else self.rawToken('id', expression[:offset], expression[offset:]),
 
-  stringAdvance(expression, index):
-    index + 1,
+  stringAdvance(expression, index): index + 1,
 
   advance(expression, index):
     local next = index + 1;
     if expression[index] == '"' then
-      self.parseUntildentifierStringI(expression, next) + 1
+      self.parseIdentifierString(expression, next) + 1
     else if expression[index] == '`' then
-      self.parseJsonStringI(expression, next) + 1
+      self.parseJsonString(expression, next) + 1
     else if expression[index] == "'" then
-      self.parseRawStringI(expression, next) + 1
+      self.parseRawString(expression, next) + 1
     else next,
 
-  parseUntildentifierStringI(expression, index):
+  parseIdentifierString(expression, index):
     self.parseUntil(expression, '"', index, self.stringAdvance),
 
-  parseRawStringI(expression, index):
+  parseRawString(expression, index):
     self.parseUntil(expression, "'", index, self.stringAdvance),
 
-  parseJsonStringI(expression, index):
+  parseJsonString(expression, index):
     // This is a JSON string, so it can have single- and double- quotes in
     // it, with approximately the same meaning.
     self.parseUntil(expression, '`', index, self.advance),
