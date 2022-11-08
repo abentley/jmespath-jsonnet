@@ -6,10 +6,10 @@
     },
     remainder: if remainder == '' then null else remainder,
   },
-  indexRawToken(name, expression, end):
-    local next = end + 1;
+  indexRawToken(name, expression, end, next=null):
+    local realNext = if next == null then end + 1 else next;
     local contents = expression[:end];
-    self.rawToken(name, contents, expression[next:]),
+    self.rawToken(name, contents, expression[realNext:]),
 
   // Return true if a character is in the supplied range (false otherwise)
   between(char, lowest, highest):
@@ -56,12 +56,15 @@
     else self.alltokens(rawToken.remainder, result)
   ),
 
-  idToken(expression, offset=0):
-    if offset + 1 == std.length(expression) then
-      self.rawToken('id', expression)
-    else if self.idChar(expression[offset], first=false) then
-      self.idToken(expression, offset + 1)
-    else self.rawToken('id', expression[:offset], expression[offset:]),
+
+  idToken(expression):
+    local condition(expression, offset) =
+      offset >= std.length(expression) ||
+      !self.idChar(expression[offset], first=offset == 0);
+    local end = self.parseUntilCB(
+      expression, condition, 0, self.advance
+    );
+    self.indexRawToken('id', expression, end, next=end),
 
   stringAdvance(expression, index): index + 1,
 
@@ -92,9 +95,15 @@
     // advance: A function to advance the index to the next candidate.
     //  This is designed to support states, such as skipping forward in strings.
     //  See advance and stringAdvance.
+    local condition(expression, index) = expression[index] == terminal;
+    self.parseUntilCB(
+      expression, condition, index, advance
+    ),
+
+  parseUntilCB(expression, condition, index, advance):
     local next = advance(expression, index);
-    if expression[index] == terminal then index
-    else self.parseUntil(expression, terminal, next, advance),
+    if condition(expression, index) then index
+    else self.parseUntilCB(expression, condition, next, advance),
 
   bracketToken(expression):
     // Name is deferred until contents are determined.
