@@ -59,7 +59,7 @@ missing:
  * functions
  * string-escapes
  * multiselect
-  * This is a lower priority because Jsonnet is already quite good at
-    generating JSON.
+   * This is a lower priority because Jsonnet is already quite good at
+     generating JSON.
 
 
