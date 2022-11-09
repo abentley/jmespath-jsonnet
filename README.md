@@ -38,6 +38,21 @@ local input = {
 jmespath.set('foo[1]', input, 'qux')
 ```
 
+### Using a precompiled expression
+```jsonnet
+local jmespath = import 'jmespath.libsonnet';
+local compiled = jmespath.compile('foo[1]');
+local input = {
+  foo: ['bar', 'baz'],
+};
+
+// Returns this modified document:
+// {
+//   foo: ['bar', 'qux'],
+// };
+
+jmespath.set(compiled, input, 'qux')```
+
 ## Implementation status
 JMESPath-Jsonnet currently supports a subset of JMESPath funtionality,
 including:
