@@ -61,7 +61,7 @@ including:
  * identifiers
  * double-quoted identifiers
  * indexing
- * Slices
+ * slices
  * flatten projections
  * object and array wildcard projections
  * filter projections
