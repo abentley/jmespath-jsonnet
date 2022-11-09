@@ -51,7 +51,8 @@ local input = {
 //   foo: ['bar', 'qux'],
 // };
 
-jmespath.set(compiled, input, 'qux')```
+jmespath.set(compiled, input, 'qux')
+```
 
 ## Implementation status
 JMESPath-Jsonnet currently supports a subset of JMESPath funtionality,
