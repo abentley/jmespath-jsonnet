@@ -40,38 +40,33 @@ limitations under the License.
     )
   ),
 
-  // Return a token name, text, and remainder
-  // Note: the returned text may omit some unneded syntax
-  parseToken(expression):
-    self.priorityParse(expression, [
-      function(expression) if self.idChar(expression[0], first=true) then
-        self.idToken(expression),
-      function(expression)
-        self.prefixParse('[?', 'filterProjection', expression),
-      self.parseSlice,
-      function(expression) self.prefixParse('[]', 'flatten', expression),
-      function(expression) self.prefixParse('[*', 'arrayWildcard', expression),
-      function(expression) self.prefixParse('[', 'index', expression),
-      function(expression) if expression[0] == '.' then
-        self.rawToken('subexpression', expression[1:], null),
-      function(expression) if expression[0] == '|' then
-        self.rawToken('pipe', expression[1:], null),
-      function(expression) if std.member('=<>!', expression[0:1]) then
-        self.rawToken('comparator', expression, null),
-      function(expression) if expression[0] == "'" then
-        self.rawEndToken('rawString', expression, self.parseRawString),
-      function(expression) if expression[0] == '"' then
-        self.rawEndToken('idString', expression, self.parseIdentifierString),
-      function(expression) if expression[0] == '`' then
-        self.rawEndToken('jsonLiteral', expression, self.parseJsonString),
-      function(expression) if expression[0] == '*' then
-        self.indexRawToken('objectWildcard', expression, 0),
-    ]),
+  topTokens: [
+    self.idToken,
+    function(expr) self.prefixParse('[?', 'filterProjection', expr),
+    self.parseSlice,
+    function(expression) self.prefixParse('[]', 'flatten', expression),
+    function(expression) self.prefixParse('[*', 'arrayWildcard', expression),
+    function(expression) self.prefixParse('[', 'index', expression),
+    function(expression) if expression[0] == '.' then
+      self.rawToken('subexpression', expression[1:], null),
+    function(expression) if expression[0] == '|' then
+      self.rawToken('pipe', expression[1:], null),
+    function(expression) if std.member('=<>!', expression[0:1]) then
+      self.rawToken('comparator', expression, null),
+    function(expression) if expression[0] == "'" then
+      self.rawEndToken('rawString', expression, self.parseRawString),
+    function(expression) if expression[0] == '"' then
+      self.rawEndToken('idString', expression, self.parseIdentifierString),
+    function(expression) if expression[0] == '`' then
+      self.rawEndToken('jsonLiteral', expression, self.parseJsonString),
+    function(expression) if expression[0] == '*' then
+      self.indexRawToken('objectWildcard', expression, 0),
+  ],
 
   // Return a token name, text, and remainder
   // Note: the returned text may omit some unneded syntax
   token(expression):
-    local result = self.parseToken(expression);
+    local result = self.priorityParse(expression, self.topTokens);
     if result != null then result
     else error 'Unhandled expression: %s' % std.manifestJson(expression),
 
@@ -85,7 +80,6 @@ limitations under the License.
     else self.alltokens(rawToken.remainder, result)
   ),
 
-
   idToken(expression):
     local condition(expression, offset) =
       offset >= std.length(expression) ||
@@ -93,19 +87,21 @@ limitations under the License.
     local end = self.parseUntilCB(
       expression, condition, 0, self.advance
     );
-    self.indexRawToken('id', expression, end, next=end),
+    if end == 0 then null else self.indexRawToken(
+      'id', expression, end, next=end
+    ),
 
   stringAdvance(expression, index): index + 1,
 
   advance(expression, index):
     local next = index + 1;
-    if expression[index] == '"' then
-      self.parseIdentifierString(expression, next) + 1
-    else if expression[index] == '`' then
-      self.parseJsonString(expression, next) + 1
-    else if expression[index] == "'" then
-      self.parseRawString(expression, next) + 1
-    else next,
+    (if expression[index] == '"' then
+       self.parseIdentifierString(expression, next)
+     else if expression[index] == '`' then
+       self.parseJsonString(expression, next)
+     else if expression[index] == "'" then
+       self.parseRawString(expression, next)
+     else index) + 1,
 
   parseIdentifierString(expression, index):
     self.parseUntil(expression, '"', index, self.stringAdvance),
@@ -140,16 +136,15 @@ limitations under the License.
     self.indexRawToken(name, subExpression, end),
 
   prefixParse(prefix, name, expression):
-    if std.startsWith(expression, prefix) then
-      self.parseTokenTerminator(name, ']', expression),
+    self.prefix(
+      prefix, expression, function(expression)
+        self.parseTokenTerminator(name, ']', expression)
+    ),
 
   parseSlice(expression):
     local parsed = self.parseTokenTerminator('slice', ']', expression);
     if expression[0:1] == '[' && std.member(parsed.token.content, ':')
     then parsed,
-
-  parseIndexToken(expression):
-    self.prefixParse('[', 'index', expression),
 
   priorityParse(expression, parsers):
     std.foldr(
@@ -159,17 +154,10 @@ limitations under the License.
       null
     ),
 
-  bracketToken(expression):
-    self.priorityParse(expression, [
-      function(expression)
-        self.prefixParse('[?', 'filterProjection', expression),
-      self.parseSlice,
-      function(expression) self.prefixParse('[]', 'flatten', expression),
-      function(expression) self.prefixParse('[*', 'arrayWildcard', expression),
-      function(expression) self.prefixParse('[', 'index', expression),
-    ]),
-
   rawEndToken(name, expression, parseUntil):
     local subExpression = expression[1:];
     self.indexRawToken(name, subExpression, parseUntil(subExpression, 0)),
+
+  prefix(prefix, expression, body):
+    if std.startsWith(expression, prefix) then body(expression),
 }
