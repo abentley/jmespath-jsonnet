@@ -120,18 +120,42 @@ limitations under the License.
     if condition(expression, index) then index
     else self.parseUntilCB(expression, condition, next, advance),
 
-  bracketToken(expression):
-    // Name is deferred until contents are determined.
-    local subExpression = expression[1:];
+  parseBracketToken(name, subExpression):
     local end = self.parseUntil(subExpression, ']', 0, self.advance);
-    local contents = subExpression[:end];
-    local name =
-      if contents[0:1] == '?' then 'filterProjection'
-      else if std.member(contents, ':') then 'slice'
-      else if contents == '' then 'flatten'
-      else if contents == '*' then 'arrayWildcard'
-      else 'index';
     self.indexRawToken(name, subExpression, end),
+
+  parseFilterProjection(subExpression):
+    if subExpression[0:1] == '?' then
+      self.parseBracketToken('filterProjection', subExpression),
+
+  parseSlice(subExpression):
+    if std.member(subExpression, ':') then
+      self.parseBracketToken('slice', subExpression),
+
+  parseFlatten(subExpression):
+    if subExpression[0:1] == ']' then
+      self.parseBracketToken('flatten', subExpression),
+
+  parseArrayWildcard(subExpression):
+    if subExpression[0:1] == '*' then
+      self.parseBracketToken('arrayWildcard', subExpression),
+
+  parseIndexToken(subExpression):
+    self.parseBracketToken('index', subExpression),
+
+  priorityParse(subExpression, parsers):
+    std.foldr(function(next, prev)
+      local v = next(subExpression); if v != null then v else prev, parsers, null),
+
+  bracketToken(expression):
+    local subExpression = expression[1:];
+    self.priorityParse(subExpression, [
+      self.parseFilterProjection,
+      self.parseSlice,
+      self.parseFlatten,
+      self.parseArrayWildcard,
+      self.parseIndexToken,
+    ]),
 
   rawEndToken(name, expression, parseUntil):
     local subExpression = expression[1:];
