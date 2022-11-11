@@ -40,6 +40,14 @@ limitations under the License.
     )
   ),
 
+  // Tokens that affect parsing state
+  stateTokens: [
+    self.parseStringToken("'", 'rawString'),
+    self.parseStringToken('"', 'idString'),
+    self.parseStringToken('`', 'jsonLiteral', advance=self.advance),
+  ],
+
+  // The tokens that may be encountered as part of top-level parsing
   topTokens: [
     self.idToken,
     function(expr) self.prefixParse('[?', 'filterProjection', expr),
@@ -47,21 +55,25 @@ limitations under the License.
     function(expression) self.prefixParse('[]', 'flatten', expression),
     function(expression) self.prefixParse('[*', 'arrayWildcard', expression),
     function(expression) self.prefixParse('[', 'index', expression),
-    function(expression) if expression[0] == '.' then
-      self.rawToken('subexpression', expression[1:], null),
-    function(expression) if expression[0] == '|' then
-      self.rawToken('pipe', expression[1:], null),
+    function(expression) self.prefix('.', expression, function(expression)
+      self.rawToken('subexpression', expression, null)),
+    function(expression) self.prefix('|', expression, function(expression)
+      self.rawToken('pipe', expression, null)),
     function(expression) if std.member('=<>!', expression[0:1]) then
       self.rawToken('comparator', expression, null),
-    function(expression) if expression[0] == "'" then
-      self.rawEndToken('rawString', expression, self.parseRawString),
-    function(expression) if expression[0] == '"' then
-      self.rawEndToken('idString', expression, self.parseIdentifierString),
-    function(expression) if expression[0] == '`' then
-      self.rawEndToken('jsonLiteral', expression, self.parseJsonString),
     function(expression) if expression[0] == '*' then
       self.indexRawToken('objectWildcard', expression, 0),
-  ],
+  ] + self.stateTokens,
+
+  // Generic support for parsing strings into tokens.  See stateTokens
+  parseStringToken(quote, name, advance=self.stringAdvance):
+    local pu(expression, index) = self.parseUntil(
+      expression, quote, index, advance
+    );
+    local body(expression) = self.indexRawToken(
+      name, expression, pu(expression, 0)
+    );
+    function(expression) self.prefix(quote, expression, body),
 
   // Return a token name, text, and remainder
   // Note: the returned text may omit some unneded syntax
@@ -93,26 +105,15 @@ limitations under the License.
 
   stringAdvance(expression, index): index + 1,
 
+  // Returns the index of the next non-string character.
+  // This is suitable for searching for terminating characters, such as ']'
   advance(expression, index):
     local next = index + 1;
-    (if expression[index] == '"' then
-       self.parseIdentifierString(expression, next)
-     else if expression[index] == '`' then
-       self.parseJsonString(expression, next)
-     else if expression[index] == "'" then
-       self.parseRawString(expression, next)
-     else index) + 1,
-
-  parseIdentifierString(expression, index):
-    self.parseUntil(expression, '"', index, self.stringAdvance),
-
-  parseRawString(expression, index):
-    self.parseUntil(expression, "'", index, self.stringAdvance),
-
-  parseJsonString(expression, index):
-    // This is a JSON string, so it can have single- and double- quotes in
-    // it, with approximately the same meaning.
-    self.parseUntil(expression, '`', index, self.advance),
+    local subExpression = expression[index:];
+    local result = self.priorityParse(subExpression, self.stateTokens);
+    if result != null then
+      index + std.length(subExpression) - std.length(result.remainder)
+    else index + 1,
 
   parseUntil(expression, terminal, index, advance):
     // return the index of the ending character in the expression
@@ -131,9 +132,8 @@ limitations under the License.
     else self.parseUntilCB(expression, condition, next, advance),
 
   parseTokenTerminator(name, terminator, expression):
-    local subExpression = expression[1:];
-    local end = self.parseUntil(subExpression, terminator, 0, self.advance);
-    self.indexRawToken(name, subExpression, end),
+    local end = self.parseUntil(expression, terminator, 0, self.advance);
+    self.indexRawToken(name, expression, end),
 
   prefixParse(prefix, name, expression):
     self.prefix(
@@ -142,10 +142,14 @@ limitations under the License.
     ),
 
   parseSlice(expression):
-    local parsed = self.parseTokenTerminator('slice', ']', expression);
+    local parsed = self.parseTokenTerminator('slice', ']', expression[1:]);
     if expression[0:1] == '[' && std.member(parsed.token.content, ':')
     then parsed,
 
+  // Try a series of parsers in order.
+  // Works by constructing a nested if/else expression from the lowest priority
+  // upwards, with each expression becoming the "else" in a higher-priority
+  // expression.
   priorityParse(expression, parsers):
     std.foldr(
       function(next, prev) local v = next(expression); if v != null then v
@@ -154,10 +158,6 @@ limitations under the License.
       null
     ),
 
-  rawEndToken(name, expression, parseUntil):
-    local subExpression = expression[1:];
-    self.indexRawToken(name, subExpression, parseUntil(subExpression, 0)),
-
   prefix(prefix, expression, body):
-    if std.startsWith(expression, prefix) then body(expression),
+    if std.startsWith(expression, prefix) then body(expression[1:]),
 }
