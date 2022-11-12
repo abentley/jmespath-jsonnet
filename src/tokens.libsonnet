@@ -44,7 +44,7 @@ limitations under the License.
   stateTokens: [
     self.parseStringToken("'", 'rawString'),
     self.parseStringToken('"', 'idString'),
-    self.parseStringToken('`', 'jsonLiteral', advance=self.advance),
+    self.parseStringToken('`', 'jsonLiteral', parsers=self.stateTokens),
   ],
   parseComparator(expression): if std.member('=<>!', expression[0:1]) then
     local op =
@@ -79,9 +79,9 @@ limitations under the License.
   ] + self.stateTokens,
 
   // Generic support for parsing strings into tokens.  See stateTokens
-  parseStringToken(quote, name, advance=self.stringAdvance):
+  parseStringToken(quote, name, parsers=[]):
     local pu(expression, index) = self.parseUntil(
-      expression, quote, index, advance
+      expression, quote, index, parsers
     );
     local body(expression) = self.indexRawToken(
       name, expression, pu(expression, 0)
@@ -110,25 +110,29 @@ limitations under the License.
       offset >= std.length(expression) ||
       !self.idChar(expression[offset], first=offset == 0);
     local end = self.parseUntilCB(
-      expression, condition, 0, self.advance
-    );
+      expression, condition, 0, self.stateTokens
+    ).end;
     if end == 0 then null else self.indexRawToken(
       'id', expression, end, next=end
     ),
 
-  stringAdvance(expression, index): index + 1,
+  stringAdvance(expression, index): { next: index + 1, token: expression[index:self.next] },
 
   // Returns the index of the next non-string character.
   // This is suitable for searching for terminating characters, such as ']'
-  advance(expression, index):
+  advance(expression, index, parsers=self.stateTokens):
     local next = index + 1;
     local subExpression = expression[index:];
-    local result = self.priorityParse(subExpression, self.stateTokens);
-    if result != null then
+    local result = self.priorityParse(subExpression, parsers);
+    local next = if result != null then
       index + std.length(subExpression) - std.length(result.remainder)
-    else index + 1,
+    else index + 1;
+    {
+      next: next,
+      token: if result == null then expression[index:next] else result,
+    },
 
-  parseUntil(expression, terminal, index, advance):
+  parseUntil(expression, terminal, index, parsers):
     // return the index of the ending character in the expression
     // terminal: The character that ends the token
     // advance: A function to advance the index to the next candidate.
@@ -136,21 +140,23 @@ limitations under the License.
     //  See advance and stringAdvance.
     local condition(expression, index) = expression[index] == terminal;
     self.parseUntilCB(
-      expression, condition, index, advance
+      expression, condition, index, parsers
+    ).end,
+
+  parseUntilCB(expression, condition, index, parsers, tokens=[]):
+    local advanced = self.advance(expression, index, parsers);
+    if condition(expression, index) then { end: index, tokens: tokens }
+    else self.parseUntilCB(
+      expression, condition, advanced.next, parsers, tokens + advanced.token
     ),
 
-  parseUntilCB(expression, condition, index, advance):
-    local next = advance(expression, index);
-    if condition(expression, index) then index
-    else self.parseUntilCB(expression, condition, next, advance),
-
   parseTokenTerminator(name, terminator, expression):
-    local end = self.parseUntil(expression, terminator, 0, self.advance);
+    local end = self.parseUntil(expression, terminator, 0, self.stateTokens);
     self.indexRawToken(name, expression, end),
 
   parseSubTokens(name, expression):
-    local end = self.parseUntil(expression, ']', 0, self.advance);
-    self.nestingToken(name, expression[:end], expression[end + 1:]),
+    local result = self.parseUntilCB(expression, function(e, i) e[i] == ']', 0, self.stateTokens);
+    self.nestingToken(name, expression[:result.end], expression[result.end + 1:]),
 
   nestingToken(name, text, remaining):
     self.rawToken(name, self.alltokens(text, []), remaining),
