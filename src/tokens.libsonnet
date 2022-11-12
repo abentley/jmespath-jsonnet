@@ -44,7 +44,7 @@ limitations under the License.
   stateTokens: [
     self.parseStringToken("'", 'rawString'),
     self.parseStringToken('"', 'idString'),
-    self.parseStringToken('`', 'jsonLiteral', parsers=self.stateTokens),
+    self.parseStringToken('`', 'jsonLiteral'),
   ],
   parseComparator(expression): if std.member('=<>!', expression[0:1]) then
     local op =
@@ -147,7 +147,7 @@ limitations under the License.
     local advanced = self.advance(expression, index, parsers);
     if condition(expression, index) then { end: index, tokens: tokens }
     else self.parseUntilCB(
-      expression, condition, advanced.next, parsers, tokens + advanced.token
+      expression, condition, advanced.next, parsers, tokens + [advanced.token]
     ),
 
   parseTokenTerminator(name, terminator, expression):
@@ -155,8 +155,12 @@ limitations under the License.
     self.indexRawToken(name, expression, end),
 
   parseSubTokens(name, expression):
-    local result = self.parseUntilCB(expression, function(e, i) e[i] == ']', 0, self.stateTokens);
-    self.nestingToken(name, expression[:result.end], expression[result.end + 1:]),
+    local result = self.parseUntilCB(
+      expression, function(e, i) e[i] == ']', 0, self.stateTokens
+    );
+    self.nestingToken(
+      name, expression[:result.end], expression[result.end + 1:]
+    ),
 
   nestingToken(name, text, remaining):
     self.rawToken(name, self.alltokens(text, []), remaining),
