@@ -219,9 +219,11 @@ local exprFactory = {
 
   // Represent both sides of a dot.
   subexpression(content, prev):
-    self.joiner(prev, self.compile(content, null)) + self.implSubExpression {
-      type: 'subexpression',
-    },
+    self.joiner(prev, self.compileTokens(content, null)) + (
+      self.implSubExpression {
+        type: 'subexpression',
+      }
+    ),
 
   implPipe: {
     search(data, next):
@@ -239,7 +241,7 @@ local exprFactory = {
 
   // Represent both sides of a pipe.
   pipe(content, prev):
-    self.joiner(prev, self.compile(content, null)) + self.implPipe {
+    self.joiner(prev, self.compileTokens(content, null)) + self.implPipe {
       type: 'pipe',
     },
 
@@ -294,18 +296,23 @@ local exprFactory = {
   },
   comparator(expr, prev)::
     local compile = self.compile;
+    local right = self.compileTokens(expr.tokens);
     self.ImplComparator {
-      local op = if expr[1:2] == '=' then expr[0:2] else expr[0:1],
       left: prev,
-      right: compile(expr[std.length(op):]),
-      op: op,
+      right: right,
+      op: expr.op,
     },
   // Return an object representing the expression
   // Expression must be a string
   compile(expression, prev=null): (
+    self.compileTokens(tokens.alltokens(expression, []), prev)
+  ),
+  // Return an object representing the expression
+  // Expression must be a string
+  compileTokens(tokens, prev=null): (
     std.foldl(
       function(prev, token) self[token.name](token.content, prev=prev),
-      tokens.alltokens(expression, []),
+      tokens,
       null
     )
   ),

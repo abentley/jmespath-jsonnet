@@ -46,6 +46,11 @@ limitations under the License.
     self.parseStringToken('"', 'idString'),
     self.parseStringToken('`', 'jsonLiteral', advance=self.advance),
   ],
+  parseComparator(expression): if std.member('=<>!', expression[0:1]) then
+    local op =
+      if expression[1:2] == '=' then expression[0:2] else expression[0:1];
+    local tokens = self.alltokens(expression[std.length(op):], []);
+    self.rawToken('comparator', { op: op, tokens: tokens }, null),
 
   // The tokens that may be encountered as part of top-level parsing
   topTokens: [
@@ -56,11 +61,10 @@ limitations under the License.
     function(expression) self.prefixParse('[*', 'arrayWildcard', expression),
     function(expression) self.prefixParse('[', 'index', expression),
     function(expression) self.prefix('.', expression, function(expression)
-      self.rawToken('subexpression', expression, null)),
+      self.rawToken('subexpression', self.alltokens(expression, []), null)),
     function(expression) self.prefix('|', expression, function(expression)
-      self.rawToken('pipe', expression, null)),
-    function(expression) if std.member('=<>!', expression[0:1]) then
-      self.rawToken('comparator', expression, null),
+      self.rawToken('pipe', self.alltokens(expression, []), null)),
+    self.parseComparator,
     function(expression) if expression[0] == '*' then
       self.indexRawToken('objectWildcard', expression, 0),
   ] + self.stateTokens,
