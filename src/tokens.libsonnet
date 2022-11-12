@@ -52,21 +52,30 @@ limitations under the License.
     local tokens = self.alltokens(expression[std.length(op):], []);
     self.rawToken('comparator', { op: op, tokens: tokens }, null),
 
+  parseFlatten: function(expression)
+    if std.startsWith(expression, '[]') then
+      self.rawToken('flatten', null, expression[2:]),
+
+  parseFilterProjection(expression):
+    local subParser(expression) =
+      self.parseSubTokens('filterProjection', expression);
+    self.prefix('[?', expression, subParser),
+
   // The tokens that may be encountered as part of top-level parsing
   topTokens: [
     self.idToken,
-    function(expr) self.prefixParse('[?', 'filterProjection', expr),
+    self.parseFilterProjection,
     self.parseSlice,
-    function(expression) self.prefixParse('[]', 'flatten', expression),
+    self.parseFlatten,
     function(expression) self.prefixParse('[*', 'arrayWildcard', expression),
     function(expression) self.prefixParse('[', 'index', expression),
     function(expression) self.prefix('.', expression, function(expression)
-      self.rawToken('subexpression', self.alltokens(expression, []), null)),
+      self.nestingToken('subexpression', expression, null)),
     function(expression) self.prefix('|', expression, function(expression)
-      self.rawToken('pipe', self.alltokens(expression, []), null)),
+      self.nestingToken('pipe', expression, null)),
     self.parseComparator,
     function(expression) if expression[0] == '*' then
-      self.indexRawToken('objectWildcard', expression, 0),
+      self.rawToken('objectWildcard', '', expression[1:]),
   ] + self.stateTokens,
 
   // Generic support for parsing strings into tokens.  See stateTokens
@@ -139,6 +148,13 @@ limitations under the License.
     local end = self.parseUntil(expression, terminator, 0, self.advance);
     self.indexRawToken(name, expression, end),
 
+  parseSubTokens(name, expression):
+    local end = self.parseUntil(expression, ']', 0, self.advance);
+    self.nestingToken(name, expression[:end], expression[end + 1:]),
+
+  nestingToken(name, text, remaining):
+    self.rawToken(name, self.alltokens(text, []), remaining),
+
   prefixParse(prefix, name, expression):
     self.prefix(
       prefix, expression, function(expression)
@@ -163,5 +179,6 @@ limitations under the License.
     ),
 
   prefix(prefix, expression, body):
-    if std.startsWith(expression, prefix) then body(expression[1:]),
+    if std.startsWith(expression, prefix) then
+      body(expression[std.length(prefix):]),
 }

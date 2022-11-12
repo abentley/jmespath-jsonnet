@@ -193,7 +193,7 @@ local exprFactory = {
   },
 
   filterProjection(sliceExpr, prev=null)::
-    local comparator = self.compile(sliceExpr[1:]);
+    local comparator = self.compileTokens(sliceExpr);
     self.ImplFilterProjection {
       comparator: comparator,
     },
