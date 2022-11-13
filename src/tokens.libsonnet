@@ -199,25 +199,31 @@ limitations under the License.
     parseOptional,
 
   parseSlice(expression):
+    self.prefix('[', expression, self.parseSliceInner),
+
+  parseSliceInner(expression):
     local parseOptionalInt = self.optionalParser(self.parseIntTokenInt);
-    local startResult = parseOptionalInt(expression[1:]);
-    if startResult.remainder != null && startResult.remainder[:1] == ':' && expression[0:1] == '[' then
-      local stopResult = parseOptionalInt(startResult.remainder[1:]);
-      local stepResult = self.optionalParser(
-        function(expression)
-          if expression[:1] == ':' then parseOptionalInt(expression[1:])
-      )(stopResult.remainder);
-      local startToken = startResult.token.content;
-      local stopToken = stopResult.token.content;
-      local stepToken =
-        if stepResult.token.content != null
-        then stepResult.token.content.content;
-      if stepResult.remainder[:1] == ']' then
-        self.rawToken('slice', {
-          start: if startToken != null then startToken.content,
-          stop: if stopToken != null then stopToken.content,
-          step: if stepToken != null then stepToken.content,
-        }, stepResult.remainder[1:]),
+    local startResult = parseOptionalInt(expression);
+    if startResult.remainder != null then
+      local stopResult = self.prefix(
+        ':', startResult.remainder, parseOptionalInt
+      );
+      if stopResult != null then
+        local stepResult = self.optionalParser(
+          function(expression)
+            self.prefix(':', expression, parseOptionalInt)
+        )(stopResult.remainder);
+        local startToken = startResult.token.content;
+        local stopToken = stopResult.token.content;
+        local stepToken =
+          if stepResult.token.content != null
+          then stepResult.token.content.content;
+        if stepResult.remainder[:1] == ']' then
+          self.rawToken('slice', {
+            start: if startToken != null then startToken.content,
+            stop: if stopToken != null then stopToken.content,
+            step: if stepToken != null then stepToken.content,
+          }, stepResult.remainder[1:]),
 
   // Try a series of parsers in order.
   // Works by constructing a nested if/else expression from the lowest priority
