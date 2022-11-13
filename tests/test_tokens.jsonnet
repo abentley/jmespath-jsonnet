@@ -50,5 +50,21 @@ local results = {
     remainder: null,
     token: { content: "asdf'", name: 'idString' },
   }, tokens.token('"asdf\'"')),
+  test_parseNaturalNum: test_eq({
+    remainder: 'q',
+    token: { content: '78', name: 'naturalNum' },
+  }, tokens.parseNaturalNum('78q')),
+  test_parseNaturalNum2: test_eq(null, tokens.parseNaturalNum('q78q')),
+  test_parseNaturalNum3: test_eq(null, tokens.parseNaturalNum('-78q')),
+  test_parseIntToken: test_eq({
+    remainder: 'q',
+    token: { content: '78', name: 'int' },
+  }, tokens.parseIntToken('78q')),
+  test_parseIntToken2: test_eq(null, tokens.parseIntToken('q78q')),
+  test_parseIntToken3: test_eq({
+    remainder: ':',
+    token: { content: '-78', name: 'int' },
+  }, tokens.parseIntToken('-78:')),
+  test_parseIntToken4: test_eq(null, tokens.parseIntToken('q-78q')),
 };
 test.asTest(results)

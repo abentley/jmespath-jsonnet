@@ -26,7 +26,7 @@ for test_file in ${test_files[@]}; do
     if [ $test_file != ${test_files[0]} ]; then echo; fi
     echo $test_file
     for test in ${tests[@]}; do
-        CMD="jsonnet -SJ src -J test $args --tla-str testName=$test $test_file"
+        CMD="jsonnet -SJ src --max-trace 1000 -J test $args --tla-str testName=$test $test_file"
         if ! ($CMD 2> /dev/null); then
             error=true
             echo $test: ERROR

@@ -31,20 +31,22 @@ limitations under the License.
     std.codepoint(char) >= std.codepoint(lowest)
     && std.codepoint(char) <= std.codepoint(highest),
 
+  isDigit(char): self.between(char, '0', '9'),
+
   // Return true if the character can be part of an unquoted identifier.
   // first: if true, this would be the first character of the identifier
   idChar(char, first): (
     self.between(char, 'a', 'z') ||
     self.between(char, 'A', 'Z') || (
-      if first then false else self.between(char, '0', '9')
+      if first then false else self.isDigit(char)
     )
   ),
 
   // Tokens that affect parsing state
   stateTokens: [
-    self.parseStringToken("'", 'rawString'),
-    self.parseStringToken('"', 'idString'),
-    self.parseStringToken('`', 'jsonLiteral'),
+    self.stringParser("'", 'rawString'),
+    self.stringParser('"', 'idString'),
+    self.stringParser('`', 'jsonLiteral'),
   ],
   parseComparator(expression): if std.member('=<>!', expression[0:1]) then
     local op =
@@ -60,6 +62,28 @@ limitations under the License.
     local subParser(expression) =
       self.parseSubTokens('filterProjection', expression);
     self.prefix('[?', expression, subParser),
+
+  parseNaturalNum(expression, found=[]):
+    local condition(expression, index) =
+      local remainder = expression[index:index + 1];
+      remainder == '' || !self.isDigit(remainder);
+    local end = self.parseUntil(expression, condition, 0, []).end;
+    if end != 0 then self.indexRawToken('naturalNum', expression, end, end),
+
+  parseIntToken(expression):
+    local wrap(parser) =
+      local wrapper(expression) = (
+        local result = parser(expression);
+        if result != null then result { token+: { name: 'int' } }
+      );
+      wrapper;
+    local parseNegative(expression) = if std.startsWith(expression, '-') then
+      local token = self.parseNaturalNum(expression[1:]);
+      if token != null then self.rawToken('int', '-' + token.token.content, token.remainder);
+    self.priorityParse(expression, [
+      wrap(self.parseNaturalNum),
+      parseNegative,
+    ]),
 
   // The tokens that may be encountered as part of top-level parsing
   topTokens: [
@@ -79,14 +103,8 @@ limitations under the License.
   ] + self.stateTokens,
 
   // Generic support for parsing strings into tokens.  See stateTokens
-  parseStringToken(quote, name, parsers=[]):
-    local pu(expression, index) = self.parseUntil(
-      expression, quote, index, parsers
-    );
-    local body(expression) = self.indexRawToken(
-      name, expression, pu(expression, 0)
-    );
-    function(expression) self.prefix(quote, expression, body),
+  stringParser(quote, name):
+    function(expression) self.prefixParse(quote, name, expression, quote, []),
 
   // Return a token name, text, and remainder
   // Note: the returned text may omit some unneded syntax
@@ -109,14 +127,12 @@ limitations under the License.
     local condition(expression, offset) =
       offset >= std.length(expression) ||
       !self.idChar(expression[offset], first=offset == 0);
-    local end = self.parseUntilCB(
+    local end = self.parseUntil(
       expression, condition, 0, self.stateTokens
     ).end;
     if end == 0 then null else self.indexRawToken(
       'id', expression, end, next=end
     ),
-
-  stringAdvance(expression, index): { next: index + 1, token: expression[index:self.next] },
 
   // Returns the index of the next non-string character.
   // This is suitable for searching for terminating characters, such as ']'
@@ -132,30 +148,24 @@ limitations under the License.
       token: if result == null then expression[index:next] else result,
     },
 
-  parseUntil(expression, terminal, index, parsers):
-    // return the index of the ending character in the expression
-    // terminal: The character that ends the token
-    // advance: A function to advance the index to the next candidate.
-    //  This is designed to support states, such as skipping forward in strings.
-    //  See advance and stringAdvance.
-    local condition(expression, index) = expression[index] == terminal;
-    self.parseUntilCB(
-      expression, condition, index, parsers
-    ).end,
-
-  parseUntilCB(expression, condition, index, parsers, tokens=[]):
+  // return an object containing the index of the ending character in the
+  // expression
+  // terminal: The character that ends the token
+  // parsers: The parsers to use for intermediate tokens
+  parseUntil(expression, condition, index, parsers, tokens=[]):
     local advanced = self.advance(expression, index, parsers);
     if condition(expression, index) then { end: index, tokens: tokens }
-    else self.parseUntilCB(
+    else self.parseUntil(
       expression, condition, advanced.next, parsers, tokens + [advanced.token]
     ),
 
-  parseTokenTerminator(name, terminator, expression):
-    local end = self.parseUntil(expression, terminator, 0, self.stateTokens);
+  parseTokenTerminator(name, terminator, expression, parsers=self.stateTokens):
+    local condition(expression, index) = expression[index] == terminator;
+    local end = self.parseUntil(expression, condition, 0, parsers).end;
     self.indexRawToken(name, expression, end),
 
   parseSubTokens(name, expression):
-    local result = self.parseUntilCB(
+    local result = self.parseUntil(
       expression, function(e, i) e[i] == ']', 0, self.stateTokens
     );
     self.nestingToken(
@@ -165,16 +175,52 @@ limitations under the License.
   nestingToken(name, text, remaining):
     self.rawToken(name, self.alltokens(text, []), remaining),
 
-  prefixParse(prefix, name, expression):
+  prefixParse(prefix,
+              name,
+              expression,
+              terminator=']',
+              parsers=self.stateTokens):
     self.prefix(
       prefix, expression, function(expression)
-        self.parseTokenTerminator(name, ']', expression)
+        self.parseTokenTerminator(name, terminator, expression, parsers)
     ),
 
+  parseIntTokenInt(expression):
+    local result = self.parseIntToken(expression);
+    if result != null then result { token+: {
+      content: std.parseInt(super.content),
+    } },
+
+  optionalParser(parser):
+    local parseOptional(expression) =
+      local tryToken = parser(expression);
+      self.rawToken(
+        'optional',
+        if tryToken != null then tryToken.token,
+        if tryToken == null then expression else tryToken.remainder
+      );
+    parseOptional,
+
   parseSlice(expression):
-    local parsed = self.parseTokenTerminator('slice', ']', expression[1:]);
-    if expression[0:1] == '[' && std.member(parsed.token.content, ':')
-    then parsed,
+    local parseOptionalInt = self.optionalParser(self.parseIntTokenInt);
+    local startResult = parseOptionalInt(expression[1:]);
+    if startResult.remainder != null && startResult.remainder[:1] == ':' && expression[0:1] == '[' then
+      local stopResult = parseOptionalInt(startResult.remainder[1:]);
+      local stepResult = self.optionalParser(
+        function(expression)
+          if expression[:1] == ':' then parseOptionalInt(expression[1:])
+      )(stopResult.remainder);
+      local startToken = startResult.token.content;
+      local stopToken = stopResult.token.content;
+      local stepToken =
+        if stepResult.token.content != null
+        then stepResult.token.content.content;
+      if stepResult.remainder[:1] == ']' then
+        self.rawToken('slice', {
+          start: if startToken != null then startToken.content,
+          stop: if stopToken != null then stopToken.content,
+          step: if stepToken != null then stepToken.content,
+        }, stepResult.remainder[1:]),
 
   // Try a series of parsers in order.
   // Works by constructing a nested if/else expression from the lowest priority

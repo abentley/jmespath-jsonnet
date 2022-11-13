@@ -181,9 +181,9 @@ local exprFactory = {
     local step =
       if std.length(splitExpr) < 3 then null else intOrNull(splitExpr[2]);
     self.maybeJoin(prev, self.ImplSlice {
-      start: start,
-      stop: stop,
-      step: step,
+      start: sliceExpr.start,
+      stop: sliceExpr.stop,
+      step: sliceExpr.step,
     }),
 
   ImplFilterProjection:: self.ImplProjection {
