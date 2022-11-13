@@ -48,6 +48,7 @@ limitations under the License.
     self.stringParser('"', 'idString'),
     self.stringParser('`', 'jsonLiteral'),
   ],
+
   parseComparator(expression): if std.member('=<>!', expression[0:1]) then
     local op =
       if expression[1:2] == '=' then expression[0:2] else expression[0:1];
@@ -70,36 +71,50 @@ limitations under the License.
     local end = self.parseUntil(expression, condition, 0, []).end;
     if end != 0 then self.indexRawToken('naturalNum', expression, end, end),
 
+  rename(parser, name):
+    local wrapper(expression) = (
+      local result = parser(expression);
+      if result != null then result { token+: { name: name } }
+    );
+    wrapper,
+
   parseIntToken(expression):
-    local wrap(parser) =
-      local wrapper(expression) = (
-        local result = parser(expression);
-        if result != null then result { token+: { name: 'int' } }
-      );
-      wrapper;
     local parseNegative(expression) = if std.startsWith(expression, '-') then
       local token = self.parseNaturalNum(expression[1:]);
-      if token != null then self.rawToken('int', '-' + token.token.content, token.remainder);
+      if token != null then self.rawToken(
+        'int', '-' + token.token.content, token.remainder
+      );
     self.priorityParse(expression, [
-      wrap(self.parseNaturalNum),
+      self.rename(self.parseNaturalNum, 'int'),
       parseNegative,
     ]),
+
+  constantParser(constant, name)::
+    function(expression)
+      if std.startsWith(expression, constant) then
+        local end = std.length(constant);
+        self.indexRawToken(name, expression, end, end),
 
   // The tokens that may be encountered as part of top-level parsing
   topTokens: [
     self.idToken,
     self.parseFilterProjection,
     self.parseSlice,
-    self.parseFlatten,
-    function(expression) self.prefixParse('[*', 'arrayWildcard', expression),
-    function(expression) self.prefixParse('[', 'index', expression),
+    self.constantParser('[]', 'flatten'),
+    self.constantParser('[*]', 'arrayWildcard'),
+    self.rename(function(expression)
+      self.prefix(
+        '[', expression, function(expression)
+          self.suffix(
+            ']', expression, self.parseIntToken,
+          )
+      ), 'index'),
     function(expression) self.prefix('.', expression, function(expression)
       self.nestingToken('subexpression', expression, null)),
     function(expression) self.prefix('|', expression, function(expression)
       self.nestingToken('pipe', expression, null)),
     self.parseComparator,
-    function(expression) if expression[0] == '*' then
-      self.rawToken('objectWildcard', '', expression[1:]),
+    self.constantParser('*', 'objectWildcard'),
   ] + self.stateTokens,
 
   // Generic support for parsing strings into tokens.  See stateTokens
@@ -199,7 +214,9 @@ limitations under the License.
     parseOptional,
 
   parseSlice(expression):
-    self.prefix('[', expression, self.parseSliceInner),
+    local inner =
+      function(expression) self.prefix('[', expression, self.parseSliceInner);
+    self.suffix(']', expression, inner),
 
   parseSliceInner(expression):
     local parseOptionalInt = self.optionalParser(self.parseIntTokenInt);
@@ -218,12 +235,11 @@ limitations under the License.
         local stepToken =
           if stepResult.token.content != null
           then stepResult.token.content.content;
-        if stepResult.remainder[:1] == ']' then
-          self.rawToken('slice', {
-            start: if startToken != null then startToken.content,
-            stop: if stopToken != null then stopToken.content,
-            step: if stepToken != null then stepToken.content,
-          }, stepResult.remainder[1:]),
+        self.rawToken('slice', {
+          start: if startToken != null then startToken.content,
+          stop: if stopToken != null then stopToken.content,
+          step: if stepToken != null then stepToken.content,
+        }, stepResult.remainder),
 
   // Try a series of parsers in order.
   // Works by constructing a nested if/else expression from the lowest priority
@@ -240,4 +256,14 @@ limitations under the License.
   prefix(prefix, expression, body):
     if std.startsWith(expression, prefix) then
       body(expression[std.length(prefix):]),
+
+  suffix(suffix, expression, bodyParser):
+    local result = bodyParser(expression);
+    if result != null && result.remainder != null then
+      if std.startsWith(result.remainder, suffix) then
+        self.rawToken(
+          result.token.name,
+          result.token.content,
+          result.remainder[std.length(suffix):]
+        ),
 }

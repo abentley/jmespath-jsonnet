@@ -20,24 +20,46 @@ local test_eq = test.test_eq;
 local results = {
   test1: test_eq({
     remainder: null,
-    token: { content: 'asdf', name: 'index' },
-  }, tokens.token('[asdf]')),
-  test2: test_eq({
+    token: { content: '1234', name: 'index' },
+  }, tokens.token('[1234]')),
+  test2: test_eq(null, tokens.token('[abcd]')),
+  test9: test_eq({
     remainder: null,
-    token: { content: '"asdf"', name: 'index' },
-  }, tokens.token('["asdf"]')),
+    token: {
+      name: 'filterProjection',
+      content: [
+        { content: 'asdf', name: 'idString' },
+      ],
+    },
+  }, tokens.token('[?"asdf"]')),
   test3: test_eq({
     remainder: null,
-    token: { content: '"asdf]"', name: 'index' },
-  }, tokens.token('["asdf]"]')),
+    token: {
+      name: 'filterProjection',
+      content: [
+        { content: 'asdf]', name: 'idString' },
+      ],
+    },
+  }, tokens.token('[?"asdf]"]')),
   test4: test_eq({
     remainder: null,
-    token: { content: '`asdf]`', name: 'index' },
-  }, tokens.token('[`asdf]`]')),
+    token: {
+      name: 'filterProjection',
+      content: [
+        { content: 'asdf]', name: 'jsonLiteral' },
+      ],
+    },
+  }, tokens.token('[?`asdf]`]')),
+
   test5: test_eq({
     remainder: null,
-    token: { content: "'asdf]'", name: 'index' },
-  }, tokens.token("['asdf]']")),
+    token: {
+      name: 'filterProjection',
+      content: [
+        { content: 'asdf]', name: 'rawString' },
+      ],
+    },
+  }, tokens.token("[?'asdf]']")),
   test6: test_eq({
     remainder: null,
     token: { content: 'asdf"', name: 'rawString' },
