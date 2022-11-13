@@ -159,11 +159,6 @@ limitations under the License.
       expression, condition, advanced.next, parsers, tokens + [advanced.token]
     ),
 
-  parseTokenTerminator(name, terminator, expression, parsers=self.stateTokens):
-    local condition(expression, index) = expression[index] == terminator;
-    local end = self.parseUntil(expression, condition, 0, parsers).end;
-    self.indexRawToken(name, expression, end),
-
   parseSubTokens(name, expression):
     local result = self.parseUntil(
       expression, function(e, i) e[i] == ']', 0, self.stateTokens
@@ -180,9 +175,11 @@ limitations under the License.
               expression,
               terminator=']',
               parsers=self.stateTokens):
+    local condition(expression, index) = expression[index] == terminator;
     self.prefix(
       prefix, expression, function(expression)
-        self.parseTokenTerminator(name, terminator, expression, parsers)
+        local end = self.parseUntil(expression, condition, 0, parsers).end;
+        self.indexRawToken(name, expression, end),
     ),
 
   parseIntTokenInt(expression):
