@@ -55,10 +55,6 @@ limitations under the License.
     local tokens = self.alltokens(expression[std.length(op):], []);
     self.rawToken('comparator', { op: op, tokens: tokens }, null),
 
-  parseFlatten: function(expression)
-    if std.startsWith(expression, '[]') then
-      self.rawToken('flatten', null, expression[2:]),
-
   parseFilterProjection(expression):
     local subParser(expression) =
       self.parseSubTokens('filterProjection', expression);
@@ -95,6 +91,14 @@ limitations under the License.
         local end = std.length(constant);
         self.indexRawToken(name, expression, end, end),
 
+  delimitParser(prefix, suffix, parser):
+    function(expression)
+      self.prefix(
+        prefix, expression, function(expression)
+          self.suffix(
+            suffix, expression, parser,
+          )
+      ),
   // The tokens that may be encountered as part of top-level parsing
   topTokens: [
     self.idToken,
@@ -102,13 +106,7 @@ limitations under the License.
     self.parseSlice,
     self.constantParser('[]', 'flatten'),
     self.constantParser('[*]', 'arrayWildcard'),
-    self.rename(function(expression)
-      self.prefix(
-        '[', expression, function(expression)
-          self.suffix(
-            ']', expression, self.parseIntToken,
-          )
-      ), 'index'),
+    self.rename(self.delimitParser('[', ']', self.parseIntToken), 'index'),
     function(expression) self.prefix('.', expression, function(expression)
       self.nestingToken('subexpression', expression, null)),
     function(expression) self.prefix('|', expression, function(expression)
