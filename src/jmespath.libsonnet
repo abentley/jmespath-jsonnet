@@ -72,7 +72,7 @@ local exprFactory = {
   index(index, prev=null):
     self.maybeJoin(prev, self.ImplIndex {
       type: 'index',
-      index: std.parseInt(index),
+      index: index,
     }),
 
   ImplProjection: {

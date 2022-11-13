@@ -20,7 +20,7 @@ local test_eq = test.test_eq;
 local results = {
   test1: test_eq({
     remainder: null,
-    token: { content: '1234', name: 'index' },
+    token: { content: 1234, name: 'index' },
   }, tokens.token('[1234]')),
   test2: test_eq(null, tokens.token('[abcd]')),
   test9: test_eq({

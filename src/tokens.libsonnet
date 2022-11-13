@@ -106,7 +106,7 @@ limitations under the License.
     self.parseSlice,
     self.constantParser('[]', 'flatten'),
     self.constantParser('[*]', 'arrayWildcard'),
-    self.rename(self.delimitParser('[', ']', self.parseIntToken), 'index'),
+    self.rename(self.delimitParser('[', ']', self.parseIntTokenInt), 'index'),
     function(expression) self.prefix('.', expression, function(expression)
       self.nestingToken('subexpression', expression, null)),
     function(expression) self.prefix('|', expression, function(expression)
@@ -117,7 +117,11 @@ limitations under the License.
 
   // Generic support for parsing strings into tokens.  See stateTokens
   stringParser(quote, name):
-    function(expression) self.prefixParse(quote, name, expression, quote, []),
+    local condition(expression, index) = expression[index] == quote;
+    self.delimitParser(quote, quote, function(expression)
+      local end = self.parseUntil(expression, condition, 0, []).end;
+      self.indexRawToken(name, expression, end, end)),
+
 
   // Return a token name, text, and remainder
   // Note: the returned text may omit some unneded syntax
@@ -182,18 +186,6 @@ limitations under the License.
 
   nestingToken(name, text, remaining):
     self.rawToken(name, self.alltokens(text, []), remaining),
-
-  prefixParse(prefix,
-              name,
-              expression,
-              terminator=']',
-              parsers=self.stateTokens):
-    local condition(expression, index) = expression[index] == terminator;
-    self.prefix(
-      prefix, expression, function(expression)
-        local end = self.parseUntil(expression, condition, 0, parsers).end;
-        self.indexRawToken(name, expression, end),
-    ),
 
   parseIntTokenInt(expression):
     local result = self.parseIntToken(expression);
