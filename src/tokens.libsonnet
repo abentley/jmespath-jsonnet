@@ -21,6 +21,7 @@ limitations under the License.
     },
     remainder: if remainder == '' then null else remainder,
   },
+
   indexRawToken(name, expression, end, next=null):
     local realNext = if next == null then end + 1 else next;
     local contents = expression[:end];
@@ -99,20 +100,21 @@ limitations under the License.
             suffix, expression, parser,
           )
       ),
+
   // The tokens that may be encountered as part of top-level parsing
   topTokens: [
     self.idToken,
+    self.parseComparator,
     self.parseFilterProjection,
+    self.rename(self.delimitParser('[', ']', self.parseIntTokenInt), 'index'),
     self.parseSlice,
+    self.constantParser('*', 'objectWildcard'),
     self.constantParser('[]', 'flatten'),
     self.constantParser('[*]', 'arrayWildcard'),
-    self.rename(self.delimitParser('[', ']', self.parseIntTokenInt), 'index'),
     function(expression) self.prefix('.', expression, function(expression)
       self.nestingToken('subexpression', expression, null)),
     function(expression) self.prefix('|', expression, function(expression)
       self.nestingToken('pipe', expression, null)),
-    self.parseComparator,
-    self.constantParser('*', 'objectWildcard'),
   ] + self.stateTokens,
 
   // Generic support for parsing strings into tokens.  See stateTokens
