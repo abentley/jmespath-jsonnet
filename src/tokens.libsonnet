@@ -91,18 +91,18 @@ limitations under the License.
   // Return a token name, text, and remainder
   // Note: the returned text may omit some unneded syntax
   token(expression):
-    local result = self.priorityParse(expression, self.topTokens);
-    if result != null then result
-    else error 'Unhandled expression: %s' % std.manifestJson(expression),
+    self.priorityParse(expression, self.topTokens),
 
   // Return an array of all tokens
   // Expression must be a string
   alltokens(expression, curTokens): (
-    local rawToken = self.token(expression);
-    local result = curTokens + [rawToken.token];
-    assert rawToken != null : expression;
-    if rawToken.remainder == null then result
-    else self.alltokens(rawToken.remainder, result)
+    local result = self.token(expression);
+    local rawToken =
+      if result != null then result
+      else error 'Unhandled expression: %s' % std.manifestJson(expression);
+    local newTokens = curTokens + [rawToken.token];
+    if rawToken.remainder == null then newTokens
+    else self.alltokens(rawToken.remainder, newTokens)
   ),
 
   idToken(expression):
