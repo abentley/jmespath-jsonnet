@@ -305,7 +305,7 @@ local exprFactory = {
   // Return an object representing the expression
   // Expression must be a string
   compile(expression, prev=null): (
-    self.compileTokens(tokens.alltokens(expression, []), prev)
+    self.compileTokens(tokens.alltokens(expression), prev)
   ),
   // Return an object representing the expression
   // Expression must be a string

@@ -23,15 +23,6 @@ local results = {
     token: { content: 1234, name: 'index' },
   }, tokens.token('[1234]')),
   test2: test_eq(null, tokens.token('[abcd]')),
-  test9: test_eq({
-    remainder: null,
-    token: {
-      name: 'filterProjection',
-      content: [
-        { content: 'asdf', name: 'idString' },
-      ],
-    },
-  }, tokens.token('[?"asdf"]')),
   test3: test_eq({
     remainder: null,
     token: {
@@ -72,6 +63,22 @@ local results = {
     remainder: null,
     token: { content: "asdf'", name: 'idString' },
   }, tokens.token('"asdf\'"')),
+  test9: test_eq({
+    remainder: null,
+    token: {
+      name: 'filterProjection',
+      content: [
+        { content: 'asdf', name: 'idString' },
+      ],
+    },
+  }, tokens.token('[?"asdf"]')),
+  test10: test_eq({
+    token: { name: null, content: [
+      { content: 'asdf', name: 'jsonLiteral' },
+      { content: 'xyz', name: 'id' },
+    ] },
+    remainder: null,
+  }, tokens.someTokens('`asdf`xyz')),
   test_parseNaturalNum: test_eq({
     remainder: 'q',
     token: { content: '78', name: 'naturalNum' },
