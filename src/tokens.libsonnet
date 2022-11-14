@@ -207,8 +207,9 @@ limitations under the License.
     ),
 
   prefixParser(prefix, bodyParser):
-    function(expression) if std.startsWith(expression, prefix) then
-      bodyParser(expression[std.length(prefix):]),
+    function(expression)
+      local result = self.constantParser(prefix, null)(expression);
+      if result != null then bodyParser(result.remainder),
 
   suffixParser(suffix, bodyParser):
     function(expression)
