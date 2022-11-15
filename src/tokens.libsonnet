@@ -52,13 +52,6 @@ limitations under the License.
     );
     token,
 
-  parseNaturalNum(expression, found=[]):
-    local condition(expression, index) =
-      local remainder = expression[index:index + 1];
-      remainder == '' || !self.isDigit(remainder);
-    local end = self.parseUntil(expression, condition, 0);
-    if end != 0 then self.indexRawToken('naturalNum', expression, end, end),
-
   rename(parser, name):
     local wrapper(expression) = (
       local result = parser(expression);
@@ -66,16 +59,26 @@ limitations under the License.
     );
     wrapper,
 
+  parseNaturalNum(expression, found=[]):
+    local condition(expression, index) =
+      local remainder = expression[index:index + 1];
+      remainder == '' || !self.isDigit(remainder);
+    local end = self.parseUntil(expression, condition, 0);
+    if end != 0 then self.indexRawToken('naturalNum', expression, end, end),
+
   parseIntToken(expression):
     local parseNegative(expression) = if std.startsWith(expression, '-') then
       local token = self.parseNaturalNum(expression[1:]);
       if token != null then self.rawToken(
         'int', '-' + token.token.content, token.remainder
       );
-    self.priorityParse(expression, [
+    local result = self.priorityParse(expression, [
       self.rename(self.parseNaturalNum, 'int'),
       parseNegative,
-    ]),
+    ]);
+    if result != null then result { token+: {
+      content: std.parseInt(super.content),
+    } },
 
   constantParser(constant, name)::
     function(expression)
@@ -91,7 +94,7 @@ limitations under the License.
     self.idToken,
     self.parseComparator,
     self.delimitParser('[?', ']', self.nestingToken('filterProjection')),
-    self.rename(self.delimitParser('[', ']', self.parseIntTokenInt), 'index'),
+    self.rename(self.delimitParser('[', ']', self.parseIntToken), 'index'),
     self.delimitParser('[', ']', self.parseSliceInner),
     self.constantParser('*', 'objectWildcard'),
     self.constantParser('[]', 'flatten'),
@@ -156,12 +159,6 @@ limitations under the License.
   nestingToken(name):
     function(expression) self.someTokens(expression, name=name),
 
-  parseIntTokenInt(expression):
-    local result = self.parseIntToken(expression);
-    if result != null then result { token+: {
-      content: std.parseInt(super.content),
-    } },
-
   optionalParser(parser):
     local parseOptional(expression) =
       local tryToken = parser(expression);
@@ -173,7 +170,7 @@ limitations under the License.
     parseOptional,
 
   parseSliceInner(expression):
-    local parseOptionalInt = self.optionalParser(self.parseIntTokenInt);
+    local parseOptionalInt = self.optionalParser(self.parseIntToken);
     local startResult = parseOptionalInt(expression);
     if startResult.remainder != null then
       local stopResult = self.prefixParser(
