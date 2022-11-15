@@ -141,9 +141,7 @@ limitations under the License.
     local condition(expression, offset) =
       offset >= std.length(expression) ||
       !self.idChar(expression[offset], first=offset == 0);
-    local end = self.parseUntil(
-      expression, condition, 0
-    );
+    local end = self.parseUntil(expression, condition, 0);
     if end == 0 then null else self.indexRawToken(
       'id', expression, end
     ),
@@ -152,9 +150,8 @@ limitations under the License.
   // expression
   // terminal: The character that ends the token
   parseUntil(expression, condition, index):
-    local next = index + 1;
     if condition(expression, index) then index
-    else self.parseUntil(expression, condition, next),
+    else self.parseUntil(expression, condition, index + 1),
 
   nestingToken(name):
     function(expression) self.someTokens(expression, name=name),
