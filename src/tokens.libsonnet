@@ -163,34 +163,25 @@ limitations under the License.
     local parseOptional(expression) =
       local tryToken = parser(expression);
       self.rawToken(
-        'optional',
-        if tryToken != null then tryToken.token,
+        if tryToken != null then tryToken.token.name,
+        if tryToken != null then tryToken.token.content,
         if tryToken == null then expression else tryToken.remainder
       );
     parseOptional,
 
-  squash(optional):
-    if optional != null then
-      if optional.token.content == null then optional
-      else optional { token+: { content: super.content.content } },
-
   parseSliceInner(expression):
     local parseOptionalInt = self.optionalParser(self.parseIntToken);
-    local start = self.squash(parseOptionalInt(expression));
+    local start = parseOptionalInt(expression);
     if start.remainder != null then
-      local stop = self.squash(self.prefixParser(
-        ':', parseOptionalInt
-      )(start.remainder));
+      local stop = self.prefixParser(':', parseOptionalInt)(start.remainder);
       if stop != null then
-        local step = self.squash(
-          self.squash(self.optionalParser(
-            self.prefixParser(':', parseOptionalInt)
-          )(stop.remainder))
-        );
+        local step = self.optionalParser(
+          self.prefixParser(':', parseOptionalInt)
+        )(stop.remainder);
         self.rawToken('slice', {
           start: if start != null then start.token.content,
           stop: if stop != null then stop.token.content,
-          step: if step != null then step.token.content,
+          step: step.token.content,
         }, step.remainder),
 
   // Try a series of parsers in order.
