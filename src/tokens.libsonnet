@@ -22,10 +22,8 @@ limitations under the License.
     remainder: if remainder == '' then null else remainder,
   },
 
-  indexRawToken(name, expression, end, next=null):
-    local realNext = if next == null then end + 1 else next;
-    local contents = expression[:end];
-    self.rawToken(name, contents, expression[realNext:]),
+  indexRawToken(name, expression, end):
+    self.rawToken(name, expression[:end], expression[end:]),
 
   // Return true if a character is in the supplied range (false otherwise)
   between(char, lowest, highest):
@@ -63,8 +61,11 @@ limitations under the License.
     local condition(expression, index) =
       local remainder = expression[index:index + 1];
       remainder == '' || !self.isDigit(remainder);
+    self.parseUntilToken(expression, condition, 'naturalNum'),
+
+  parseUntilToken(expression, condition, name):
     local end = self.parseUntil(expression, condition, 0);
-    if end != 0 then self.indexRawToken('naturalNum', expression, end, end),
+    if end != 0 then self.indexRawToken(name, expression, end),
 
   parseIntToken(expression):
     local parseNegative(expression) = if std.startsWith(expression, '-') then
@@ -84,7 +85,7 @@ limitations under the License.
     function(expression)
       if std.startsWith(expression, constant) then
         local end = std.length(constant);
-        self.indexRawToken(name, expression, end, end),
+        self.indexRawToken(name, expression, end),
 
   delimitParser(prefix, suffix, parser):
     self.prefixParser(prefix, self.suffixParser(suffix, parser)),
@@ -110,8 +111,7 @@ limitations under the License.
   stringParser(quote, name):
     local condition(expression, index) = expression[index] == quote;
     self.delimitParser(quote, quote, function(expression)
-      local end = self.parseUntil(expression, condition, 0);
-      self.indexRawToken(name, expression, end, end)),
+      self.parseUntilToken(expression, condition, name)),
 
   // Return a token name, text, and remainder
   // Note: the returned text may omit some unneded syntax
@@ -145,7 +145,7 @@ limitations under the License.
       expression, condition, 0
     );
     if end == 0 then null else self.indexRawToken(
-      'id', expression, end, next=end
+      'id', expression, end
     ),
 
   // return an object containing the index of the ending character in the
@@ -169,27 +169,29 @@ limitations under the License.
       );
     parseOptional,
 
+  squash(optional):
+    if optional != null then
+      if optional.token.content == null then optional
+      else optional { token+: { content: super.content.content } },
+
   parseSliceInner(expression):
     local parseOptionalInt = self.optionalParser(self.parseIntToken);
-    local startResult = parseOptionalInt(expression);
-    if startResult.remainder != null then
-      local stopResult = self.prefixParser(
+    local start = self.squash(parseOptionalInt(expression));
+    if start.remainder != null then
+      local stop = self.squash(self.prefixParser(
         ':', parseOptionalInt
-      )(startResult.remainder);
-      if stopResult != null then
-        local stepResult = self.optionalParser(
-          self.prefixParser(':', parseOptionalInt)
-        )(stopResult.remainder);
-        local startToken = startResult.token.content;
-        local stopToken = stopResult.token.content;
-        local stepToken =
-          if stepResult.token.content != null
-          then stepResult.token.content.content;
+      )(start.remainder));
+      if stop != null then
+        local step = self.squash(
+          self.squash(self.optionalParser(
+            self.prefixParser(':', parseOptionalInt)
+          )(stop.remainder))
+        );
         self.rawToken('slice', {
-          start: if startToken != null then startToken.content,
-          stop: if stopToken != null then stopToken.content,
-          step: if stepToken != null then stepToken.content,
-        }, stepResult.remainder),
+          start: if start != null then start.token.content,
+          stop: if stop != null then stop.token.content,
+          step: if step != null then step.token.content,
+        }, step.remainder),
 
   // Try a series of parsers in order.
   // Works by constructing a nested if/else expression from the lowest priority
