@@ -1,1 +1,5 @@
 *.swp
+/bazel-bin
+/bazel-jmespath-jsonnet
+/bazel-out
+/bazel-testlogs
