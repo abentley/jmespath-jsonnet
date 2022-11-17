@@ -67,7 +67,12 @@ limitations under the License.
     local end = self.parseUntil(expression, condition, 0);
     if end != 0 then self.indexRawToken(name, expression, end),
 
-  parseIntToken(expression):
+  skipWhitespace(expression):
+    self.optionalParser(self.parseWhitespace)(expression).remainder,
+
+  parseIntToken: self.whitespaceParser(self.parseIntTokenInner),
+
+  parseIntTokenInner(expression):
     local parseNegative(expression) = if std.startsWith(expression, '-') then
       local token = self.parseNaturalNum(expression[1:]);
       if token != null then self.rawToken(
@@ -80,6 +85,18 @@ limitations under the License.
     if result != null then result { token+: {
       content: std.parseInt(super.content),
     } },
+
+  // Return a parser that skips whitespace on either side
+  whitespaceParser(parser)::
+    function(expr)
+      local expression = self.skipWhitespace(expr);
+      local result = parser(expression);
+      if result != null then
+        self.rawToken(
+          result.token.name,
+          result.token.content,
+          self.skipWhitespace(result.remainder)
+        ),
 
   constantParser(constant, name)::
     function(expression)
@@ -98,13 +115,18 @@ limitations under the License.
     self.rename(self.delimitParser('[', ']', self.parseIntToken), 'index'),
     self.delimitParser('[', ']', self.parseSliceInner),
     self.constantParser('*', 'objectWildcard'),
-    self.constantParser('[]', 'flatten'),
-    self.constantParser('[*]', 'arrayWildcard'),
+    self.delimitParser('[', ']', self.whitespaceParser(
+      self.constantParser('', 'flatten')
+    )),
+    self.delimitParser('[', ']', self.whitespaceParser(
+      self.constantParser('*', 'arrayWildcard')
+    )),
     self.prefixParser('.', self.nestingToken('subexpression')),
     self.prefixParser('|', self.nestingToken('pipe')),
     self.stringParser("'", 'rawString'),
     self.stringParser('"', 'idString'),
     self.stringParser('`', 'jsonLiteral'),
+    self.parseWhitespace,
   ],
 
   // Generic support for parsing strings into tokens.
@@ -112,6 +134,12 @@ limitations under the License.
     local condition(expression, index) = expression[index] == quote;
     self.delimitParser(quote, quote, function(expression)
       self.parseUntilToken(expression, condition, name)),
+
+  parseWhitespace(expression):
+    local condition(expression, index) = !std.member(
+      ' \n', expression[index:index + 1]
+    );
+    self.parseUntilToken(expression, condition, 'whitespace'),
 
   // Return a token name, text, and remainder
   // Note: the returned text may omit some unneded syntax
@@ -134,7 +162,7 @@ limitations under the License.
   alltokens(expression): (
     local result = self.someTokens(expression);
     if result.remainder == null then result.token.content
-    else error 'Unhandled expression: %s' % std.manifestJson(result.unparsed)
+    else error 'Unhandled expression: %s' % std.manifestJson(result.remainder)
   ),
 
   idToken(expression):

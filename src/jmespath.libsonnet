@@ -270,6 +270,8 @@ local exprFactory = {
     literal: string,
   },
 
+  whitespace(string, prev): prev,
+
   ImplComparator:: {
     evaluate(data): self.opFunc[self.op](
       self.left.search(data, null), self.right.search(data, null)

@@ -36,4 +36,4 @@ jobs:
         run: git clone https://github.com/jmespath/jmespath.test.git
 
       - name: Run compliance tests
-        run: jmespath.test/bin/jp-compliance -e $(pwd)/compliance.sh -t basic
+        run: python3 jmespath.test/bin/jp-compliance -e $(pwd)/compliance.sh -t basic
