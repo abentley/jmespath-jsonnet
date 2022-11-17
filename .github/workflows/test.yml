@@ -27,7 +27,13 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Install jsonnet
-        run: sudo apt-get install jsonnet bazel
+        run: sudo apt-get install jsonnet
 
       - name: Run tests
-        run: bazel test //... --test_output=errors
+        run: ./test.sh
+
+      - name: Check out compliance tests
+        run: git clone https://github.com/jmespath/jmespath.test.git
+
+      - name: Run compliance tests
+        run: jmespath.test/bin/jp-compliance -e compliance.sh -t basic

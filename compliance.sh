@@ -1,5 +1,12 @@
 #!/bin/bash
-export JSONNET_PATH=$(dirname $(realpath $0))/src
+# Quick-and-dirty executable for use with the jp-compliance executable.
+# Accepts a json file on stdin, a jmespath expression on argument 1, and writes
+# the result to stout.
+
+# Assume we're running from the root of the repo.  Update JSONNET_PATH
+# accordingly (if unset).
+: ${JSONNET_PATH=$(dirname $(realpath $0))/src}
+export JSONNET_PATH
 jsonnet --tla-code-file json=/proc/self/fd/0 --tla-str jmespath="$1" --exec \
     "local lib = import 'jmespath.libsonnet';
     function(json, jmespath) lib.search(jmespath, json)"
