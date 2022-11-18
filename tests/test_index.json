@@ -1,0 +1,9 @@
+[{
+  "given": { "a": [4, { "b": 5 }] },
+  "cases": [
+    {
+      "expression": "a[1].b",
+      "result": 5
+    }
+  ]
+}]

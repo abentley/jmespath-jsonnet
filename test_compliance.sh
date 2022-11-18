@@ -1,6 +1,8 @@
 #!/bin/bash
-set -eux
-: ${TEST_DIR=../jmespath.test/}
+: ${jp=$(realpath jp)}
+: ${RUNNER_DIR=../jmespath.test/}
+: ${TEST_DIR=$RUNNER_DIR/tests}
 : ${TESTS=basic}
-python3 $TEST_DIR/bin/jp-compliance -e $(realpath compliance.sh)\
-    --tests "$TESTS"
+set -eux
+python3 $RUNNER_DIR/bin/jp-compliance -e "$jp"\
+    -d $TEST_DIR --tests "$TESTS"

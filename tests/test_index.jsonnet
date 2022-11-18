@@ -16,10 +16,14 @@ limitations under the License.
 local jmespath = import 'jmespath.libsonnet';
 local test = import 'test.libsonnet';
 local test_eq = test.test_eq;
+local json = import 'test_index.json';
+
+local search_test = test.search_test;
+
 
 local results = {
-  test1: test_eq('b', jmespath.search('[1]', ['a', 'b', 'c', 'd', 'e', 'f'])),
-  test2: test_eq('b', jmespath.search('x1[1]', { x1: [
+  test1_search: test_eq('b', jmespath.search('[1]', ['a', 'b', 'c', 'd', 'e', 'f'])),
+  test2_search: test_eq('b', jmespath.search('x1[1]', { x1: [
     'a',
     'b',
     'c',
@@ -27,36 +31,17 @@ local results = {
     'e',
     'f',
   ] })),
-  test3:: test_eq(
-    ['a', 'bb', 'c', 'd', 'e', 'f'], jmespath.doPatch(
-      ['a', 'b', 'c', 'd', 'e', 'f'], '[1]', 'b'
-    )
-  ),
-  test4:: test_eq(
-    [{ b: 'd' }, { b: 'c' }], jmespath.doPatch(
-      [{ b: 'c' }, { b: 'c' }], '[0]', { b: 'd' }
-    )
-  ),
-  // patch works as long as the top-level item is an object
-  test5::
-    local data = { a: [{ b: 'c', d: { e: 'f' } }] };
-    test_eq({ a: [{ b: 'c', d: { e: 'g' } }] },
-            data + jmespath.patch('a[0]d', { e: 'g' })),
-  test6: test_eq(
+  test3_set: test_eq(
     [{ b: 'd' }, { b: 'c' }], jmespath.set(
       '[0].b', [{ b: 'c' }, { b: 'c' }], 'd'
     )
   ),
-  test7::
-    local extracted = jmespath.extractLast(jmespath.compile('[0]b')); test_eq(
-      {}, extracted[1].genSetPatch('d'),
-    ),
-  test8:
+  test4_compile:
     test_eq({
       type: 'index',
       index: 2,
     }, jmespath.compile('[2]')),
-  test9:
+  test5_compile:
     test_eq({
       type: 'joiner',
       left: {
@@ -68,15 +53,16 @@ local results = {
         index: 2,
       },
     }, jmespath.compile('[1][2]')),
-  test10:
+  test5_repr:
     test_eq('[1][2]', jmespath.compile('[1][2]').repr()),
-  test11:
+  test6_compile:
     test_eq('[1].[2]', jmespath.compile('[1].[2]').repr()),
-  test12:
+  test6_search:
     test_eq(null, jmespath.search('[1]', 5)),
-  test13:
+  test6_set:
     test_eq(5, jmespath.set('[1]', 5, 20)),
-  test14:
+  test6_map:
     test_eq(5, jmespath.map('[1]', 5, function(x) 20)),
+  test7_search: search_test(json[0], 0),
 };
 test.asTest(results)

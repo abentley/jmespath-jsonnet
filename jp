@@ -1,5 +1,6 @@
 #!/bin/bash
-# Quick-and-dirty executable for use with the jp-compliance executable.
+# Basic implementation of the jp executable, for use with the jp-compliance
+# executable.
 # Accepts a json file on stdin, a jmespath expression on argument 1, and writes
 # the result to stout.
 

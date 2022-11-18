@@ -21,15 +21,20 @@ local mapContents(data, func, next) =
 
 local tokens = import 'tokens.libsonnet';
 local exprFactory = {
+  maybeJoin(prev, value):
+    if prev != null then self.joiner(prev, value) else value,
+
+  local maybeJoin = self.maybeJoin,
+
   ImplMember: {
     searchNext(result, next)::
       if next == null || result == null then result
       else next.search(result, null),
     search(data, next)::
-      self.searchNext(self.searchResult(data), next),
+      std.trace(std.toString([data, next, self.type]), self.searchNext(self.searchResult(data), next)),
   },
   ImplIdSegment: self.ImplMember {
-    searchResult(data):
+    searchResult(data)::
       if std.type(data) != 'object' || !std.objectHasAll(data, self.id)
       then null
       else data[self.id],
@@ -64,9 +69,6 @@ local exprFactory = {
       ),
     repr():: '[%d]' % self.index,
   },
-
-  maybeJoin(prev, value):
-    if prev != null then self.joiner(prev, value) else value,
 
   // An expression object for looking up by index
   index(index, prev=null):
@@ -199,7 +201,9 @@ local exprFactory = {
     },
 
   ImplJoiner: {
-    search(data, next):: self.left.search(data, self.right),
+    search(data, next)::
+      local next2 = maybeJoin(self.right, next);
+      self.left.search(data, next2),
     map(data, func, next, allow_projection)::
       self.left.map(data, func, self.right, allow_projection=true),
     repr():: std.join('', [self.left.repr(), self.right.repr()]),
@@ -322,7 +326,9 @@ local exprFactory = {
 
 local jmespath = {
   // Return matching items
-  search(expression, data): self.compile(expression).search(data, null),
+  search(expression, data):
+    local compiled = self.compile(expression);
+    std.trace(std.manifestJson(compiled), compiled.search(data, null)),
 
   set(expression, data, value): self.map(expression, data, function(x) value),
 
