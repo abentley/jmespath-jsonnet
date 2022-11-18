@@ -31,7 +31,7 @@ local exprFactory = {
       if next == null || result == null then result
       else next.search(result, null),
     search(data, next)::
-      std.trace(std.toString([data, next, self.type]), self.searchNext(self.searchResult(data), next)),
+      self.searchNext(self.searchResult(data), next),
   },
   ImplIdSegment: self.ImplMember {
     searchResult(data)::
@@ -205,7 +205,9 @@ local exprFactory = {
       local next2 = maybeJoin(self.right, next);
       self.left.search(data, next2),
     map(data, func, next, allow_projection)::
-      self.left.map(data, func, self.right, allow_projection=true),
+      self.left.map(
+        data, func, maybeJoin(self.right, next), allow_projection=true,
+      ),
     repr():: std.join('', [self.left.repr(), self.right.repr()]),
   },
 
@@ -328,7 +330,7 @@ local jmespath = {
   // Return matching items
   search(expression, data):
     local compiled = self.compile(expression);
-    std.trace(std.manifestJson(compiled), compiled.search(data, null)),
+    compiled.search(data, null),
 
   set(expression, data, value): self.map(expression, data, function(x) value),
 

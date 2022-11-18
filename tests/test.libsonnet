@@ -18,6 +18,19 @@ local jmespath = import 'jmespath.libsonnet';
   search_test(suite, test_i):
     local case = suite.cases[test_i];
     self.test_eq(case.result, jmespath.search(case.expression, suite.given)),
+  // Given a "suite" (a set of cases associated with a json document) test
+  // whether mapping matches the expected value.
+  map_test(suite, test_i, result, operation):
+    local case = suite.cases[test_i];
+    self.test_eq(result, jmespath.map(case.expression, suite.given, operation)),
+  // Assert that the results of applying map and searching is the same as
+  // searching, then mapping.  This is necessary but not sufficient-- the map
+  // method could still be applying the operation in too many cases.
+  map_search_test(suite, test_i, operation):
+    local case = suite.cases[test_i];
+    self.test_eq(operation(case.result), jmespath.search(
+      case.expression, jmespath.map(case.expression, suite.given, operation)
+    )),
   listTests(results):
     std.join('', ['%s\n' % n for n in std.objectFields(results)]),
   asTest(results): function(testName=null, cmd='render')

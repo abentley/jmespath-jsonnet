@@ -16,9 +16,9 @@ limitations under the License.
 local jmespath = import 'jmespath.libsonnet';
 local test = import 'test.libsonnet';
 local test_eq = test.test_eq;
-local json = import 'test_index.json';
-
 local search_test = test.search_test;
+local map_test = test.map_test;
+local json_tests = import 'test_index.json';
 
 
 local results = {
@@ -63,6 +63,12 @@ local results = {
     test_eq(5, jmespath.set('[1]', 5, 20)),
   test6_map:
     test_eq(5, jmespath.map('[1]', 5, function(x) 20)),
-  test7_search: search_test(json[0], 0),
+  test7_search: search_test(json_tests[0], 0),
+  test7_map_search: test.map_search_test(
+    json_tests[0], 0, function(x) x + 1
+  ),
+  test7_map: map_test(
+    json_tests[0], 0, { a: [4, { b: 6 }] }, function(x) x + 1
+  ),
 };
 test.asTest(results)
