@@ -1,4 +1,226 @@
+......................
+FAIL benchmarks,0,4
+The expression: not_there || b
+was supposed to have a zero RC for test type 'bench',
+but instead gave rc of: 1, stderr: 
+RUNTIME ERROR: Unhandled expression: "_there || b"
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:165:10-79	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:322:24-52	thunk <tokens>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:329:7-13	thunk <arr>
+	std.jsonnet:790:15-18	thunk <arr>
+	std.jsonnet:786:28-31	
+	std.jsonnet:786:17-32	function <aux>
+	std.jsonnet:790:5-28	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:(327:5)-(331:6)	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:322:5-59	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:351:15-46	thunk <x>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:351:48	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:338:22-46	thunk <compiled>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:339:5-13	function <anonymous>
+	<cmdline>:2:30-56	function <top_level>
+	Top-level function	
 
+
+FAIL benchmarks,1,0
+The expression: a && b && c && d && e && f && g && h && i && j && k && l && m && n && o && p && q && r && s && t && u && v && w && x && y && z
+was supposed to have a zero RC for test type 'bench',
+but instead gave rc of: 1, stderr: 
+RUNTIME ERROR: Unhandled expression: "&& b && c && d && e && f && g && h && i && j && k && l && m && n && o && p && q && r && s && t && u && v && w && x && y && z"
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:165:10-79	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:322:24-52	thunk <tokens>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:329:7-13	thunk <arr>
+	std.jsonnet:790:15-18	thunk <arr>
+	std.jsonnet:786:28-31	
+	std.jsonnet:786:17-32	function <aux>
+	std.jsonnet:790:5-28	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:(327:5)-(331:6)	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:322:5-59	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:351:15-46	thunk <x>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:351:48	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:338:22-46	thunk <compiled>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:339:5-13	function <anonymous>
+	<cmdline>:2:30-56	function <top_level>
+	Top-level function	
+
+
+FAIL benchmarks,1,1
+The expression: z || y || x || w || v || u || t || s || r || q || p || o || n || m || l || k || j || i || h || g || f || e || d || c || b || a
+was supposed to have a zero RC for test type 'bench',
+but instead gave rc of: 1, stderr: 
+RUNTIME ERROR: max stack frames exceeded.
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:67:33-43	thunk <expression>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:181:18-28	thunk <expression>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:140:14-24	thunk <indexable>
+	std.jsonnet:210:25-34	thunk <v>
+	std.jsonnet:28:26	
+	std.jsonnet:28:17-28	thunk <a>
+	std.jsonnet:28:17-40	function <anonymous>
+	std.jsonnet:28:17-40	function <anonymous>
+	std.jsonnet:210:12-35	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:140:14-41	thunk <x>
+	...
+	std.jsonnet:786:17-32	function <aux>
+	std.jsonnet:790:5-28	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:(327:5)-(331:6)	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:322:5-59	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:351:15-46	thunk <x>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:351:48	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:338:22-46	thunk <compiled>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:339:5-13	function <anonymous>
+	<cmdline>:2:30-56	function <top_level>
+	Top-level function	
+
+
+FAIL benchmarks,1,2
+The expression: sum([z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a])
+was supposed to have a zero RC for test type 'bench',
+but instead gave rc of: 1, stderr: 
+RUNTIME ERROR: Unhandled expression: "([z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a])"
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:165:10-79	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:322:24-52	thunk <tokens>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:329:7-13	thunk <arr>
+	std.jsonnet:790:15-18	thunk <arr>
+	std.jsonnet:786:28-31	
+	std.jsonnet:786:17-32	function <aux>
+	std.jsonnet:790:5-28	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:(327:5)-(331:6)	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:322:5-59	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:351:15-46	thunk <x>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:351:48	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:338:22-46	thunk <compiled>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:339:5-13	function <anonymous>
+	<cmdline>:2:30-56	function <top_level>
+	Top-level function	
+
+
+FAIL benchmarks,1,3
+The expression: sum([z, sum([y, sum([x, sum([w, sum([v, sum([u, sum([t, sum([s, sum([r, sum([q, sum([p, sum([o, sum([n, sum([m, sum([l, sum([k, sum([j, sum([i, sum([h, sum([g, sum([f, sum([e, sum([d, sum([c, sum([b, a])])])])])])])])])])])])])])])])])])])])])])])])])
+was supposed to have a zero RC for test type 'bench',
+but instead gave rc of: 1, stderr: 
+RUNTIME ERROR: Unhandled expression: "([z, sum([y, sum([x, sum([w, sum([v, sum([u, sum([t, sum([s, sum([r, sum([q, sum([p, sum([o, sum([n, sum([m, sum([l, sum([k, sum([j, sum([i, sum([h, sum([g, sum([f, sum([e, sum([d, sum([c, sum([b, a])])])])])])])])])])])])])])])])])])])])])])])])])"
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:165:10-79	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:322:24-52	thunk <tokens>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:329:7-13	thunk <arr>
+	std.jsonnet:790:15-18	thunk <arr>
+	std.jsonnet:786:28-31	
+	std.jsonnet:786:17-32	function <aux>
+	std.jsonnet:790:5-28	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:(327:5)-(331:6)	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:322:5-59	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:351:15-46	thunk <x>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:351:48	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:338:22-46	thunk <compiled>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:339:5-13	function <anonymous>
+	<cmdline>:2:30-56	function <top_level>
+	Top-level function	
+
+
+FAIL benchmarks,1,4
+The expression: [z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a]
+was supposed to have a zero RC for test type 'bench',
+but instead gave rc of: 1, stderr: 
+RUNTIME ERROR: Unhandled expression: "[z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a]"
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:165:10-79	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:322:24-52	thunk <tokens>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:329:7-13	thunk <arr>
+	std.jsonnet:790:15-18	thunk <arr>
+	std.jsonnet:786:28-31	
+	std.jsonnet:786:17-32	function <aux>
+	std.jsonnet:790:5-28	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:(327:5)-(331:6)	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:322:5-59	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:351:15-46	thunk <x>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:351:48	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:338:22-46	thunk <compiled>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:339:5-13	function <anonymous>
+	<cmdline>:2:30-56	function <top_level>
+	Top-level function	
+
+
+FAIL benchmarks,2,0
+The expression: j49.j48.j47.j46.j45.j44.j43.j42.j41.j40.j39.j38.j37.j36.j35.j34.j33.j32.j31.j30.j29.j28.j27.j26.j25.j24.j23.j22.j21.j20.j19.j18.j17.j16.j15.j14.j13.j12.j11.j10.j9.j8.j7.j6.j5.j4.j3.j2.j1.j0
+was supposed to have a zero RC for test type 'bench',
+but instead gave rc of: 1, stderr: 
+RUNTIME ERROR: max stack frames exceeded.
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:26:54-57	thunk <index>
+	std.jsonnet:197:14-19	thunk <a>
+	std.jsonnet:197:14-27	function <anonymous>
+	std.jsonnet:197:14-27	object <invar>
+	std.jsonnet:208:12-23	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:26:43-59	thunk <remainder>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:22:19-28	thunk <a>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	object <result>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:227:41-57	thunk <expression>
+	...
+	std.jsonnet:786:17-32	function <aux>
+	std.jsonnet:790:5-28	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:(327:5)-(331:6)	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:322:5-59	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:351:15-46	thunk <x>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:351:48	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:338:22-46	thunk <compiled>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:339:5-13	function <anonymous>
+	<cmdline>:2:30-56	function <top_level>
+	Top-level function	
+
+
+FAIL benchmarks,2,1
+The expression: j49|j48|j47|j46|j45|j44|j43|j42|j41|j40|j39|j38|j37|j36|j35|j34|j33|j32|j31|j30|j29|j28|j27|j26|j25|j24|j23|j22|j21|j20|j19|j18|j17|j16|j15|j14|j13|j12|j11|j10|j9|j8|j7|j6|j5|j4|j3|j2|j1|j0
+was supposed to have a zero RC for test type 'bench',
+but instead gave rc of: 1, stderr: 
+RUNTIME ERROR: max stack frames exceeded.
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:26:54-57	thunk <index>
+	std.jsonnet:197:14-19	thunk <a>
+	std.jsonnet:197:14-27	function <anonymous>
+	std.jsonnet:197:14-27	object <invar>
+	std.jsonnet:208:12-23	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:26:43-59	thunk <remainder>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:22:19-28	thunk <a>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	object <result>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:227:41-57	thunk <expression>
+	...
+	std.jsonnet:786:17-32	function <aux>
+	std.jsonnet:790:5-28	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:(327:5)-(331:6)	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:322:5-59	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:351:15-46	thunk <x>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:351:48	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:338:22-46	thunk <compiled>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:339:5-13	function <anonymous>
+	<cmdline>:2:30-56	function <top_level>
+	Top-level function	
+
+..
+FAIL benchmarks,2,4
+The expression: a[*].b[*].c[*].d[*].e[*].f[*].g[*].h[*].i[*].j[*].k[*].l[*].m[*].n[*].o[*].p[*].q[*].r[*].s[*].t[*].u[*].v[*].w[*].x[*].y[*].z[*].a[*].b[*].c[*].d[*].e[*].f[*].g[*].h[*].i[*].j[*].k[*].l[*].m[*].n[*].o[*].p[*].q[*].r[*].s[*].t[*].u[*].v[*].w[*].x[*].y[*].z[*].a[*].b[*].c[*].d[*].e[*].f[*].g[*].h[*].i[*].j[*].k[*].l[*].m[*].n[*].o[*].p[*].q[*].r[*].s[*].t[*].u[*].v[*].w[*].x[*].y[*].z[*].a[*].b[*].c[*].d[*].e[*].f[*].g[*].h[*].i[*].j[*].k[*].l[*].m[*].n[*].o[*].p[*].q[*].r[*].s[*].t[*].u[*].v[*].w[*].x[*].y[*].z[*]
+was supposed to have a zero RC for test type 'bench',
+but instead gave rc of: 1, stderr: 
+RUNTIME ERROR: max stack frames exceeded.
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:199:36-46	thunk <expression>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:189:31-41	thunk <expr>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:92:46-50	thunk <expression>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:71:47-57	thunk <expression>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:189:31-41	thunk <expression>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:142:26-36	thunk <expression>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:67:33-43	thunk <expression>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:181:18-28	thunk <expression>
+	/home/abentley/jmespath-jsonnet/src/tokens.libsonnet:140:14-24	thunk <indexable>
+	std.jsonnet:210:25-34	thunk <v>
+	...
+	std.jsonnet:786:17-32	function <aux>
+	std.jsonnet:790:5-28	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:(327:5)-(331:6)	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:322:5-59	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:351:15-46	thunk <x>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:351:48	function <anonymous>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:338:22-46	thunk <compiled>
+	/home/abentley/jmespath-jsonnet/src/jmespath.libsonnet:339:5-13	function <anonymous>
+	<cmdline>:2:30-56	function <top_level>
+	Top-level function	
+
+.
 FAIL boolean,0,0
 The expression: outer.foo || outer.bar
 was supposed to give: "foo"
@@ -298,499 +520,7 @@ The expression: one < two || three < one
 was supposed to give: true
 for the JSON: {"one": 1, "two": 2, "three": 3, "emptylist": [], "boolvalue": false}
 but instead gave: false
-.....
-FAIL identifiers,0,0
-The expression: __L
-was supposed to give: true
-for the JSON: {"__L": true}
-but instead gave: ""
-
-FAIL identifiers,1,0
-The expression: "!\r"
-was supposed to give: true
-for the JSON: {"!\r": true}
-but instead gave: null
-
-FAIL identifiers,2,0
-The expression: Y_1623
-was supposed to give: true
-for the JSON: {"Y_1623": true}
-but instead gave: ""
 .
-FAIL identifiers,4,0
-The expression: "\tF\uCebb"
-was supposed to give: true
-for the JSON: {"\tF\ucebb": true}
-but instead gave: null
-
-FAIL identifiers,5,0
-The expression: " \t"
-was supposed to give: true
-for the JSON: {" \t": true}
-but instead gave: null
-..
-FAIL identifiers,8,0
-The expression: "\t"
-was supposed to give: true
-for the JSON: {"\t": true}
-but instead gave: null
-
-FAIL identifiers,9,0
-The expression: _X
-was supposed to give: true
-for the JSON: {"_X": true}
-but instead gave: ""
-
-FAIL identifiers,10,0
-The expression: "\t4\ud9da\udd15"
-was supposed to give: true
-for the JSON: {"\t4\ud9da\udd15": true}
-but instead gave: null
-
-FAIL identifiers,11,0
-The expression: v24_W
-was supposed to give: true
-for the JSON: {"v24_W": true}
-but instead gave: ""
-.
-FAIL identifiers,13,0
-The expression: "\f"
-was supposed to give: true
-for the JSON: {"\f": true}
-but instead gave: null
-.....
-FAIL identifiers,19,0
-The expression: _6W
-was supposed to give: true
-for the JSON: {"_6W": true}
-but instead gave: ""
-
-FAIL identifiers,20,0
-The expression: "\uaBA1\r"
-was supposed to give: true
-for the JSON: {"\uaba1\r": true}
-but instead gave: null
-.
-FAIL identifiers,22,0
-The expression: "<<U\t"
-was supposed to give: true
-for the JSON: {"<<U\t": true}
-but instead gave: null
-
-FAIL identifiers,23,0
-The expression: "\ubBcE\ufAfB"
-was supposed to give: true
-for the JSON: {"\ubbce\ufafb": true}
-but instead gave: null
-
-FAIL identifiers,24,0
-The expression: sNA_
-was supposed to give: true
-for the JSON: {"sNA_": true}
-but instead gave: ""
-.
-FAIL identifiers,26,0
-The expression: "\\\b\ud8cb\udc83"
-was supposed to give: true
-for the JSON: {"\\\b\ud8cb\udc83": true}
-but instead gave: null
-..
-FAIL identifiers,29,0
-The expression: _Q__7GL8
-was supposed to give: true
-for the JSON: {"_Q__7GL8": true}
-but instead gave: ""
-
-FAIL identifiers,30,0
-The expression: "\\"
-was supposed to give: true
-for the JSON: {"\\": true}
-but instead gave: null
-
-FAIL identifiers,31,0
-The expression: RR9_
-was supposed to give: true
-for the JSON: {"RR9_": true}
-but instead gave: ""
-
-FAIL identifiers,32,0
-The expression: "\r\f:"
-was supposed to give: true
-for the JSON: {"\r\f:": true}
-but instead gave: null
-...
-FAIL identifiers,36,0
-The expression: __
-was supposed to give: true
-for the JSON: {"__": true}
-but instead gave: ""
-
-FAIL identifiers,37,0
-The expression: "\b\t"
-was supposed to give: true
-for the JSON: {"\b\t": true}
-but instead gave: null
-
-FAIL identifiers,38,0
-The expression: O_
-was supposed to give: true
-for the JSON: {"O_": true}
-but instead gave: ""
-
-FAIL identifiers,39,0
-The expression: _r_8
-was supposed to give: true
-for the JSON: {"_r_8": true}
-but instead gave: ""
-
-FAIL identifiers,40,0
-The expression: _j
-was supposed to give: true
-for the JSON: {"_j": true}
-but instead gave: ""
-.
-FAIL identifiers,42,0
-The expression: "\rB"
-was supposed to give: true
-for the JSON: {"\rB": true}
-but instead gave: null
-.
-FAIL identifiers,44,0
-The expression: "\n"
-was supposed to give: true
-for the JSON: {"\n": true}
-but instead gave: null
-
-FAIL identifiers,45,0
-The expression: "\f󥌳"
-was supposed to give: true
-for the JSON: {"\f\udb54\udf33": true}
-but instead gave: null
-
-FAIL identifiers,46,0
-The expression: "\\\u4FDc"
-was supposed to give: true
-for the JSON: {"\\\u4fdc": true}
-but instead gave: null
-
-FAIL identifiers,47,0
-The expression: "\r"
-was supposed to give: true
-for the JSON: {"\r": true}
-but instead gave: null
-
-FAIL identifiers,48,0
-The expression: m_
-was supposed to give: true
-for the JSON: {"m_": true}
-but instead gave: ""
-
-FAIL identifiers,49,0
-The expression: "\r\fB "
-was supposed to give: true
-for the JSON: {"\r\fB ": true}
-but instead gave: null
-
-FAIL identifiers,50,0
-The expression: "+\"\""
-was supposed to give: true
-for the JSON: {"+\"\"": true}
-but instead gave: ""
-.
-FAIL identifiers,52,0
-The expression: "\"!\/"
-was supposed to give: true
-for the JSON: {"\"!/": true}
-but instead gave: ""
-
-FAIL identifiers,53,0
-The expression: "7\""
-was supposed to give: true
-for the JSON: {"7\"": true}
-but instead gave: ""
-
-FAIL identifiers,54,0
-The expression: "\\󞢤S"
-was supposed to give: true
-for the JSON: {"\\\udb3a\udca4S": true}
-but instead gave: null
-
-FAIL identifiers,55,0
-The expression: "\""
-was supposed to give: true
-for the JSON: {"\"": true}
-but instead gave: ""
-.
-FAIL identifiers,57,0
-The expression: "\b\b"
-was supposed to give: true
-for the JSON: {"\b\b": true}
-but instead gave: null
-....
-FAIL identifiers,62,0
-The expression: "!I\n\/"
-was supposed to give: true
-for the JSON: {"!I\n/": true}
-but instead gave: null
-
-FAIL identifiers,63,0
-The expression: "\uEEbF"
-was supposed to give: true
-for the JSON: {"\ueebf": true}
-but instead gave: null
-
-FAIL identifiers,64,0
-The expression: "U)\t"
-was supposed to give: true
-for the JSON: {"U)\t": true}
-but instead gave: null
-
-FAIL identifiers,65,0
-The expression: fa0_9
-was supposed to give: true
-for the JSON: {"fa0_9": true}
-but instead gave: ""
-..
-FAIL identifiers,68,0
-The expression: "\b"
-was supposed to give: true
-for the JSON: {"\b": true}
-but instead gave: null
-.
-FAIL identifiers,70,0
-The expression: "\t"
-was supposed to give: true
-for the JSON: {"\t": true}
-but instead gave: null
-
-FAIL identifiers,71,0
-The expression: "\t&\\\r"
-was supposed to give: true
-for the JSON: {"\t&\\\r": true}
-but instead gave: null
-.
-FAIL identifiers,73,0
-The expression: B__
-was supposed to give: true
-for the JSON: {"B__": true}
-but instead gave: ""
-
-FAIL identifiers,74,0
-The expression: "\nS \n"
-was supposed to give: true
-for the JSON: {"\nS \n": true}
-but instead gave: null
-.
-FAIL identifiers,76,0
-The expression: ",\t;"
-was supposed to give: true
-for the JSON: {",\t;": true}
-but instead gave: null
-
-FAIL identifiers,77,0
-The expression: B_q
-was supposed to give: true
-for the JSON: {"B_q": true}
-but instead gave: ""
-
-FAIL identifiers,78,0
-The expression: "\/+\t\n\b!Z"
-was supposed to give: true
-for the JSON: {"/+\t\n\b!Z": true}
-but instead gave: null
-
-FAIL identifiers,79,0
-The expression: "󇟇\\ueFAc"
-was supposed to give: true
-for the JSON: {"\udadd\udfc7\\ueFAc": true}
-but instead gave: null
-
-FAIL identifiers,80,0
-The expression: ":\f"
-was supposed to give: true
-for the JSON: {":\f": true}
-but instead gave: null
-
-FAIL identifiers,81,0
-The expression: "\/"
-was supposed to give: true
-for the JSON: {"/": true}
-but instead gave: null
-
-FAIL identifiers,82,0
-The expression: _BW_6Hg_Gl
-was supposed to give: true
-for the JSON: {"_BW_6Hg_Gl": true}
-but instead gave: ""
-
-FAIL identifiers,83,0
-The expression: "􃰂"
-was supposed to give: true
-for the JSON: {"\udbcf\udc02": true}
-but instead gave: null
-.
-FAIL identifiers,85,0
-The expression: __434
-was supposed to give: true
-for the JSON: {"__434": true}
-but instead gave: ""
-
-FAIL identifiers,86,0
-The expression: "󵅁"
-was supposed to give: true
-for the JSON: {"\udb94\udd41": true}
-but instead gave: null
-
-FAIL identifiers,87,0
-The expression: Z_5
-was supposed to give: true
-for the JSON: {"Z_5": true}
-but instead gave: ""
-
-FAIL identifiers,88,0
-The expression: z_M_
-was supposed to give: true
-for the JSON: {"z_M_": true}
-but instead gave: ""
-
-FAIL identifiers,89,0
-The expression: YU_2
-was supposed to give: true
-for the JSON: {"YU_2": true}
-but instead gave: ""
-
-FAIL identifiers,90,0
-The expression: _0
-was supposed to give: true
-for the JSON: {"_0": true}
-but instead gave: ""
-
-FAIL identifiers,91,0
-The expression: "\b+"
-was supposed to give: true
-for the JSON: {"\b+": true}
-but instead gave: null
-
-FAIL identifiers,92,0
-The expression: "\""
-was supposed to give: true
-for the JSON: {"\"": true}
-but instead gave: ""
-.
-FAIL identifiers,94,0
-The expression: _62L
-was supposed to give: true
-for the JSON: {"_62L": true}
-but instead gave: ""
-
-FAIL identifiers,95,0
-The expression: "\tK\t"
-was supposed to give: true
-for the JSON: {"\tK\t": true}
-but instead gave: null
-
-FAIL identifiers,96,0
-The expression: "\n\\\f"
-was supposed to give: true
-for the JSON: {"\n\\\f": true}
-but instead gave: null
-
-FAIL identifiers,97,0
-The expression: I_
-was supposed to give: true
-for the JSON: {"I_": true}
-but instead gave: ""
-
-FAIL identifiers,98,0
-The expression: W_a0_
-was supposed to give: true
-for the JSON: {"W_a0_": true}
-but instead gave: ""
-.
-FAIL identifiers,100,0
-The expression: "\tX$\uABBb"
-was supposed to give: true
-for the JSON: {"\tX$\uabbb": true}
-but instead gave: null
-.
-FAIL identifiers,102,0
-The expression: "\b%\"򞄏"
-was supposed to give: true
-for the JSON: {"\b%\"\uda38\udd0f": true}
-but instead gave: ""
-
-FAIL identifiers,103,0
-The expression: _F
-was supposed to give: true
-for the JSON: {"_F": true}
-but instead gave: ""
-.
-FAIL identifiers,105,0
-The expression: "\"!"
-was supposed to give: true
-for the JSON: {"\"!": true}
-but instead gave: ""
-..
-FAIL identifiers,108,0
-The expression: "9\r\\R"
-was supposed to give: true
-for the JSON: {"9\r\\R": true}
-but instead gave: null
-
-FAIL identifiers,109,0
-The expression: M_k
-was supposed to give: true
-for the JSON: {"M_k": true}
-but instead gave: ""
-
-FAIL identifiers,110,0
-The expression: "!\b\n󑩒\"\""
-was supposed to give: true
-for the JSON: {"!\b\n\udb06\ude52\"\"": true}
-but instead gave: ""
-.
-FAIL identifiers,112,0
-The expression: _7
-was supposed to give: true
-for the JSON: {"_7": true}
-but instead gave: ""
-.
-FAIL identifiers,114,0
-The expression: "\\8\\"
-was supposed to give: true
-for the JSON: {"\\8\\": true}
-but instead gave: null
-.....
-FAIL identifiers,120,0
-The expression: "VH2&H\\\/"
-was supposed to give: true
-for the JSON: {"VH2&H\\/": true}
-but instead gave: null
-
-FAIL identifiers,121,0
-The expression: _C
-was supposed to give: true
-for the JSON: {"_C": true}
-but instead gave: ""
-
-FAIL identifiers,122,0
-The expression: _
-was supposed to give: true
-for the JSON: {"_": true}
-but instead gave: ""
-
-FAIL identifiers,123,0
-The expression: "<\t"
-was supposed to give: true
-for the JSON: {"<\t": true}
-but instead gave: null
-
-FAIL identifiers,124,0
-The expression: "\uD834\uDD1E"
-was supposed to give: true
-for the JSON: {"\ud834\udd1e": true}
-but instead gave: null
-
 FAIL current,0,0
 The expression: @
 was supposed to give: {"foo": [{"name": "a"}, {"name": "b"}], "bar": {"baz": "qux"}}
@@ -832,757 +562,7 @@ The expression: "\"\"\""
 was supposed to give: "threequotes"
 for the JSON: {"foo.bar": "dot", "foo bar": "space", "foo\nbar": "newline", "foo\"bar": "doublequote", "c:\\\\windows\\path": "windows", "/unix/path": "unix", "\"\"\"": "threequotes", "bar": {"baz": "qux"}}
 but instead gave: ""
-.....
-FAIL benchmarks,0,4
-The expression: not_there || b
-was supposed to have a zero RC for test type 'bench',
-but instead gave rc of: 1, stderr: 
-RUNTIME ERROR: Unhandled expression: "_there || b"
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:165:10-79	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:319:24-52	thunk <tokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:326:7-13	thunk <arr>
-	std.jsonnet:790:15-18	thunk <arr>
-	std.jsonnet:786:28-31	
-	std.jsonnet:786:17-32	function <aux>
-	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(324:5)-(328:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:319:5-59	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:348:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:348:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:335:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:336:5-13	function <anonymous>
-	<cmdline>:2:30-56	function <top_level>
-	Top-level function	
-
-
-FAIL benchmarks,1,0
-The expression: a && b && c && d && e && f && g && h && i && j && k && l && m && n && o && p && q && r && s && t && u && v && w && x && y && z
-was supposed to have a zero RC for test type 'bench',
-but instead gave rc of: 1, stderr: 
-RUNTIME ERROR: Unhandled expression: "&& b && c && d && e && f && g && h && i && j && k && l && m && n && o && p && q && r && s && t && u && v && w && x && y && z"
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:165:10-79	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:319:24-52	thunk <tokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:326:7-13	thunk <arr>
-	std.jsonnet:790:15-18	thunk <arr>
-	std.jsonnet:786:28-31	
-	std.jsonnet:786:17-32	function <aux>
-	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(324:5)-(328:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:319:5-59	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:348:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:348:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:335:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:336:5-13	function <anonymous>
-	<cmdline>:2:30-56	function <top_level>
-	Top-level function	
-
-
-FAIL benchmarks,1,1
-The expression: z || y || x || w || v || u || t || s || r || q || p || o || n || m || l || k || j || i || h || g || f || e || d || c || b || a
-was supposed to have a zero RC for test type 'bench',
-but instead gave rc of: 1, stderr: 
-RUNTIME ERROR: max stack frames exceeded.
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:67:33-43	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:181:18-28	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:140:14-24	thunk <indexable>
-	std.jsonnet:210:25-34	thunk <v>
-	std.jsonnet:28:26	
-	std.jsonnet:28:17-28	thunk <a>
-	std.jsonnet:28:17-40	function <anonymous>
-	std.jsonnet:28:17-40	function <anonymous>
-	std.jsonnet:210:12-35	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:140:14-41	thunk <x>
-	...
-	std.jsonnet:786:17-32	function <aux>
-	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(324:5)-(328:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:319:5-59	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:348:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:348:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:335:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:336:5-13	function <anonymous>
-	<cmdline>:2:30-56	function <top_level>
-	Top-level function	
-
-
-FAIL benchmarks,1,2
-The expression: sum([z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a])
-was supposed to have a zero RC for test type 'bench',
-but instead gave rc of: 1, stderr: 
-RUNTIME ERROR: Unhandled expression: "([z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a])"
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:165:10-79	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:319:24-52	thunk <tokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:326:7-13	thunk <arr>
-	std.jsonnet:790:15-18	thunk <arr>
-	std.jsonnet:786:28-31	
-	std.jsonnet:786:17-32	function <aux>
-	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(324:5)-(328:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:319:5-59	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:348:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:348:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:335:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:336:5-13	function <anonymous>
-	<cmdline>:2:30-56	function <top_level>
-	Top-level function	
-
-
-FAIL benchmarks,1,3
-The expression: sum([z, sum([y, sum([x, sum([w, sum([v, sum([u, sum([t, sum([s, sum([r, sum([q, sum([p, sum([o, sum([n, sum([m, sum([l, sum([k, sum([j, sum([i, sum([h, sum([g, sum([f, sum([e, sum([d, sum([c, sum([b, a])])])])])])])])])])])])])])])])])])])])])])])])])
-was supposed to have a zero RC for test type 'bench',
-but instead gave rc of: 1, stderr: 
-RUNTIME ERROR: Unhandled expression: "([z, sum([y, sum([x, sum([w, sum([v, sum([u, sum([t, sum([s, sum([r, sum([q, sum([p, sum([o, sum([n, sum([m, sum([l, sum([k, sum([j, sum([i, sum([h, sum([g, sum([f, sum([e, sum([d, sum([c, sum([b, a])])])])])])])])])])])])])])])])])])])])])])])])])"
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:165:10-79	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:319:24-52	thunk <tokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:326:7-13	thunk <arr>
-	std.jsonnet:790:15-18	thunk <arr>
-	std.jsonnet:786:28-31	
-	std.jsonnet:786:17-32	function <aux>
-	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(324:5)-(328:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:319:5-59	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:348:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:348:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:335:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:336:5-13	function <anonymous>
-	<cmdline>:2:30-56	function <top_level>
-	Top-level function	
-
-
-FAIL benchmarks,1,4
-The expression: [z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a]
-was supposed to have a zero RC for test type 'bench',
-but instead gave rc of: 1, stderr: 
-RUNTIME ERROR: Unhandled expression: "[z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a]"
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:165:10-79	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:319:24-52	thunk <tokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:326:7-13	thunk <arr>
-	std.jsonnet:790:15-18	thunk <arr>
-	std.jsonnet:786:28-31	
-	std.jsonnet:786:17-32	function <aux>
-	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(324:5)-(328:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:319:5-59	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:348:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:348:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:335:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:336:5-13	function <anonymous>
-	<cmdline>:2:30-56	function <top_level>
-	Top-level function	
-
-
-FAIL benchmarks,2,0
-The expression: j49.j48.j47.j46.j45.j44.j43.j42.j41.j40.j39.j38.j37.j36.j35.j34.j33.j32.j31.j30.j29.j28.j27.j26.j25.j24.j23.j22.j21.j20.j19.j18.j17.j16.j15.j14.j13.j12.j11.j10.j9.j8.j7.j6.j5.j4.j3.j2.j1.j0
-was supposed to have a zero RC for test type 'bench',
-but instead gave rc of: 1, stderr: 
-RUNTIME ERROR: max stack frames exceeded.
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:26:54-57	thunk <index>
-	std.jsonnet:197:14-19	thunk <a>
-	std.jsonnet:197:14-27	function <anonymous>
-	std.jsonnet:197:14-27	object <invar>
-	std.jsonnet:208:12-23	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:26:43-59	thunk <remainder>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-28	thunk <a>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	object <result>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:227:41-57	thunk <expression>
-	...
-	std.jsonnet:786:17-32	function <aux>
-	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(324:5)-(328:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:319:5-59	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:348:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:348:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:335:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:336:5-13	function <anonymous>
-	<cmdline>:2:30-56	function <top_level>
-	Top-level function	
-
-
-FAIL benchmarks,2,1
-The expression: j49|j48|j47|j46|j45|j44|j43|j42|j41|j40|j39|j38|j37|j36|j35|j34|j33|j32|j31|j30|j29|j28|j27|j26|j25|j24|j23|j22|j21|j20|j19|j18|j17|j16|j15|j14|j13|j12|j11|j10|j9|j8|j7|j6|j5|j4|j3|j2|j1|j0
-was supposed to have a zero RC for test type 'bench',
-but instead gave rc of: 1, stderr: 
-RUNTIME ERROR: max stack frames exceeded.
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:26:54-57	thunk <index>
-	std.jsonnet:197:14-19	thunk <a>
-	std.jsonnet:197:14-27	function <anonymous>
-	std.jsonnet:197:14-27	object <invar>
-	std.jsonnet:208:12-23	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:26:43-59	thunk <remainder>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-28	thunk <a>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	object <result>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:227:41-57	thunk <expression>
-	...
-	std.jsonnet:786:17-32	function <aux>
-	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(324:5)-(328:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:319:5-59	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:348:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:348:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:335:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:336:5-13	function <anonymous>
-	<cmdline>:2:30-56	function <top_level>
-	Top-level function	
-
-..
-FAIL benchmarks,2,4
-The expression: a[*].b[*].c[*].d[*].e[*].f[*].g[*].h[*].i[*].j[*].k[*].l[*].m[*].n[*].o[*].p[*].q[*].r[*].s[*].t[*].u[*].v[*].w[*].x[*].y[*].z[*].a[*].b[*].c[*].d[*].e[*].f[*].g[*].h[*].i[*].j[*].k[*].l[*].m[*].n[*].o[*].p[*].q[*].r[*].s[*].t[*].u[*].v[*].w[*].x[*].y[*].z[*].a[*].b[*].c[*].d[*].e[*].f[*].g[*].h[*].i[*].j[*].k[*].l[*].m[*].n[*].o[*].p[*].q[*].r[*].s[*].t[*].u[*].v[*].w[*].x[*].y[*].z[*].a[*].b[*].c[*].d[*].e[*].f[*].g[*].h[*].i[*].j[*].k[*].l[*].m[*].n[*].o[*].p[*].q[*].r[*].s[*].t[*].u[*].v[*].w[*].x[*].y[*].z[*]
-was supposed to have a zero RC for test type 'bench',
-but instead gave rc of: 1, stderr: 
-RUNTIME ERROR: max stack frames exceeded.
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:199:36-46	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:189:31-41	thunk <expr>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:92:46-50	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:71:47-57	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:189:31-41	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:142:26-36	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:67:33-43	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:181:18-28	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:140:14-24	thunk <indexable>
-	std.jsonnet:210:25-34	thunk <v>
-	...
-	std.jsonnet:786:17-32	function <aux>
-	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(324:5)-(328:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:319:5-59	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:348:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:348:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:335:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:336:5-13	function <anonymous>
-	<cmdline>:2:30-56	function <top_level>
-	Top-level function	
-
-.......
-FAIL syntax,0,6
-The expression: foo..bar
-was supposed to have non zero for error error: syntax
-but instead gave rc of: 0, stderr: 
-
-...............................
-FAIL syntax,5,8
-The expression: foo[*]*
-was supposed to have non zero for error error: syntax
-but instead gave rc of: 0, stderr: 
-
 .
-FAIL syntax,6,0
-The expression: []
-was supposed to give: null
-for the JSON: {"type": "object"}
-but instead gave: ""
-.
-FAIL syntax,7,1
-The expression: [*]
-was supposed to give: null
-for the JSON: {"type": "object"}
-but instead gave: {"type": "object"}
-
-FAIL syntax,7,2
-The expression: *.[0]
-was supposed to have non zero for error error: syntax
-but instead gave rc of: 0, stderr: 
-
-.
-FAIL syntax,7,3
-The expression: *.["0"]
-was supposed to give: [[null]]
-for the JSON: {"type": "object"}
-but instead gave: ""
-
-FAIL syntax,7,4
-The expression: [*].bar
-was supposed to give: null
-for the JSON: {"type": "object"}
-but instead gave: ""
-
-FAIL syntax,7,5
-The expression: [*][0]
-was supposed to give: null
-for the JSON: {"type": "object"}
-but instead gave: ""
-........
-FAIL syntax,9,2
-The expression: foo.[0]
-was supposed to have non zero for error error: syntax
-but instead gave rc of: 0, stderr: 
-
-..........
-FAIL syntax,9,12
-The expression: foo.[abc]
-was supposed to give: null
-for the JSON: {"type": "object"}
-but instead gave: ""
-
-FAIL syntax,9,13
-The expression: foo.[abc, def]
-was supposed to give: null
-for the JSON: {"type": "object"}
-but instead gave: ""
-..................
-FAIL syntax,10,14
-The expression: a.{foo: bar}
-was supposed to give: null
-for the JSON: {"type": "object"}
-but instead gave: ""
-
-FAIL syntax,10,15
-The expression: a.{foo: bar, baz: bam}
-was supposed to give: null
-for the JSON: {"type": "object"}
-but instead gave: ""
-....
-FAIL syntax,10,20
-The expression: {"\\":{" ":*}}
-was supposed to give: {"\\": {" ": ["object"]}}
-for the JSON: {"type": "object"}
-but instead gave: ""
-...
-FAIL syntax,11,2
-The expression: foo.|| bar
-was supposed to have non zero for error error: syntax
-but instead gave rc of: 0, stderr: 
-
-.
-FAIL syntax,11,3
-The expression:  || foo
-was supposed to have non zero for error error: syntax
-but instead gave rc of: 0, stderr: 
-
-.
-FAIL syntax,11,4
-The expression: foo || || foo
-was supposed to have non zero for error error: syntax
-but instead gave rc of: 0, stderr: 
-
-.
-FAIL syntax,11,5
-The expression: foo.[a || b]
-was supposed to give: null
-for the JSON: {"type": "object"}
-but instead gave: ""
-..
-FAIL syntax,12,0
-The expression: foo[?bar==`"baz"`]
-was supposed to give: null
-for the JSON: {"type": "object"}
-but instead gave: ""
-
-FAIL syntax,12,1
-The expression: foo[? bar == `"baz"` ]
-was supposed to give: null
-for the JSON: {"type": "object"}
-but instead gave: ""
-.....
-FAIL syntax,12,7
-The expression: foo[?a.b.c==d.e.f]
-was supposed to give: null
-for the JSON: {"type": "object"}
-but instead gave: ""
-
-FAIL syntax,12,8
-The expression: foo[?bar==`[0, 1, 2]`]
-was supposed to give: null
-for the JSON: {"type": "object"}
-but instead gave: ""
-
-FAIL syntax,12,9
-The expression: foo[?bar==`["a", "b", "c"]`]
-was supposed to give: null
-for the JSON: {"type": "object"}
-but instead gave: ""
-.
-FAIL syntax,12,11
-The expression: foo[?bar==`["foo\`bar"]`]
-was supposed to give: null
-for the JSON: {"type": "object"}
-but instead gave: ""
-...
-FAIL syntax,12,15
-The expression: [?"\\">`"foo"`]
-was supposed to give: null
-for the JSON: {"type": "object"}
-but instead gave: ""
-
-FAIL syntax,12,16
-The expression: [?"\\" > `"foo"`]
-was supposed to give: null
-for the JSON: {"type": "object"}
-but instead gave: ""
-
-FAIL syntax,13,0
-The expression: bar.`"anything"`
-was supposed to have non zero for error error: syntax
-but instead gave rc of: 0, stderr: 
-
-.
-FAIL syntax,13,1
-The expression: bar.baz.noexists.`"literal"`
-was supposed to have non zero for error error: syntax
-but instead gave rc of: 0, stderr: 
-
-.
-FAIL syntax,13,2
-The expression: foo[*].`"literal"`
-was supposed to have non zero for error error: syntax
-but instead gave rc of: 0, stderr: 
-
-.
-FAIL syntax,13,3
-The expression: foo[*].name.`"literal"`
-was supposed to have non zero for error error: syntax
-but instead gave rc of: 0, stderr: 
-
-.
-FAIL syntax,13,4
-The expression: foo[].name.`"literal"`
-was supposed to have non zero for error error: syntax
-but instead gave rc of: 0, stderr: 
-
-.
-FAIL syntax,13,5
-The expression: foo[].name.`"literal"`.`"subliteral"`
-was supposed to have non zero for error error: syntax
-but instead gave rc of: 0, stderr: 
-
-.
-FAIL syntax,13,6
-The expression: foo[*].name.noexist.`"literal"`
-was supposed to have non zero for error error: syntax
-but instead gave rc of: 0, stderr: 
-
-.
-FAIL syntax,13,7
-The expression: foo[].name.noexist.`"literal"`
-was supposed to have non zero for error error: syntax
-but instead gave rc of: 0, stderr: 
-
-.
-FAIL syntax,13,8
-The expression: twolen[*].`"foo"`
-was supposed to have non zero for error error: syntax
-but instead gave rc of: 0, stderr: 
-
-.
-FAIL syntax,13,9
-The expression: twolen[*].threelen[*].`"bar"`
-was supposed to have non zero for error error: syntax
-but instead gave rc of: 0, stderr: 
-
-.
-FAIL syntax,13,10
-The expression: twolen[].threelen[].`"bar"`
-was supposed to have non zero for error error: syntax
-but instead gave rc of: 0, stderr: 
-
-.....
-FAIL syntax,14,3
-The expression: "\u"
-was supposed to have non zero for error error: syntax
-but instead gave rc of: 0, stderr: 
-
-..
-FAIL syntax,15,1
-The expression: *[]||[*]
-was supposed to give: []
-for the JSON: []
-but instead gave: null
-
-FAIL syntax,15,2
-The expression: [*.*]
-was supposed to give: [null]
-for the JSON: []
-but instead gave: ""
-...
-FAIL indices,0,3
-The expression: foo.bar[3]
-was supposed to give: null
-for the JSON: {"foo": {"bar": ["zero", "one", "two"]}}
-but instead gave: ""
-
-FAIL indices,0,4
-The expression: foo.bar[-1]
-was supposed to give: "two"
-for the JSON: {"foo": {"bar": ["zero", "one", "two"]}}
-but instead gave: ""
-
-FAIL indices,0,5
-The expression: foo.bar[-2]
-was supposed to give: "one"
-for the JSON: {"foo": {"bar": ["zero", "one", "two"]}}
-but instead gave: ""
-
-FAIL indices,0,6
-The expression: foo.bar[-3]
-was supposed to give: "zero"
-for the JSON: {"foo": {"bar": ["zero", "one", "two"]}}
-but instead gave: ""
-
-FAIL indices,0,7
-The expression: foo.bar[-4]
-was supposed to give: null
-for the JSON: {"foo": {"bar": ["zero", "one", "two"]}}
-but instead gave: ""
-..........
-FAIL indices,1,10
-The expression: foo[4]
-was supposed to give: null
-for the JSON: {"foo": [{"bar": "one"}, {"bar": "two"}, {"bar": "three"}, {"notbar": "four"}]}
-but instead gave: ""
-...
-FAIL indices,2,3
-The expression: [-1]
-was supposed to give: "three"
-for the JSON: ["one", "two", "three"]
-but instead gave: ""
-
-FAIL indices,2,4
-The expression: [-2]
-was supposed to give: "two"
-for the JSON: ["one", "two", "three"]
-but instead gave: ""
-
-FAIL indices,2,5
-The expression: [-3]
-was supposed to give: "one"
-for the JSON: ["one", "two", "three"]
-but instead gave: ""
-
-FAIL indices,3,0
-The expression: reservations[].instances[].foo
-was supposed to give: [1, 2]
-for the JSON: {"reservations": [{"instances": [{"foo": 1}, {"foo": 2}]}]}
-but instead gave: [[1, 2]]
-
-FAIL indices,3,1
-The expression: reservations[].instances[].bar
-was supposed to give: []
-for the JSON: {"reservations": [{"instances": [{"foo": 1}, {"foo": 2}]}]}
-but instead gave: [[]]
-..
-FAIL indices,4,0
-The expression: reservations[].instances[].foo[].bar
-was supposed to give: [1, 2, 4, 5, 6, 8]
-for the JSON: {"reservations": [{"instances": [{"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"foo": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"foo": "bar"}, {"notfoo": [{"bar": 20}, {"bar": 21}, {"notbar": [7]}, {"bar": 22}]}, {"bar": [{"baz": [1]}, {"baz": [2]}, {"baz": [3]}, {"baz": [4]}]}, {"baz": [{"baz": [1, 2]}, {"baz": []}, {"baz": []}, {"baz": [3, 4]}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}, {"instances": [{"a": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"b": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"c": "bar"}, {"notfoo": [{"bar": 23}, {"bar": 24}, {"notbar": [7]}, {"bar": 25}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}]}
-but instead gave: [[[1, 2, 4], [5, 6, 8], []], []]
-
-FAIL indices,4,1
-The expression: reservations[].instances[].foo[].baz
-was supposed to give: []
-for the JSON: {"reservations": [{"instances": [{"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"foo": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"foo": "bar"}, {"notfoo": [{"bar": 20}, {"bar": 21}, {"notbar": [7]}, {"bar": 22}]}, {"bar": [{"baz": [1]}, {"baz": [2]}, {"baz": [3]}, {"baz": [4]}]}, {"baz": [{"baz": [1, 2]}, {"baz": []}, {"baz": []}, {"baz": [3, 4]}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}, {"instances": [{"a": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"b": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"c": "bar"}, {"notfoo": [{"bar": 23}, {"bar": 24}, {"notbar": [7]}, {"bar": 25}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}]}
-but instead gave: [[[], [], []], []]
-
-FAIL indices,4,2
-The expression: reservations[].instances[].notfoo[].bar
-was supposed to give: [20, 21, 22, 23, 24, 25]
-for the JSON: {"reservations": [{"instances": [{"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"foo": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"foo": "bar"}, {"notfoo": [{"bar": 20}, {"bar": 21}, {"notbar": [7]}, {"bar": 22}]}, {"bar": [{"baz": [1]}, {"baz": [2]}, {"baz": [3]}, {"baz": [4]}]}, {"baz": [{"baz": [1, 2]}, {"baz": []}, {"baz": []}, {"baz": [3, 4]}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}, {"instances": [{"a": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"b": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"c": "bar"}, {"notfoo": [{"bar": 23}, {"bar": 24}, {"notbar": [7]}, {"bar": 25}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}]}
-but instead gave: [[[20, 21, 22]], [[23, 24, 25]]]
-
-FAIL indices,4,3
-The expression: reservations[].instances[].notfoo[].notbar
-was supposed to give: [[7], [7]]
-for the JSON: {"reservations": [{"instances": [{"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"foo": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"foo": "bar"}, {"notfoo": [{"bar": 20}, {"bar": 21}, {"notbar": [7]}, {"bar": 22}]}, {"bar": [{"baz": [1]}, {"baz": [2]}, {"baz": [3]}, {"baz": [4]}]}, {"baz": [{"baz": [1, 2]}, {"baz": []}, {"baz": []}, {"baz": [3, 4]}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}, {"instances": [{"a": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"b": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"c": "bar"}, {"notfoo": [{"bar": 23}, {"bar": 24}, {"notbar": [7]}, {"bar": 25}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}]}
-but instead gave: [[[[7]]], [[[7]]]]
-.
-FAIL indices,4,5
-The expression: reservations[].instances[].foo[].notbar
-was supposed to give: [3, [7]]
-for the JSON: {"reservations": [{"instances": [{"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"foo": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"foo": "bar"}, {"notfoo": [{"bar": 20}, {"bar": 21}, {"notbar": [7]}, {"bar": 22}]}, {"bar": [{"baz": [1]}, {"baz": [2]}, {"baz": [3]}, {"baz": [4]}]}, {"baz": [{"baz": [1, 2]}, {"baz": []}, {"baz": []}, {"baz": [3, 4]}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}, {"instances": [{"a": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"b": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"c": "bar"}, {"notfoo": [{"bar": 23}, {"bar": 24}, {"notbar": [7]}, {"bar": 25}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}]}
-but instead gave: [[[3], [[7]], []], []]
-
-FAIL indices,4,6
-The expression: reservations[].instances[].bar[].baz
-was supposed to give: [[1], [2], [3], [4]]
-for the JSON: {"reservations": [{"instances": [{"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"foo": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"foo": "bar"}, {"notfoo": [{"bar": 20}, {"bar": 21}, {"notbar": [7]}, {"bar": 22}]}, {"bar": [{"baz": [1]}, {"baz": [2]}, {"baz": [3]}, {"baz": [4]}]}, {"baz": [{"baz": [1, 2]}, {"baz": []}, {"baz": []}, {"baz": [3, 4]}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}, {"instances": [{"a": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"b": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"c": "bar"}, {"notfoo": [{"bar": 23}, {"bar": 24}, {"notbar": [7]}, {"bar": 25}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}]}
-but instead gave: [[[[1], [2], [3], [4]]], []]
-
-FAIL indices,4,7
-The expression: reservations[].instances[].baz[].baz
-was supposed to give: [[1, 2], [], [], [3, 4]]
-for the JSON: {"reservations": [{"instances": [{"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"foo": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"foo": "bar"}, {"notfoo": [{"bar": 20}, {"bar": 21}, {"notbar": [7]}, {"bar": 22}]}, {"bar": [{"baz": [1]}, {"baz": [2]}, {"baz": [3]}, {"baz": [4]}]}, {"baz": [{"baz": [1, 2]}, {"baz": []}, {"baz": []}, {"baz": [3, 4]}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}, {"instances": [{"a": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"b": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"c": "bar"}, {"notfoo": [{"bar": 23}, {"bar": 24}, {"notbar": [7]}, {"bar": 25}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}]}
-but instead gave: [[[[1, 2], [], [], [3, 4]]], []]
-
-FAIL indices,4,8
-The expression: reservations[].instances[].qux[].baz
-was supposed to give: [[], [1, 2, 3], [4], [], [], [1, 2, 3], [4], []]
-for the JSON: {"reservations": [{"instances": [{"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"foo": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"foo": "bar"}, {"notfoo": [{"bar": 20}, {"bar": 21}, {"notbar": [7]}, {"bar": 22}]}, {"bar": [{"baz": [1]}, {"baz": [2]}, {"baz": [3]}, {"baz": [4]}]}, {"baz": [{"baz": [1, 2]}, {"baz": []}, {"baz": []}, {"baz": [3, 4]}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}, {"instances": [{"a": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"b": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"c": "bar"}, {"notfoo": [{"bar": 23}, {"bar": 24}, {"notbar": [7]}, {"bar": 25}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}]}
-but instead gave: [[[[], [1, 2, 3], [4], []]], [[[], [1, 2, 3], [4], []]]]
-
-FAIL indices,4,9
-The expression: reservations[].instances[].qux[].baz[]
-was supposed to give: [1, 2, 3, 4, 1, 2, 3, 4]
-for the JSON: {"reservations": [{"instances": [{"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"foo": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"foo": "bar"}, {"notfoo": [{"bar": 20}, {"bar": 21}, {"notbar": [7]}, {"bar": 22}]}, {"bar": [{"baz": [1]}, {"baz": [2]}, {"baz": [3]}, {"baz": [4]}]}, {"baz": [{"baz": [1, 2]}, {"baz": []}, {"baz": []}, {"baz": [3, 4]}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}, {"instances": [{"a": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"b": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"c": "bar"}, {"notfoo": [{"bar": 23}, {"bar": 24}, {"notbar": [7]}, {"bar": 25}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}]}
-but instead gave: [[[[], [1, 2, 3], [4], []]], [[[], [1, 2, 3], [4], []]]]
-..
-FAIL indices,5,2
-The expression: foo[][1]
-was supposed to give: ["two", "four", "six", "eight"]
-for the JSON: {"foo": [[["one", "two"], ["three", "four"]], [["five", "six"], ["seven", "eight"]], [["nine"], ["ten"]]]}
-but instead gave: ""
-.
-FAIL indices,5,4
-The expression: foo[][2][2]
-was supposed to give: []
-for the JSON: {"foo": [[["one", "two"], ["three", "four"]], [["five", "six"], ["seven", "eight"]], [["nine"], ["ten"]]]}
-but instead gave: ""
-....
-FAIL indices,6,3
-The expression: foo[].bar[]
-was supposed to give: [{"qux": 2, "baz": 1}, {"qux": 4, "baz": 3}, {"qux": 6, "baz": 5}, {"qux": 8, "baz": 7}]
-for the JSON: {"foo": [{"bar": [{"qux": 2, "baz": 1}, {"qux": 4, "baz": 3}]}, {"bar": [{"qux": 6, "baz": 5}, {"qux": 8, "baz": 7}]}]}
-but instead gave: [[{"baz": 1, "qux": 2}, {"baz": 3, "qux": 4}], [{"baz": 5, "qux": 6}, {"baz": 7, "qux": 8}]]
-
-FAIL indices,6,4
-The expression: foo[].bar[].baz
-was supposed to give: [1, 3, 5, 7]
-for the JSON: {"foo": [{"bar": [{"qux": 2, "baz": 1}, {"qux": 4, "baz": 3}]}, {"bar": [{"qux": 6, "baz": 5}, {"qux": 8, "baz": 7}]}]}
-but instead gave: [[1, 3], [5, 7]]
-
-FAIL indices,7,0
-The expression: string[]
-was supposed to give: null
-for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
-but instead gave: ["s", "t", "r", "i", "n", "g"]
-
-FAIL indices,7,1
-The expression: hash[]
-was supposed to give: null
-for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
-but instead gave: ""
-
-FAIL indices,7,2
-The expression: number[]
-was supposed to give: null
-for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
-but instead gave: ""
-.
-FAIL indices,7,4
-The expression: string[].foo
-was supposed to give: null
-for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
-but instead gave: []
-
-FAIL indices,7,5
-The expression: hash[].foo
-was supposed to give: null
-for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
-but instead gave: ""
-
-FAIL indices,7,6
-The expression: number[].foo
-was supposed to give: null
-for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
-but instead gave: ""
-......
-FAIL wildcard,0,4
-The expression: foo.*.notbaz[-1]
-was supposed to give: ["c", "c"]
-for the JSON: {"foo": {"bar": {"baz": "val"}, "other": {"baz": "val"}, "other2": {"baz": "val"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["a", "b", "c"]}, "other5": {"other": {"a": 1, "b": 1, "c": 1}}}}
-but instead gave: ""
-........
-FAIL wildcard,3,3
-The expression: *.*.foo[]
-was supposed to give: ["one", "one"]
-for the JSON: {"top1": {"sub1": {"foo": "one"}}, "top2": {"sub1": {"foo": "one"}}}
-but instead gave: [[["o", "n", "e"]], [["o", "n", "e"]]]
-..........
-FAIL wildcard,6,4
-The expression: foo.bar[*].baz[3]
-was supposed to give: []
-for the JSON: {"foo": {"bar": [{"baz": ["one", "two", "three"]}, {"baz": ["four", "five", "six"]}, {"baz": ["seven", "eight", "nine"]}]}}
-but instead gave: ""
-......
-FAIL wildcard,8,0
-The expression: foo[*].bar[*].kind
-was supposed to give: [["basic", "intermediate"], ["advanced", "expert"]]
-for the JSON: {"foo": [{"bar": [{"kind": "basic"}, {"kind": "intermediate"}]}, {"bar": [{"kind": "advanced"}, {"kind": "expert"}]}, {"bar": "string"}]}
-but instead gave: ""
-...
-FAIL wildcard,10,1
-The expression: foo[*].bar[1]
-was supposed to give: ["two", "four"]
-for the JSON: {"foo": [{"bar": ["one", "two"]}, {"bar": ["three", "four"]}, {"bar": ["five"]}]}
-but instead gave: ""
-
-FAIL wildcard,10,2
-The expression: foo[*].bar[2]
-was supposed to give: []
-for the JSON: {"foo": [{"bar": ["one", "two"]}, {"bar": ["three", "four"]}, {"bar": ["five"]}]}
-but instead gave: ""
-
-FAIL wildcard,11,0
-The expression: foo[*].bar[0]
-was supposed to give: []
-for the JSON: {"foo": [{"bar": []}, {"bar": []}, {"bar": []}]}
-but instead gave: ""
-.
-FAIL wildcard,12,1
-The expression: foo[*][1]
-was supposed to give: ["two", "four"]
-for the JSON: {"foo": [["one", "two"], ["three", "four"], ["five"]]}
-but instead gave: ""
-....
-FAIL wildcard,13,4
-The expression: foo[*][0][1]
-was supposed to give: ["two", "six"]
-for the JSON: {"foo": [[["one", "two"], ["three", "four"]], [["five", "six"], ["seven", "eight"]], [["nine"], ["ten"]]]}
-but instead gave: ""
-
-FAIL wildcard,13,5
-The expression: foo[*][1][1]
-was supposed to give: ["four", "eight"]
-for the JSON: {"foo": [[["one", "two"], ["three", "four"]], [["five", "six"], ["seven", "eight"]], [["nine"], ["ten"]]]}
-but instead gave: ""
-
-FAIL wildcard,13,6
-The expression: foo[*][2]
-was supposed to give: []
-for the JSON: {"foo": [[["one", "two"], ["three", "four"]], [["five", "six"], ["seven", "eight"]], [["nine"], ["ten"]]]}
-but instead gave: ""
-
-FAIL wildcard,13,7
-The expression: foo[*][2][2]
-was supposed to give: []
-for the JSON: {"foo": [[["one", "two"], ["three", "four"]], [["five", "six"], ["seven", "eight"]], [["nine"], ["ten"]]]}
-but instead gave: ""
-..
-FAIL wildcard,14,0
-The expression: string[*]
-was supposed to give: null
-for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
-but instead gave: "string"
-
-FAIL wildcard,14,1
-The expression: hash[*]
-was supposed to give: null
-for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
-but instead gave: {"bar": "baz", "foo": "bar"}
-
-FAIL wildcard,14,2
-The expression: number[*]
-was supposed to give: null
-for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
-but instead gave: 23
-.
-FAIL wildcard,14,4
-The expression: string[*].foo
-was supposed to give: null
-for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
-but instead gave: ""
-
-FAIL wildcard,14,5
-The expression: hash[*].foo
-was supposed to give: null
-for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
-but instead gave: ""
-
-FAIL wildcard,14,6
-The expression: number[*].foo
-was supposed to give: null
-for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
-but instead gave: ""
-........
 FAIL filters,0,0
 The expression: foo[?name == 'a']
 was supposed to give: [{"name": "a"}]
@@ -2110,78 +1090,6 @@ The expression: foo[?@ == @]
 was supposed to give: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 for the JSON: {"foo": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}
 but instead gave: ""
-
-FAIL pipe,0,0
-The expression: foo.*.baz | [0]
-was supposed to give: "subkey"
-for the JSON: {"foo": {"bar": {"baz": "subkey"}, "other": {"baz": "subkey"}, "other2": {"baz": "subkey"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["a", "b", "c"]}}}
-but instead gave: []
-
-FAIL pipe,0,1
-The expression: foo.*.baz | [1]
-was supposed to give: "subkey"
-for the JSON: {"foo": {"bar": {"baz": "subkey"}, "other": {"baz": "subkey"}, "other2": {"baz": "subkey"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["a", "b", "c"]}}}
-but instead gave: []
-
-FAIL pipe,0,2
-The expression: foo.*.baz | [2]
-was supposed to give: "subkey"
-for the JSON: {"foo": {"bar": {"baz": "subkey"}, "other": {"baz": "subkey"}, "other2": {"baz": "subkey"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["a", "b", "c"]}}}
-but instead gave: []
-..
-FAIL pipe,0,5
-The expression: {"a": foo.bar, "b": foo.other} | *.baz
-was supposed to give: ["subkey", "subkey"]
-for the JSON: {"foo": {"bar": {"baz": "subkey"}, "other": {"baz": "subkey"}, "other2": {"baz": "subkey"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["a", "b", "c"]}}}
-but instead gave: ""
-...
-FAIL pipe,1,3
-The expression: not_there | [0]
-was supposed to give: null
-for the JSON: {"foo": {"bar": {"baz": "one"}, "other": {"baz": "two"}, "other2": {"baz": "three"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["d", "e", "f"]}}}
-but instead gave: ""
-
-FAIL pipe,1,4
-The expression: not_there | [0]
-was supposed to give: null
-for the JSON: {"foo": {"bar": {"baz": "one"}, "other": {"baz": "two"}, "other2": {"baz": "three"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["d", "e", "f"]}}}
-but instead gave: ""
-
-FAIL pipe,1,5
-The expression: [foo.bar, foo.other] | [0]
-was supposed to give: {"baz": "one"}
-for the JSON: {"foo": {"bar": {"baz": "one"}, "other": {"baz": "two"}, "other2": {"baz": "three"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["d", "e", "f"]}}}
-but instead gave: ""
-
-FAIL pipe,1,6
-The expression: {"a": foo.bar, "b": foo.other} | a
-was supposed to give: {"baz": "one"}
-for the JSON: {"foo": {"bar": {"baz": "one"}, "other": {"baz": "two"}, "other2": {"baz": "three"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["d", "e", "f"]}}}
-but instead gave: ""
-
-FAIL pipe,1,7
-The expression: {"a": foo.bar, "b": foo.other} | b
-was supposed to give: {"baz": "two"}
-for the JSON: {"foo": {"bar": {"baz": "one"}, "other": {"baz": "two"}, "other2": {"baz": "three"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["d", "e", "f"]}}}
-but instead gave: ""
-
-FAIL pipe,1,8
-The expression: foo.bam || foo.bar | baz
-was supposed to give: "one"
-for the JSON: {"foo": {"bar": {"baz": "one"}, "other": {"baz": "two"}, "other2": {"baz": "three"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["d", "e", "f"]}}}
-but instead gave: null
-
-FAIL pipe,1,9
-The expression: foo | not_there || bar
-was supposed to give: {"baz": "one"}
-for the JSON: {"foo": {"bar": {"baz": "one"}, "other": {"baz": "two"}, "other2": {"baz": "three"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["d", "e", "f"]}}}
-but instead gave: ""
-
-FAIL pipe,2,0
-The expression: foo[*].bar[*] | [0][0]
-was supposed to give: {"baz": "one"}
-for the JSON: {"foo": [{"bar": [{"baz": "one"}, {"baz": "two"}]}, {"bar": [{"baz": "three"}, {"baz": "four"}]}]}
-but instead gave: []
 
 FAIL functions,0,0
 The expression: abs(foo)
@@ -2950,7 +1858,679 @@ The expression: map(&[], array)
 was supposed to give: [[1, 2, 3, 4], [5, 6, 7, 8, 9]]
 for the JSON: {"array": [[1, 2, 3, [4]], [5, 6, 7, [8, 9]]]}
 but instead gave: ""
-..................
+
+FAIL identifiers,0,0
+The expression: __L
+was supposed to give: true
+for the JSON: {"__L": true}
+but instead gave: ""
+
+FAIL identifiers,1,0
+The expression: "!\r"
+was supposed to give: true
+for the JSON: {"!\r": true}
+but instead gave: null
+
+FAIL identifiers,2,0
+The expression: Y_1623
+was supposed to give: true
+for the JSON: {"Y_1623": true}
+but instead gave: ""
+.
+FAIL identifiers,4,0
+The expression: "\tF\uCebb"
+was supposed to give: true
+for the JSON: {"\tF\ucebb": true}
+but instead gave: null
+
+FAIL identifiers,5,0
+The expression: " \t"
+was supposed to give: true
+for the JSON: {" \t": true}
+but instead gave: null
+..
+FAIL identifiers,8,0
+The expression: "\t"
+was supposed to give: true
+for the JSON: {"\t": true}
+but instead gave: null
+
+FAIL identifiers,9,0
+The expression: _X
+was supposed to give: true
+for the JSON: {"_X": true}
+but instead gave: ""
+
+FAIL identifiers,10,0
+The expression: "\t4\ud9da\udd15"
+was supposed to give: true
+for the JSON: {"\t4\ud9da\udd15": true}
+but instead gave: null
+
+FAIL identifiers,11,0
+The expression: v24_W
+was supposed to give: true
+for the JSON: {"v24_W": true}
+but instead gave: ""
+.
+FAIL identifiers,13,0
+The expression: "\f"
+was supposed to give: true
+for the JSON: {"\f": true}
+but instead gave: null
+.....
+FAIL identifiers,19,0
+The expression: _6W
+was supposed to give: true
+for the JSON: {"_6W": true}
+but instead gave: ""
+
+FAIL identifiers,20,0
+The expression: "\uaBA1\r"
+was supposed to give: true
+for the JSON: {"\uaba1\r": true}
+but instead gave: null
+.
+FAIL identifiers,22,0
+The expression: "<<U\t"
+was supposed to give: true
+for the JSON: {"<<U\t": true}
+but instead gave: null
+
+FAIL identifiers,23,0
+The expression: "\ubBcE\ufAfB"
+was supposed to give: true
+for the JSON: {"\ubbce\ufafb": true}
+but instead gave: null
+
+FAIL identifiers,24,0
+The expression: sNA_
+was supposed to give: true
+for the JSON: {"sNA_": true}
+but instead gave: ""
+.
+FAIL identifiers,26,0
+The expression: "\\\b\ud8cb\udc83"
+was supposed to give: true
+for the JSON: {"\\\b\ud8cb\udc83": true}
+but instead gave: null
+..
+FAIL identifiers,29,0
+The expression: _Q__7GL8
+was supposed to give: true
+for the JSON: {"_Q__7GL8": true}
+but instead gave: ""
+
+FAIL identifiers,30,0
+The expression: "\\"
+was supposed to give: true
+for the JSON: {"\\": true}
+but instead gave: null
+
+FAIL identifiers,31,0
+The expression: RR9_
+was supposed to give: true
+for the JSON: {"RR9_": true}
+but instead gave: ""
+
+FAIL identifiers,32,0
+The expression: "\r\f:"
+was supposed to give: true
+for the JSON: {"\r\f:": true}
+but instead gave: null
+...
+FAIL identifiers,36,0
+The expression: __
+was supposed to give: true
+for the JSON: {"__": true}
+but instead gave: ""
+
+FAIL identifiers,37,0
+The expression: "\b\t"
+was supposed to give: true
+for the JSON: {"\b\t": true}
+but instead gave: null
+
+FAIL identifiers,38,0
+The expression: O_
+was supposed to give: true
+for the JSON: {"O_": true}
+but instead gave: ""
+
+FAIL identifiers,39,0
+The expression: _r_8
+was supposed to give: true
+for the JSON: {"_r_8": true}
+but instead gave: ""
+
+FAIL identifiers,40,0
+The expression: _j
+was supposed to give: true
+for the JSON: {"_j": true}
+but instead gave: ""
+.
+FAIL identifiers,42,0
+The expression: "\rB"
+was supposed to give: true
+for the JSON: {"\rB": true}
+but instead gave: null
+.
+FAIL identifiers,44,0
+The expression: "\n"
+was supposed to give: true
+for the JSON: {"\n": true}
+but instead gave: null
+
+FAIL identifiers,45,0
+The expression: "\f󥌳"
+was supposed to give: true
+for the JSON: {"\f\udb54\udf33": true}
+but instead gave: null
+
+FAIL identifiers,46,0
+The expression: "\\\u4FDc"
+was supposed to give: true
+for the JSON: {"\\\u4fdc": true}
+but instead gave: null
+
+FAIL identifiers,47,0
+The expression: "\r"
+was supposed to give: true
+for the JSON: {"\r": true}
+but instead gave: null
+
+FAIL identifiers,48,0
+The expression: m_
+was supposed to give: true
+for the JSON: {"m_": true}
+but instead gave: ""
+
+FAIL identifiers,49,0
+The expression: "\r\fB "
+was supposed to give: true
+for the JSON: {"\r\fB ": true}
+but instead gave: null
+
+FAIL identifiers,50,0
+The expression: "+\"\""
+was supposed to give: true
+for the JSON: {"+\"\"": true}
+but instead gave: ""
+.
+FAIL identifiers,52,0
+The expression: "\"!\/"
+was supposed to give: true
+for the JSON: {"\"!/": true}
+but instead gave: ""
+
+FAIL identifiers,53,0
+The expression: "7\""
+was supposed to give: true
+for the JSON: {"7\"": true}
+but instead gave: ""
+
+FAIL identifiers,54,0
+The expression: "\\󞢤S"
+was supposed to give: true
+for the JSON: {"\\\udb3a\udca4S": true}
+but instead gave: null
+
+FAIL identifiers,55,0
+The expression: "\""
+was supposed to give: true
+for the JSON: {"\"": true}
+but instead gave: ""
+.
+FAIL identifiers,57,0
+The expression: "\b\b"
+was supposed to give: true
+for the JSON: {"\b\b": true}
+but instead gave: null
+....
+FAIL identifiers,62,0
+The expression: "!I\n\/"
+was supposed to give: true
+for the JSON: {"!I\n/": true}
+but instead gave: null
+
+FAIL identifiers,63,0
+The expression: "\uEEbF"
+was supposed to give: true
+for the JSON: {"\ueebf": true}
+but instead gave: null
+
+FAIL identifiers,64,0
+The expression: "U)\t"
+was supposed to give: true
+for the JSON: {"U)\t": true}
+but instead gave: null
+
+FAIL identifiers,65,0
+The expression: fa0_9
+was supposed to give: true
+for the JSON: {"fa0_9": true}
+but instead gave: ""
+..
+FAIL identifiers,68,0
+The expression: "\b"
+was supposed to give: true
+for the JSON: {"\b": true}
+but instead gave: null
+.
+FAIL identifiers,70,0
+The expression: "\t"
+was supposed to give: true
+for the JSON: {"\t": true}
+but instead gave: null
+
+FAIL identifiers,71,0
+The expression: "\t&\\\r"
+was supposed to give: true
+for the JSON: {"\t&\\\r": true}
+but instead gave: null
+.
+FAIL identifiers,73,0
+The expression: B__
+was supposed to give: true
+for the JSON: {"B__": true}
+but instead gave: ""
+
+FAIL identifiers,74,0
+The expression: "\nS \n"
+was supposed to give: true
+for the JSON: {"\nS \n": true}
+but instead gave: null
+.
+FAIL identifiers,76,0
+The expression: ",\t;"
+was supposed to give: true
+for the JSON: {",\t;": true}
+but instead gave: null
+
+FAIL identifiers,77,0
+The expression: B_q
+was supposed to give: true
+for the JSON: {"B_q": true}
+but instead gave: ""
+
+FAIL identifiers,78,0
+The expression: "\/+\t\n\b!Z"
+was supposed to give: true
+for the JSON: {"/+\t\n\b!Z": true}
+but instead gave: null
+
+FAIL identifiers,79,0
+The expression: "󇟇\\ueFAc"
+was supposed to give: true
+for the JSON: {"\udadd\udfc7\\ueFAc": true}
+but instead gave: null
+
+FAIL identifiers,80,0
+The expression: ":\f"
+was supposed to give: true
+for the JSON: {":\f": true}
+but instead gave: null
+
+FAIL identifiers,81,0
+The expression: "\/"
+was supposed to give: true
+for the JSON: {"/": true}
+but instead gave: null
+
+FAIL identifiers,82,0
+The expression: _BW_6Hg_Gl
+was supposed to give: true
+for the JSON: {"_BW_6Hg_Gl": true}
+but instead gave: ""
+
+FAIL identifiers,83,0
+The expression: "􃰂"
+was supposed to give: true
+for the JSON: {"\udbcf\udc02": true}
+but instead gave: null
+.
+FAIL identifiers,85,0
+The expression: __434
+was supposed to give: true
+for the JSON: {"__434": true}
+but instead gave: ""
+
+FAIL identifiers,86,0
+The expression: "󵅁"
+was supposed to give: true
+for the JSON: {"\udb94\udd41": true}
+but instead gave: null
+
+FAIL identifiers,87,0
+The expression: Z_5
+was supposed to give: true
+for the JSON: {"Z_5": true}
+but instead gave: ""
+
+FAIL identifiers,88,0
+The expression: z_M_
+was supposed to give: true
+for the JSON: {"z_M_": true}
+but instead gave: ""
+
+FAIL identifiers,89,0
+The expression: YU_2
+was supposed to give: true
+for the JSON: {"YU_2": true}
+but instead gave: ""
+
+FAIL identifiers,90,0
+The expression: _0
+was supposed to give: true
+for the JSON: {"_0": true}
+but instead gave: ""
+
+FAIL identifiers,91,0
+The expression: "\b+"
+was supposed to give: true
+for the JSON: {"\b+": true}
+but instead gave: null
+
+FAIL identifiers,92,0
+The expression: "\""
+was supposed to give: true
+for the JSON: {"\"": true}
+but instead gave: ""
+.
+FAIL identifiers,94,0
+The expression: _62L
+was supposed to give: true
+for the JSON: {"_62L": true}
+but instead gave: ""
+
+FAIL identifiers,95,0
+The expression: "\tK\t"
+was supposed to give: true
+for the JSON: {"\tK\t": true}
+but instead gave: null
+
+FAIL identifiers,96,0
+The expression: "\n\\\f"
+was supposed to give: true
+for the JSON: {"\n\\\f": true}
+but instead gave: null
+
+FAIL identifiers,97,0
+The expression: I_
+was supposed to give: true
+for the JSON: {"I_": true}
+but instead gave: ""
+
+FAIL identifiers,98,0
+The expression: W_a0_
+was supposed to give: true
+for the JSON: {"W_a0_": true}
+but instead gave: ""
+.
+FAIL identifiers,100,0
+The expression: "\tX$\uABBb"
+was supposed to give: true
+for the JSON: {"\tX$\uabbb": true}
+but instead gave: null
+.
+FAIL identifiers,102,0
+The expression: "\b%\"򞄏"
+was supposed to give: true
+for the JSON: {"\b%\"\uda38\udd0f": true}
+but instead gave: ""
+
+FAIL identifiers,103,0
+The expression: _F
+was supposed to give: true
+for the JSON: {"_F": true}
+but instead gave: ""
+.
+FAIL identifiers,105,0
+The expression: "\"!"
+was supposed to give: true
+for the JSON: {"\"!": true}
+but instead gave: ""
+..
+FAIL identifiers,108,0
+The expression: "9\r\\R"
+was supposed to give: true
+for the JSON: {"9\r\\R": true}
+but instead gave: null
+
+FAIL identifiers,109,0
+The expression: M_k
+was supposed to give: true
+for the JSON: {"M_k": true}
+but instead gave: ""
+
+FAIL identifiers,110,0
+The expression: "!\b\n󑩒\"\""
+was supposed to give: true
+for the JSON: {"!\b\n\udb06\ude52\"\"": true}
+but instead gave: ""
+.
+FAIL identifiers,112,0
+The expression: _7
+was supposed to give: true
+for the JSON: {"_7": true}
+but instead gave: ""
+.
+FAIL identifiers,114,0
+The expression: "\\8\\"
+was supposed to give: true
+for the JSON: {"\\8\\": true}
+but instead gave: null
+.....
+FAIL identifiers,120,0
+The expression: "VH2&H\\\/"
+was supposed to give: true
+for the JSON: {"VH2&H\\/": true}
+but instead gave: null
+
+FAIL identifiers,121,0
+The expression: _C
+was supposed to give: true
+for the JSON: {"_C": true}
+but instead gave: ""
+
+FAIL identifiers,122,0
+The expression: _
+was supposed to give: true
+for the JSON: {"_": true}
+but instead gave: ""
+
+FAIL identifiers,123,0
+The expression: "<\t"
+was supposed to give: true
+for the JSON: {"<\t": true}
+but instead gave: null
+
+FAIL identifiers,124,0
+The expression: "\uD834\uDD1E"
+was supposed to give: true
+for the JSON: {"\ud834\udd1e": true}
+but instead gave: null
+...
+FAIL indices,0,3
+The expression: foo.bar[3]
+was supposed to give: null
+for the JSON: {"foo": {"bar": ["zero", "one", "two"]}}
+but instead gave: ""
+
+FAIL indices,0,4
+The expression: foo.bar[-1]
+was supposed to give: "two"
+for the JSON: {"foo": {"bar": ["zero", "one", "two"]}}
+but instead gave: ""
+
+FAIL indices,0,5
+The expression: foo.bar[-2]
+was supposed to give: "one"
+for the JSON: {"foo": {"bar": ["zero", "one", "two"]}}
+but instead gave: ""
+
+FAIL indices,0,6
+The expression: foo.bar[-3]
+was supposed to give: "zero"
+for the JSON: {"foo": {"bar": ["zero", "one", "two"]}}
+but instead gave: ""
+
+FAIL indices,0,7
+The expression: foo.bar[-4]
+was supposed to give: null
+for the JSON: {"foo": {"bar": ["zero", "one", "two"]}}
+but instead gave: ""
+..........
+FAIL indices,1,10
+The expression: foo[4]
+was supposed to give: null
+for the JSON: {"foo": [{"bar": "one"}, {"bar": "two"}, {"bar": "three"}, {"notbar": "four"}]}
+but instead gave: ""
+...
+FAIL indices,2,3
+The expression: [-1]
+was supposed to give: "three"
+for the JSON: ["one", "two", "three"]
+but instead gave: ""
+
+FAIL indices,2,4
+The expression: [-2]
+was supposed to give: "two"
+for the JSON: ["one", "two", "three"]
+but instead gave: ""
+
+FAIL indices,2,5
+The expression: [-3]
+was supposed to give: "one"
+for the JSON: ["one", "two", "three"]
+but instead gave: ""
+
+FAIL indices,3,0
+The expression: reservations[].instances[].foo
+was supposed to give: [1, 2]
+for the JSON: {"reservations": [{"instances": [{"foo": 1}, {"foo": 2}]}]}
+but instead gave: [[1, 2]]
+
+FAIL indices,3,1
+The expression: reservations[].instances[].bar
+was supposed to give: []
+for the JSON: {"reservations": [{"instances": [{"foo": 1}, {"foo": 2}]}]}
+but instead gave: [[]]
+..
+FAIL indices,4,0
+The expression: reservations[].instances[].foo[].bar
+was supposed to give: [1, 2, 4, 5, 6, 8]
+for the JSON: {"reservations": [{"instances": [{"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"foo": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"foo": "bar"}, {"notfoo": [{"bar": 20}, {"bar": 21}, {"notbar": [7]}, {"bar": 22}]}, {"bar": [{"baz": [1]}, {"baz": [2]}, {"baz": [3]}, {"baz": [4]}]}, {"baz": [{"baz": [1, 2]}, {"baz": []}, {"baz": []}, {"baz": [3, 4]}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}, {"instances": [{"a": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"b": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"c": "bar"}, {"notfoo": [{"bar": 23}, {"bar": 24}, {"notbar": [7]}, {"bar": 25}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}]}
+but instead gave: [[[1, 2, 4], [5, 6, 8], []], []]
+
+FAIL indices,4,1
+The expression: reservations[].instances[].foo[].baz
+was supposed to give: []
+for the JSON: {"reservations": [{"instances": [{"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"foo": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"foo": "bar"}, {"notfoo": [{"bar": 20}, {"bar": 21}, {"notbar": [7]}, {"bar": 22}]}, {"bar": [{"baz": [1]}, {"baz": [2]}, {"baz": [3]}, {"baz": [4]}]}, {"baz": [{"baz": [1, 2]}, {"baz": []}, {"baz": []}, {"baz": [3, 4]}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}, {"instances": [{"a": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"b": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"c": "bar"}, {"notfoo": [{"bar": 23}, {"bar": 24}, {"notbar": [7]}, {"bar": 25}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}]}
+but instead gave: [[[], [], []], []]
+
+FAIL indices,4,2
+The expression: reservations[].instances[].notfoo[].bar
+was supposed to give: [20, 21, 22, 23, 24, 25]
+for the JSON: {"reservations": [{"instances": [{"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"foo": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"foo": "bar"}, {"notfoo": [{"bar": 20}, {"bar": 21}, {"notbar": [7]}, {"bar": 22}]}, {"bar": [{"baz": [1]}, {"baz": [2]}, {"baz": [3]}, {"baz": [4]}]}, {"baz": [{"baz": [1, 2]}, {"baz": []}, {"baz": []}, {"baz": [3, 4]}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}, {"instances": [{"a": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"b": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"c": "bar"}, {"notfoo": [{"bar": 23}, {"bar": 24}, {"notbar": [7]}, {"bar": 25}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}]}
+but instead gave: [[[20, 21, 22]], [[23, 24, 25]]]
+
+FAIL indices,4,3
+The expression: reservations[].instances[].notfoo[].notbar
+was supposed to give: [[7], [7]]
+for the JSON: {"reservations": [{"instances": [{"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"foo": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"foo": "bar"}, {"notfoo": [{"bar": 20}, {"bar": 21}, {"notbar": [7]}, {"bar": 22}]}, {"bar": [{"baz": [1]}, {"baz": [2]}, {"baz": [3]}, {"baz": [4]}]}, {"baz": [{"baz": [1, 2]}, {"baz": []}, {"baz": []}, {"baz": [3, 4]}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}, {"instances": [{"a": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"b": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"c": "bar"}, {"notfoo": [{"bar": 23}, {"bar": 24}, {"notbar": [7]}, {"bar": 25}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}]}
+but instead gave: [[[[7]]], [[[7]]]]
+.
+FAIL indices,4,5
+The expression: reservations[].instances[].foo[].notbar
+was supposed to give: [3, [7]]
+for the JSON: {"reservations": [{"instances": [{"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"foo": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"foo": "bar"}, {"notfoo": [{"bar": 20}, {"bar": 21}, {"notbar": [7]}, {"bar": 22}]}, {"bar": [{"baz": [1]}, {"baz": [2]}, {"baz": [3]}, {"baz": [4]}]}, {"baz": [{"baz": [1, 2]}, {"baz": []}, {"baz": []}, {"baz": [3, 4]}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}, {"instances": [{"a": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"b": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"c": "bar"}, {"notfoo": [{"bar": 23}, {"bar": 24}, {"notbar": [7]}, {"bar": 25}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}]}
+but instead gave: [[[3], [[7]], []], []]
+
+FAIL indices,4,6
+The expression: reservations[].instances[].bar[].baz
+was supposed to give: [[1], [2], [3], [4]]
+for the JSON: {"reservations": [{"instances": [{"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"foo": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"foo": "bar"}, {"notfoo": [{"bar": 20}, {"bar": 21}, {"notbar": [7]}, {"bar": 22}]}, {"bar": [{"baz": [1]}, {"baz": [2]}, {"baz": [3]}, {"baz": [4]}]}, {"baz": [{"baz": [1, 2]}, {"baz": []}, {"baz": []}, {"baz": [3, 4]}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}, {"instances": [{"a": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"b": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"c": "bar"}, {"notfoo": [{"bar": 23}, {"bar": 24}, {"notbar": [7]}, {"bar": 25}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}]}
+but instead gave: [[[[1], [2], [3], [4]]], []]
+
+FAIL indices,4,7
+The expression: reservations[].instances[].baz[].baz
+was supposed to give: [[1, 2], [], [], [3, 4]]
+for the JSON: {"reservations": [{"instances": [{"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"foo": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"foo": "bar"}, {"notfoo": [{"bar": 20}, {"bar": 21}, {"notbar": [7]}, {"bar": 22}]}, {"bar": [{"baz": [1]}, {"baz": [2]}, {"baz": [3]}, {"baz": [4]}]}, {"baz": [{"baz": [1, 2]}, {"baz": []}, {"baz": []}, {"baz": [3, 4]}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}, {"instances": [{"a": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"b": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"c": "bar"}, {"notfoo": [{"bar": 23}, {"bar": 24}, {"notbar": [7]}, {"bar": 25}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}]}
+but instead gave: [[[[1, 2], [], [], [3, 4]]], []]
+
+FAIL indices,4,8
+The expression: reservations[].instances[].qux[].baz
+was supposed to give: [[], [1, 2, 3], [4], [], [], [1, 2, 3], [4], []]
+for the JSON: {"reservations": [{"instances": [{"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"foo": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"foo": "bar"}, {"notfoo": [{"bar": 20}, {"bar": 21}, {"notbar": [7]}, {"bar": 22}]}, {"bar": [{"baz": [1]}, {"baz": [2]}, {"baz": [3]}, {"baz": [4]}]}, {"baz": [{"baz": [1, 2]}, {"baz": []}, {"baz": []}, {"baz": [3, 4]}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}, {"instances": [{"a": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"b": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"c": "bar"}, {"notfoo": [{"bar": 23}, {"bar": 24}, {"notbar": [7]}, {"bar": 25}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}]}
+but instead gave: [[[[], [1, 2, 3], [4], []]], [[[], [1, 2, 3], [4], []]]]
+
+FAIL indices,4,9
+The expression: reservations[].instances[].qux[].baz[]
+was supposed to give: [1, 2, 3, 4, 1, 2, 3, 4]
+for the JSON: {"reservations": [{"instances": [{"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"foo": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"foo": "bar"}, {"notfoo": [{"bar": 20}, {"bar": 21}, {"notbar": [7]}, {"bar": 22}]}, {"bar": [{"baz": [1]}, {"baz": [2]}, {"baz": [3]}, {"baz": [4]}]}, {"baz": [{"baz": [1, 2]}, {"baz": []}, {"baz": []}, {"baz": [3, 4]}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}, {"instances": [{"a": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"b": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"c": "bar"}, {"notfoo": [{"bar": 23}, {"bar": 24}, {"notbar": [7]}, {"bar": 25}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}]}
+but instead gave: [[[[], [1, 2, 3], [4], []]], [[[], [1, 2, 3], [4], []]]]
+..
+FAIL indices,5,2
+The expression: foo[][1]
+was supposed to give: ["two", "four", "six", "eight"]
+for the JSON: {"foo": [[["one", "two"], ["three", "four"]], [["five", "six"], ["seven", "eight"]], [["nine"], ["ten"]]]}
+but instead gave: ""
+.
+FAIL indices,5,4
+The expression: foo[][2][2]
+was supposed to give: []
+for the JSON: {"foo": [[["one", "two"], ["three", "four"]], [["five", "six"], ["seven", "eight"]], [["nine"], ["ten"]]]}
+but instead gave: ""
+....
+FAIL indices,6,3
+The expression: foo[].bar[]
+was supposed to give: [{"qux": 2, "baz": 1}, {"qux": 4, "baz": 3}, {"qux": 6, "baz": 5}, {"qux": 8, "baz": 7}]
+for the JSON: {"foo": [{"bar": [{"qux": 2, "baz": 1}, {"qux": 4, "baz": 3}]}, {"bar": [{"qux": 6, "baz": 5}, {"qux": 8, "baz": 7}]}]}
+but instead gave: [[{"baz": 1, "qux": 2}, {"baz": 3, "qux": 4}], [{"baz": 5, "qux": 6}, {"baz": 7, "qux": 8}]]
+
+FAIL indices,6,4
+The expression: foo[].bar[].baz
+was supposed to give: [1, 3, 5, 7]
+for the JSON: {"foo": [{"bar": [{"qux": 2, "baz": 1}, {"qux": 4, "baz": 3}]}, {"bar": [{"qux": 6, "baz": 5}, {"qux": 8, "baz": 7}]}]}
+but instead gave: [[1, 3], [5, 7]]
+
+FAIL indices,7,0
+The expression: string[]
+was supposed to give: null
+for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
+but instead gave: ["s", "t", "r", "i", "n", "g"]
+
+FAIL indices,7,1
+The expression: hash[]
+was supposed to give: null
+for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
+but instead gave: ""
+
+FAIL indices,7,2
+The expression: number[]
+was supposed to give: null
+for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
+but instead gave: ""
+.
+FAIL indices,7,4
+The expression: string[].foo
+was supposed to give: null
+for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
+but instead gave: []
+
+FAIL indices,7,5
+The expression: hash[].foo
+was supposed to give: null
+for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
+but instead gave: ""
+
+FAIL indices,7,6
+The expression: number[].foo
+was supposed to give: null
+for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
+but instead gave: ""
+....................
 FAIL literal,0,18
 The expression: `"foo\`bar"`
 was supposed to give: "foo`bar"
@@ -3298,35 +2878,425 @@ The expression: missing.{foo: bar}
 was supposed to give: null
 for the JSON: []
 but instead gave: ""
-.....................................
-FAIL slice,0,19
-The expression: foo[10:0:-1]
-was supposed to give: [9, 8, 7, 6, 5, 4, 3, 2, 1]
-for the JSON: {"foo": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], "bar": {"baz": 1}}
+
+FAIL pipe,0,0
+The expression: foo.*.baz | [0]
+was supposed to give: "subkey"
+for the JSON: {"foo": {"bar": {"baz": "subkey"}, "other": {"baz": "subkey"}, "other2": {"baz": "subkey"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["a", "b", "c"]}}}
 but instead gave: []
 
-FAIL slice,0,20
-The expression: foo[10:5:-1]
-was supposed to give: [9, 8, 7, 6]
-for the JSON: {"foo": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], "bar": {"baz": 1}}
+FAIL pipe,0,1
+The expression: foo.*.baz | [1]
+was supposed to give: "subkey"
+for the JSON: {"foo": {"bar": {"baz": "subkey"}, "other": {"baz": "subkey"}, "other2": {"baz": "subkey"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["a", "b", "c"]}}}
 but instead gave: []
 
-FAIL slice,0,21
-The expression: foo[8:2:-2]
-was supposed to give: [8, 6, 4]
-for the JSON: {"foo": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], "bar": {"baz": 1}}
-but instead gave: []
-.
-FAIL slice,0,23
-The expression: foo[10:-20:-1]
-was supposed to give: [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
-for the JSON: {"foo": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], "bar": {"baz": 1}}
+FAIL pipe,0,2
+The expression: foo.*.baz | [2]
+was supposed to give: "subkey"
+for the JSON: {"foo": {"bar": {"baz": "subkey"}, "other": {"baz": "subkey"}, "other2": {"baz": "subkey"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["a", "b", "c"]}}}
 but instead gave: []
 ..
-FAIL slice,0,26
-The expression: foo[:-5:-1]
-was supposed to give: [9, 8, 7, 6]
-for the JSON: {"foo": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], "bar": {"baz": 1}}
-but instead gave: [9, 8, 7, 6, 5]
-..............
+FAIL pipe,0,5
+The expression: {"a": foo.bar, "b": foo.other} | *.baz
+was supposed to give: ["subkey", "subkey"]
+for the JSON: {"foo": {"bar": {"baz": "subkey"}, "other": {"baz": "subkey"}, "other2": {"baz": "subkey"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["a", "b", "c"]}}}
+but instead gave: ""
+...
+FAIL pipe,1,3
+The expression: not_there | [0]
+was supposed to give: null
+for the JSON: {"foo": {"bar": {"baz": "one"}, "other": {"baz": "two"}, "other2": {"baz": "three"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["d", "e", "f"]}}}
+but instead gave: ""
+
+FAIL pipe,1,4
+The expression: not_there | [0]
+was supposed to give: null
+for the JSON: {"foo": {"bar": {"baz": "one"}, "other": {"baz": "two"}, "other2": {"baz": "three"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["d", "e", "f"]}}}
+but instead gave: ""
+
+FAIL pipe,1,5
+The expression: [foo.bar, foo.other] | [0]
+was supposed to give: {"baz": "one"}
+for the JSON: {"foo": {"bar": {"baz": "one"}, "other": {"baz": "two"}, "other2": {"baz": "three"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["d", "e", "f"]}}}
+but instead gave: ""
+
+FAIL pipe,1,6
+The expression: {"a": foo.bar, "b": foo.other} | a
+was supposed to give: {"baz": "one"}
+for the JSON: {"foo": {"bar": {"baz": "one"}, "other": {"baz": "two"}, "other2": {"baz": "three"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["d", "e", "f"]}}}
+but instead gave: ""
+
+FAIL pipe,1,7
+The expression: {"a": foo.bar, "b": foo.other} | b
+was supposed to give: {"baz": "two"}
+for the JSON: {"foo": {"bar": {"baz": "one"}, "other": {"baz": "two"}, "other2": {"baz": "three"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["d", "e", "f"]}}}
+but instead gave: ""
+
+FAIL pipe,1,8
+The expression: foo.bam || foo.bar | baz
+was supposed to give: "one"
+for the JSON: {"foo": {"bar": {"baz": "one"}, "other": {"baz": "two"}, "other2": {"baz": "three"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["d", "e", "f"]}}}
+but instead gave: null
+
+FAIL pipe,1,9
+The expression: foo | not_there || bar
+was supposed to give: {"baz": "one"}
+for the JSON: {"foo": {"bar": {"baz": "one"}, "other": {"baz": "two"}, "other2": {"baz": "three"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["d", "e", "f"]}}}
+but instead gave: ""
+
+FAIL pipe,2,0
+The expression: foo[*].bar[*] | [0][0]
+was supposed to give: {"baz": "one"}
+for the JSON: {"foo": [{"bar": [{"baz": "one"}, {"baz": "two"}]}, {"bar": [{"baz": "three"}, {"baz": "four"}]}]}
+but instead gave: []
+...............................................
+FAIL syntax,0,6
+The expression: foo..bar
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+...............................
+FAIL syntax,5,8
+The expression: foo[*]*
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+.
+FAIL syntax,6,0
+The expression: []
+was supposed to give: null
+for the JSON: {"type": "object"}
+but instead gave: ""
+.
+FAIL syntax,7,1
+The expression: [*]
+was supposed to give: null
+for the JSON: {"type": "object"}
+but instead gave: {"type": "object"}
+
+FAIL syntax,7,2
+The expression: *.[0]
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+.
+FAIL syntax,7,3
+The expression: *.["0"]
+was supposed to give: [[null]]
+for the JSON: {"type": "object"}
+but instead gave: ""
+
+FAIL syntax,7,4
+The expression: [*].bar
+was supposed to give: null
+for the JSON: {"type": "object"}
+but instead gave: ""
+
+FAIL syntax,7,5
+The expression: [*][0]
+was supposed to give: null
+for the JSON: {"type": "object"}
+but instead gave: ""
+........
+FAIL syntax,9,2
+The expression: foo.[0]
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+..........
+FAIL syntax,9,12
+The expression: foo.[abc]
+was supposed to give: null
+for the JSON: {"type": "object"}
+but instead gave: ""
+
+FAIL syntax,9,13
+The expression: foo.[abc, def]
+was supposed to give: null
+for the JSON: {"type": "object"}
+but instead gave: ""
+..................
+FAIL syntax,10,14
+The expression: a.{foo: bar}
+was supposed to give: null
+for the JSON: {"type": "object"}
+but instead gave: ""
+
+FAIL syntax,10,15
+The expression: a.{foo: bar, baz: bam}
+was supposed to give: null
+for the JSON: {"type": "object"}
+but instead gave: ""
+....
+FAIL syntax,10,20
+The expression: {"\\":{" ":*}}
+was supposed to give: {"\\": {" ": ["object"]}}
+for the JSON: {"type": "object"}
+but instead gave: ""
+...
+FAIL syntax,11,2
+The expression: foo.|| bar
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+.
+FAIL syntax,11,3
+The expression:  || foo
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+.
+FAIL syntax,11,4
+The expression: foo || || foo
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+.
+FAIL syntax,11,5
+The expression: foo.[a || b]
+was supposed to give: null
+for the JSON: {"type": "object"}
+but instead gave: ""
+..
+FAIL syntax,12,0
+The expression: foo[?bar==`"baz"`]
+was supposed to give: null
+for the JSON: {"type": "object"}
+but instead gave: ""
+
+FAIL syntax,12,1
+The expression: foo[? bar == `"baz"` ]
+was supposed to give: null
+for the JSON: {"type": "object"}
+but instead gave: ""
+.....
+FAIL syntax,12,7
+The expression: foo[?a.b.c==d.e.f]
+was supposed to give: null
+for the JSON: {"type": "object"}
+but instead gave: ""
+
+FAIL syntax,12,8
+The expression: foo[?bar==`[0, 1, 2]`]
+was supposed to give: null
+for the JSON: {"type": "object"}
+but instead gave: ""
+
+FAIL syntax,12,9
+The expression: foo[?bar==`["a", "b", "c"]`]
+was supposed to give: null
+for the JSON: {"type": "object"}
+but instead gave: ""
+.
+FAIL syntax,12,11
+The expression: foo[?bar==`["foo\`bar"]`]
+was supposed to give: null
+for the JSON: {"type": "object"}
+but instead gave: ""
+...
+FAIL syntax,12,15
+The expression: [?"\\">`"foo"`]
+was supposed to give: null
+for the JSON: {"type": "object"}
+but instead gave: ""
+
+FAIL syntax,12,16
+The expression: [?"\\" > `"foo"`]
+was supposed to give: null
+for the JSON: {"type": "object"}
+but instead gave: ""
+
+FAIL syntax,13,0
+The expression: bar.`"anything"`
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+.
+FAIL syntax,13,1
+The expression: bar.baz.noexists.`"literal"`
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+.
+FAIL syntax,13,2
+The expression: foo[*].`"literal"`
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+.
+FAIL syntax,13,3
+The expression: foo[*].name.`"literal"`
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+.
+FAIL syntax,13,4
+The expression: foo[].name.`"literal"`
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+.
+FAIL syntax,13,5
+The expression: foo[].name.`"literal"`.`"subliteral"`
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+.
+FAIL syntax,13,6
+The expression: foo[*].name.noexist.`"literal"`
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+.
+FAIL syntax,13,7
+The expression: foo[].name.noexist.`"literal"`
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+.
+FAIL syntax,13,8
+The expression: twolen[*].`"foo"`
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+.
+FAIL syntax,13,9
+The expression: twolen[*].threelen[*].`"bar"`
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+.
+FAIL syntax,13,10
+The expression: twolen[].threelen[].`"bar"`
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+.....
+FAIL syntax,14,3
+The expression: "\u"
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+..
+FAIL syntax,15,1
+The expression: *[]||[*]
+was supposed to give: []
+for the JSON: []
+but instead gave: null
+
+FAIL syntax,15,2
+The expression: [*.*]
+was supposed to give: [null]
+for the JSON: []
+but instead gave: ""
+........
+FAIL wildcard,0,4
+The expression: foo.*.notbaz[-1]
+was supposed to give: ["c", "c"]
+for the JSON: {"foo": {"bar": {"baz": "val"}, "other": {"baz": "val"}, "other2": {"baz": "val"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["a", "b", "c"]}, "other5": {"other": {"a": 1, "b": 1, "c": 1}}}}
+but instead gave: ""
+........
+FAIL wildcard,3,3
+The expression: *.*.foo[]
+was supposed to give: ["one", "one"]
+for the JSON: {"top1": {"sub1": {"foo": "one"}}, "top2": {"sub1": {"foo": "one"}}}
+but instead gave: [[["o", "n", "e"]], [["o", "n", "e"]]]
+..........
+FAIL wildcard,6,4
+The expression: foo.bar[*].baz[3]
+was supposed to give: []
+for the JSON: {"foo": {"bar": [{"baz": ["one", "two", "three"]}, {"baz": ["four", "five", "six"]}, {"baz": ["seven", "eight", "nine"]}]}}
+but instead gave: ""
+......
+FAIL wildcard,8,0
+The expression: foo[*].bar[*].kind
+was supposed to give: [["basic", "intermediate"], ["advanced", "expert"]]
+for the JSON: {"foo": [{"bar": [{"kind": "basic"}, {"kind": "intermediate"}]}, {"bar": [{"kind": "advanced"}, {"kind": "expert"}]}, {"bar": "string"}]}
+but instead gave: ""
+...
+FAIL wildcard,10,1
+The expression: foo[*].bar[1]
+was supposed to give: ["two", "four"]
+for the JSON: {"foo": [{"bar": ["one", "two"]}, {"bar": ["three", "four"]}, {"bar": ["five"]}]}
+but instead gave: ""
+
+FAIL wildcard,10,2
+The expression: foo[*].bar[2]
+was supposed to give: []
+for the JSON: {"foo": [{"bar": ["one", "two"]}, {"bar": ["three", "four"]}, {"bar": ["five"]}]}
+but instead gave: ""
+
+FAIL wildcard,11,0
+The expression: foo[*].bar[0]
+was supposed to give: []
+for the JSON: {"foo": [{"bar": []}, {"bar": []}, {"bar": []}]}
+but instead gave: ""
+.
+FAIL wildcard,12,1
+The expression: foo[*][1]
+was supposed to give: ["two", "four"]
+for the JSON: {"foo": [["one", "two"], ["three", "four"], ["five"]]}
+but instead gave: ""
+....
+FAIL wildcard,13,4
+The expression: foo[*][0][1]
+was supposed to give: ["two", "six"]
+for the JSON: {"foo": [[["one", "two"], ["three", "four"]], [["five", "six"], ["seven", "eight"]], [["nine"], ["ten"]]]}
+but instead gave: ""
+
+FAIL wildcard,13,5
+The expression: foo[*][1][1]
+was supposed to give: ["four", "eight"]
+for the JSON: {"foo": [[["one", "two"], ["three", "four"]], [["five", "six"], ["seven", "eight"]], [["nine"], ["ten"]]]}
+but instead gave: ""
+
+FAIL wildcard,13,6
+The expression: foo[*][2]
+was supposed to give: []
+for the JSON: {"foo": [[["one", "two"], ["three", "four"]], [["five", "six"], ["seven", "eight"]], [["nine"], ["ten"]]]}
+but instead gave: ""
+
+FAIL wildcard,13,7
+The expression: foo[*][2][2]
+was supposed to give: []
+for the JSON: {"foo": [[["one", "two"], ["three", "four"]], [["five", "six"], ["seven", "eight"]], [["nine"], ["ten"]]]}
+but instead gave: ""
+..
+FAIL wildcard,14,0
+The expression: string[*]
+was supposed to give: null
+for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
+but instead gave: "string"
+
+FAIL wildcard,14,1
+The expression: hash[*]
+was supposed to give: null
+for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
+but instead gave: {"bar": "baz", "foo": "bar"}
+
+FAIL wildcard,14,2
+The expression: number[*]
+was supposed to give: null
+for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
+but instead gave: 23
+.
+FAIL wildcard,14,4
+The expression: string[*].foo
+was supposed to give: null
+for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
+but instead gave: ""
+
+FAIL wildcard,14,5
+The expression: hash[*].foo
+was supposed to give: null
+for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
+but instead gave: ""
+
+FAIL wildcard,14,6
+The expression: number[*].foo
+was supposed to give: null
+for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
+but instead gave: ""
+........
 FAIL

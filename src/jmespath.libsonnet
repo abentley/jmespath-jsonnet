@@ -108,7 +108,9 @@ local exprFactory = {
       local stepStart = if integerStep < 0 then self.stop else self.start;
       local stepStop = if integerStep < 0 then self.start else self.stop;
       local positiveStart = std.max(0, if stepStart == null then 0
-      else if stepStart < 0 then length + stepStart else stepStart);
+      else (if stepStart < 0 then length + stepStart else stepStart) + (
+        if integerStep < 0 then 1 else 0
+      ));
       local positiveStop = std.max(
         0,
         if stepStop == null then length
