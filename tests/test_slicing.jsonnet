@@ -78,6 +78,10 @@ local results = {
     [1],
     jmespath.search('[-1000:]', [1])
   ),
+  test_15_search: test_eq(
+    [9, 7, 5, 3, 1],
+    jmespath.search('[9:0:-2]', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+  ),
   test12: test_eq(
     [12, 12, 12, 12, 12, 5, 6, 7, 8, 9],
     jmespath.set('[:5]', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 12)
