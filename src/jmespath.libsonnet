@@ -104,17 +104,20 @@ local exprFactory = {
   ImplSlice: self.ImplProjection {
     searchResult(data):
       local length = std.length(data);
-      local realStart = if self.start == null then 0
-      else if self.start < 0 then length + self.start else self.start;
-      local realStop =
+      local realStart = std.max(0, if self.start == null then 0
+      else if self.start < 0 then length + self.start else self.start);
+      local realStop = std.max(
+        0,
         if self.stop == null then length
         else if self.stop < 0 then length + self.stop
-        else self.stop;
+        else self.stop
+      );
       local realStep = if self.step == null then 1 else std.abs(self.step);
       local ordered =
         if self.step == null || self.step >= 0 then data
         else std.reverse(data);
-      ordered[realStart:realStop:realStep],
+      if std.type(data) == 'array' then
+        ordered[realStart:realStop:realStep],
 
     getMatching(data)::
       local dataIndices = countUp(data);

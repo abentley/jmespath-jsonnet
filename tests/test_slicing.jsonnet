@@ -62,6 +62,22 @@ local results = {
     [],
     jmespath.search('[::2][3]', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
   ),
+  test_11_search: test_eq(
+    null,
+    jmespath.search('[0:-1]', 'hello')
+  ),
+  test_12_search: test_eq(
+    null,
+    jmespath.search('[0:-1]', 5)
+  ),
+  test_13_search: test_eq(
+    [],
+    jmespath.search('[0:-1000]', [1])
+  ),
+  test_14_search: test_eq(
+    [1],
+    jmespath.search('[-1000:]', [1])
+  ),
   test12: test_eq(
     [12, 12, 12, 12, 12, 5, 6, 7, 8, 9],
     jmespath.set('[:5]', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 12)
@@ -85,11 +101,6 @@ local results = {
   test17: test_eq(
     [0, 12, 2, 12, 4, 12, 6, 12, 8, 12],
     jmespath.set('[::-2]', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 12)
-  ),
-  test18: test_eq(
-    // Noop because projection.
-    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-    jmespath.set('[0:5][2]', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 12)
   ),
   test_projection1: test_eq(
     [2, 4],

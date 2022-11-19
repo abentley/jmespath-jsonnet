@@ -5,11 +5,10 @@
      88 filters
     128 functions
      82 identifiers
-     42 indices
+     30 indices
       8 literal
-     51 multiselect
+     50 multiselect
      12 pipe
-     13 slice
+      5 slice
      40 syntax
-      1 unicode
-     35 wildcard
+     18 wildcard
