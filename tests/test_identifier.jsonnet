@@ -66,5 +66,6 @@ local results = {
                                          { foo: { bar: 'baz' } })),
   test15: test_eq('baz', jmespath.search('foo."bar.bar"',
                                          { foo: { 'bar.bar': 'baz' } })),
+  test16: test_eq('baz', jmespath.search('foo."\\rbar"', { foo: { '\rbar': 'baz' } })),
 };
 test.asTest(results)

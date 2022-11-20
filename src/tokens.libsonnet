@@ -32,6 +32,8 @@ limitations under the License.
 
   isDigit(char): self.between(char, '0', '9'),
 
+  isHexDigit(char): self.isDigit(char) || self.between(char, 'a', 'f'),
+
   // Return true if the character can be part of an unquoted identifier.
   // first: if true, this would be the first character of the identifier
   idChar(char, first): (
@@ -70,6 +72,44 @@ limitations under the License.
 
   skipWhitespace(expression):
     self.optionalParser(self.parseWhitespace)(expression).remainder,
+
+  parseEscapedString(escaped, result=''):
+    local nextChar = escaped[0:1];
+    local unescaped = self.parseEscapedChar(escaped, result);
+    if unescaped != null then unescaped
+    else if nextChar == '"' then { remainder: escaped, result: result }
+    else if nextChar == '' then null
+    else if self.between(nextChar, ' ', '!') ||
+            self.between(nextChar, '#', '[') ||
+            self.between(nextChar, ']', '￿') then
+      self.parseEscapedString(escaped[1:], result + nextChar),
+
+  escapes: {
+    @'\': @'\',
+    '/': '/',
+    b: '\b',
+    f: '\f',
+    n: '\n',
+    r: '\r',
+    t: '\t',
+  },
+
+  parseHex(str):
+    if std.foldl(function(x, y) x && self.isHexDigit(y), str, true) then
+      std.parseHex(str),
+
+  parseEscapedChar(escaped, result):
+    local nextChar = escaped[1:2];
+    local output =
+      if std.objectHas(self.escapes, nextChar) then
+        self.parseEscapedString(escaped[2:], result + self.escapes[nextChar])
+      else if nextChar == 'u' && std.length(escaped[2:]) >= 4 then
+        local codepoint = self.parseHex(escaped[2:6]);
+        if codepoint != null then
+          local newResult = result + std.char(codepoint);
+          self.parseEscapedString(escaped[6:], newResult);
+    if escaped[0:1] == @'\' then output,
+
 
   parseIntToken: self.whitespaceParser(self.parseIntTokenInner),
 
@@ -124,6 +164,7 @@ limitations under the License.
     )),
     self.prefixParser('.', self.nestingToken('subexpression')),
     self.stringParser("'", 'rawString'),
+    self.delimitParser('"', '"', self.parseIdString),
     self.stringParser('"', 'idString'),
     self.stringParser('`', 'jsonLiteral'),
     self.parseWhitespace,
@@ -138,6 +179,11 @@ limitations under the License.
     local condition(expression, index) = expression[index] == quote;
     self.delimitParser(quote, quote, function(expression)
       self.parseUntilToken(expression, condition, name)),
+
+  parseIdString(str):
+    local content = self.parseEscapedString(str);
+    if content != null then
+      self.rawToken('idString', content.result, content.remainder),
 
   parseWhitespace(expression):
     local condition(expression, index) = !std.member(

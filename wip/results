@@ -1958,7 +1958,7 @@ The expression: a && b && c && d && e && f && g && h && i && j && k && l && m &&
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: Unhandled expression: "&& b && c && d && e && f && g && h && i && j && k && l && m && n && o && p && q && r && s && t && u && v && w && x && y && z"
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:169:10-79	function <alltokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:215:10-79	function <alltokens>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:322:24-45	thunk <tokens>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:329:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
@@ -2002,7 +2002,7 @@ The expression: sum([z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g,
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: Unhandled expression: "([z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a])"
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:169:10-79	function <alltokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:215:10-79	function <alltokens>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:322:24-45	thunk <tokens>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:329:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
@@ -2024,7 +2024,7 @@ The expression: sum([z, sum([y, sum([x, sum([w, sum([v, sum([u, sum([t, sum([s, 
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: Unhandled expression: "([z, sum([y, sum([x, sum([w, sum([v, sum([u, sum([t, sum([s, sum([r, sum([q, sum([p, sum([o, sum([n, sum([m, sum([l, sum([k, sum([j, sum([i, sum([h, sum([g, sum([f, sum([e, sum([d, sum([c, sum([b, a])])])])])])])])])])])])])])])])])])])])])])])])])"
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:169:10-79	function <alltokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:215:10-79	function <alltokens>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:322:24-45	thunk <tokens>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:329:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
@@ -2046,7 +2046,7 @@ The expression: [z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, 
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: Unhandled expression: "[z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a]"
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:169:10-79	function <alltokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:215:10-79	function <alltokens>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:322:24-45	thunk <tokens>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:329:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
@@ -2068,13 +2068,13 @@ The expression: j49.j48.j47.j46.j45.j44.j43.j42.j41.j40.j39.j38.j37.j36.j35.j34.
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: max stack frames exceeded.
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:190:38-48	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:157:38-48	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:224:43-53	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:146:26-36	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:68:33-43	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:185:18-28	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:144:14-24	thunk <indexable>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:236:38-48	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:203:38-48	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:270:43-53	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:192:26-36	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:70:33-43	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:231:18-28	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:190:14-24	thunk <indexable>
 	std.jsonnet:210:25-34	thunk <v>
 	std.jsonnet:28:26	
 	std.jsonnet:28:17-28	thunk <a>
@@ -2096,10 +2096,10 @@ The expression: j49|j48|j47|j46|j45|j44|j43|j42|j41|j40|j39|j38|j37|j36|j35|j34|
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: max stack frames exceeded.
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:159:23-33	thunk <curTokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:162:43-52	thunk <prevTokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:159:23-33	thunk <curTokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:161:27-36	thunk <content>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:205:23-33	thunk <curTokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:208:43-52	thunk <prevTokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:205:23-33	thunk <curTokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:207:27-36	thunk <content>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:20:16-23	object <token>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:328:46-59	thunk <content>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:256:42-49	thunk <tokens>
@@ -2124,8 +2124,8 @@ The expression: a[*].b[*].c[*].d[*].e[*].f[*].g[*].h[*].i[*].j[*].k[*].l[*].m[*]
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: max stack frames exceeded.
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:105:21-31	thunk <end>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:106:46-49	thunk <end>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:145:21-31	thunk <end>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:146:46-49	thunk <end>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:26:54-57	thunk <index>
 	std.jsonnet:197:14-19	thunk <a>
 	std.jsonnet:197:14-27	function <anonymous>
@@ -2146,97 +2146,25 @@ RUNTIME ERROR: max stack frames exceeded.
 	<cmdline>:2:30-56	function <top_level>
 	Top-level function	
 
-..
-FAIL identifiers,1,0
-The expression: "!\r"
-was supposed to give: true
-for the JSON: {"!\r": true}
-but instead gave: null
-..
+.....
 FAIL identifiers,4,0
 The expression: "\tF\uCebb"
 was supposed to give: true
 for the JSON: {"\tF\ucebb": true}
 but instead gave: null
-
-FAIL identifiers,5,0
-The expression: " \t"
-was supposed to give: true
-for the JSON: {" \t": true}
-but instead gave: null
-..
-FAIL identifiers,8,0
-The expression: "\t"
-was supposed to give: true
-for the JSON: {"\t": true}
-but instead gave: null
-.
-FAIL identifiers,10,0
-The expression: "\t4\ud9da\udd15"
-was supposed to give: true
-for the JSON: {"\t4\ud9da\udd15": true}
-but instead gave: null
-..
-FAIL identifiers,13,0
-The expression: "\f"
-was supposed to give: true
-for the JSON: {"\f": true}
-but instead gave: null
-......
+...............
 FAIL identifiers,20,0
 The expression: "\uaBA1\r"
 was supposed to give: true
 for the JSON: {"\uaba1\r": true}
 but instead gave: null
-.
-FAIL identifiers,22,0
-The expression: "<<U\t"
-was supposed to give: true
-for the JSON: {"<<U\t": true}
-but instead gave: null
-
+..
 FAIL identifiers,23,0
 The expression: "\ubBcE\ufAfB"
 was supposed to give: true
 for the JSON: {"\ubbce\ufafb": true}
 but instead gave: null
-..
-FAIL identifiers,26,0
-The expression: "\\\b\ud8cb\udc83"
-was supposed to give: true
-for the JSON: {"\\\b\ud8cb\udc83": true}
-but instead gave: null
-...
-FAIL identifiers,30,0
-The expression: "\\"
-was supposed to give: true
-for the JSON: {"\\": true}
-but instead gave: null
-.
-FAIL identifiers,32,0
-The expression: "\r\f:"
-was supposed to give: true
-for the JSON: {"\r\f:": true}
-but instead gave: null
-....
-FAIL identifiers,37,0
-The expression: "\b\t"
-was supposed to give: true
-for the JSON: {"\b\t": true}
-but instead gave: null
-....
-FAIL identifiers,42,0
-The expression: "\rB"
-was supposed to give: true
-for the JSON: {"\rB": true}
-but instead gave: null
-.
-FAIL identifiers,44,0
-The expression: "\n"
-was supposed to give: true
-for the JSON: {"\n": true}
-but instead gave: null
-
+.....................
 FAIL identifiers,45,0
 The expression: "\f󥌳"
 was supposed to give: true
@@ -2248,19 +2176,7 @@ The expression: "\\\u4FDc"
 was supposed to give: true
 for the JSON: {"\\\u4fdc": true}
 but instead gave: null
-
-FAIL identifiers,47,0
-The expression: "\r"
-was supposed to give: true
-for the JSON: {"\r": true}
-but instead gave: null
-.
-FAIL identifiers,49,0
-The expression: "\r\fB "
-was supposed to give: true
-for the JSON: {"\r\fB ": true}
-but instead gave: null
-
+...
 FAIL identifiers,50,0
 The expression: "+\"\""
 was supposed to give: true
@@ -2290,85 +2206,19 @@ The expression: "\""
 was supposed to give: true
 for the JSON: {"\"": true}
 but instead gave: ""
-.
-FAIL identifiers,57,0
-The expression: "\b\b"
-was supposed to give: true
-for the JSON: {"\b\b": true}
-but instead gave: null
-....
-FAIL identifiers,62,0
-The expression: "!I\n\/"
-was supposed to give: true
-for the JSON: {"!I\n/": true}
-but instead gave: null
-
+.......
 FAIL identifiers,63,0
 The expression: "\uEEbF"
 was supposed to give: true
 for the JSON: {"\ueebf": true}
 but instead gave: null
-
-FAIL identifiers,64,0
-The expression: "U)\t"
-was supposed to give: true
-for the JSON: {"U)\t": true}
-but instead gave: null
-...
-FAIL identifiers,68,0
-The expression: "\b"
-was supposed to give: true
-for the JSON: {"\b": true}
-but instead gave: null
-.
-FAIL identifiers,70,0
-The expression: "\t"
-was supposed to give: true
-for the JSON: {"\t": true}
-but instead gave: null
-
-FAIL identifiers,71,0
-The expression: "\t&\\\r"
-was supposed to give: true
-for the JSON: {"\t&\\\r": true}
-but instead gave: null
-..
-FAIL identifiers,74,0
-The expression: "\nS \n"
-was supposed to give: true
-for the JSON: {"\nS \n": true}
-but instead gave: null
-.
-FAIL identifiers,76,0
-The expression: ",\t;"
-was supposed to give: true
-for the JSON: {",\t;": true}
-but instead gave: null
-.
-FAIL identifiers,78,0
-The expression: "\/+\t\n\b!Z"
-was supposed to give: true
-for the JSON: {"/+\t\n\b!Z": true}
-but instead gave: null
-
+...............
 FAIL identifiers,79,0
 The expression: "󇟇\\ueFAc"
 was supposed to give: true
 for the JSON: {"\udadd\udfc7\\ueFAc": true}
 but instead gave: null
-
-FAIL identifiers,80,0
-The expression: ":\f"
-was supposed to give: true
-for the JSON: {":\f": true}
-but instead gave: null
-
-FAIL identifiers,81,0
-The expression: "\/"
-was supposed to give: true
-for the JSON: {"/": true}
-but instead gave: null
-.
+...
 FAIL identifiers,83,0
 The expression: "􃰂"
 was supposed to give: true
@@ -2380,31 +2230,13 @@ The expression: "󵅁"
 was supposed to give: true
 for the JSON: {"\udb94\udd41": true}
 but instead gave: null
-....
-FAIL identifiers,91,0
-The expression: "\b+"
-was supposed to give: true
-for the JSON: {"\b+": true}
-but instead gave: null
-
+.....
 FAIL identifiers,92,0
 The expression: "\""
 was supposed to give: true
 for the JSON: {"\"": true}
 but instead gave: ""
-..
-FAIL identifiers,95,0
-The expression: "\tK\t"
-was supposed to give: true
-for the JSON: {"\tK\t": true}
-but instead gave: null
-
-FAIL identifiers,96,0
-The expression: "\n\\\f"
-was supposed to give: true
-for the JSON: {"\n\\\f": true}
-but instead gave: null
-...
+.......
 FAIL identifiers,100,0
 The expression: "\tX$\uABBb"
 was supposed to give: true
@@ -2422,37 +2254,13 @@ The expression: "\"!"
 was supposed to give: true
 for the JSON: {"\"!": true}
 but instead gave: ""
-..
-FAIL identifiers,108,0
-The expression: "9\r\\R"
-was supposed to give: true
-for the JSON: {"9\r\\R": true}
-but instead gave: null
-.
+....
 FAIL identifiers,110,0
 The expression: "!\b\n󑩒\"\""
 was supposed to give: true
 for the JSON: {"!\b\n\udb06\ude52\"\"": true}
 but instead gave: ""
-...
-FAIL identifiers,114,0
-The expression: "\\8\\"
-was supposed to give: true
-for the JSON: {"\\8\\": true}
-but instead gave: null
-.....
-FAIL identifiers,120,0
-The expression: "VH2&H\\\/"
-was supposed to give: true
-for the JSON: {"VH2&H\\/": true}
-but instead gave: null
-..
-FAIL identifiers,123,0
-The expression: "<\t"
-was supposed to give: true
-for the JSON: {"<\t": true}
-but instead gave: null
-
+.............
 FAIL identifiers,124,0
 The expression: "\uD834\uDD1E"
 was supposed to give: true
@@ -2512,25 +2320,13 @@ The expression: @.foo[0]
 was supposed to give: {"name": "a"}
 for the JSON: {"foo": [{"name": "a"}, {"name": "b"}], "bar": {"baz": "qux"}}
 but instead gave: ""
-..
-FAIL escape,0,2
-The expression: "foo\nbar"
-was supposed to give: "newline"
-for the JSON: {"foo.bar": "dot", "foo bar": "space", "foo\nbar": "newline", "foo\"bar": "doublequote", "c:\\\\windows\\path": "windows", "/unix/path": "unix", "\"\"\"": "threequotes", "bar": {"baz": "qux"}}
-but instead gave: null
-
+...
 FAIL escape,0,3
 The expression: "foo\"bar"
 was supposed to give: "doublequote"
 for the JSON: {"foo.bar": "dot", "foo bar": "space", "foo\nbar": "newline", "foo\"bar": "doublequote", "c:\\\\windows\\path": "windows", "/unix/path": "unix", "\"\"\"": "threequotes", "bar": {"baz": "qux"}}
 but instead gave: ""
-
-FAIL escape,0,4
-The expression: "c:\\\\windows\\path"
-was supposed to give: "windows"
-for the JSON: {"foo.bar": "dot", "foo bar": "space", "foo\nbar": "newline", "foo\"bar": "doublequote", "c:\\\\windows\\path": "windows", "/unix/path": "unix", "\"\"\"": "threequotes", "bar": {"baz": "qux"}}
-but instead gave: null
-.
+..
 FAIL escape,0,6
 The expression: "\"\"\""
 was supposed to give: "threequotes"

@@ -1,10 +1,10 @@
       9 benchmarks
      53 boolean
       3 current
-      4 escape
+      2 escape
      88 filters
     128 functions
-     52 identifiers
+     20 identifiers
      30 indices
       8 literal
      50 multiselect

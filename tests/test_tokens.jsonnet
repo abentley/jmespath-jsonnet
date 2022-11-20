@@ -105,6 +105,35 @@ local results = {
     remainder: 'q',
     token: { content: '78', name: 'naturalNum' },
   }, tokens.parseNaturalNum('78q')),
+  test_parseEscapedString1: test_eq(null, tokens.parseEscapedString('\u0019')),
+  test_parseEscapedString2: test_eq(
+    { result: 'abc', remainder: '"%' }, tokens.parseEscapedString('abc"%')
+  ),
+  test_parseEscapedString3: test_eq(
+    { result: '', remainder: '"%' }, tokens.parseEscapedString('"%')
+  ),
+  test_parseEscapedString4: test_eq(
+    { result: @'\e', remainder: '"' }, tokens.parseEscapedString(@'\\e"')
+  ),
+  test_parseEscapedString5: test_eq(
+    null, tokens.parseEscapedString(@'\q"')
+  ),
+  test_parseEscapedString6: test_eq(
+    { result: '/\b\f\n\r\t', remainder: '"' },
+    tokens.parseEscapedString(@'\/\b\f\n\r\t"')
+  ),
+  test_parseEscapedString7: test_eq(
+    { result: 'ሴ', remainder: '"' },
+    tokens.parseEscapedString(@'\u1234"')
+  ),
+  test_parseEscapedString8: test_eq(
+    null,
+    tokens.parseEscapedString(@'\u123"')
+  ),
+  test_parseEscapedString9: test_eq(
+    null,
+    tokens.parseEscapedString(@'\u123g"')
+  ),
   test_parseNaturalNum2: test_eq(null, tokens.parseNaturalNum('q78q')),
   test_parseNaturalNum3: test_eq(null, tokens.parseNaturalNum('-78q')),
   test_parseIntToken: test_eq({
