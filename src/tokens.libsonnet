@@ -35,6 +35,7 @@ limitations under the License.
   // Return true if the character can be part of an unquoted identifier.
   // first: if true, this would be the first character of the identifier
   idChar(char, first): (
+    char == '_' ||
     self.between(char, 'a', 'z') ||
     self.between(char, 'A', 'Z') || (
       if first then false else self.isDigit(char)

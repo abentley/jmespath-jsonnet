@@ -94,6 +94,13 @@ local results = {
     ], null),
     tokens.someTokens('a.c|b', parsers=tokens.ultraTokens)
   ),
+  test13: test_eq({
+    token: { name: null, content: [
+      { content: 'asdf', name: 'jsonLiteral' },
+      { content: '_x_yz', name: 'id' },
+    ] },
+    remainder: null,
+  }, tokens.someTokens('`asdf`_x_yz')),
   test_parseNaturalNum: test_eq({
     remainder: 'q',
     token: { content: '78', name: 'naturalNum' },
