@@ -1,13 +1,13 @@
       9 benchmarks
-     50 boolean
+     53 boolean
       3 current
       4 escape
      88 filters
     128 functions
-     82 identifiers
+     52 identifiers
      30 indices
       8 literal
      50 multiselect
-     12 pipe
-     40 syntax
+      6 pipe
+     39 syntax
      18 wildcard
