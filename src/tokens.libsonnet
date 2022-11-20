@@ -108,7 +108,7 @@ limitations under the License.
     self.prefixParser(prefix, self.suffixParser(suffix, parser)),
 
   // The tokens that may be encountered as part of top-level parsing
-  topTokens: [
+  subTokens: [
     self.idToken,
     self.parseComparator,
     self.delimitParser('[?', ']', self.nestingToken('filterProjection')),
@@ -122,12 +122,15 @@ limitations under the License.
       self.constantParser('*', 'arrayWildcard')
     )),
     self.prefixParser('.', self.nestingToken('subexpression')),
-    self.prefixParser('|', self.nestingToken('pipe')),
     self.stringParser("'", 'rawString'),
     self.stringParser('"', 'idString'),
     self.stringParser('`', 'jsonLiteral'),
     self.parseWhitespace,
   ],
+
+  ultraTokens: [
+    self.prefixParser('|', self.nestingToken('pipe')),
+  ] + self.subTokens,
 
   // Generic support for parsing strings into tokens.
   stringParser(quote, name):
@@ -144,23 +147,23 @@ limitations under the License.
   // Return a token name, text, and remainder
   // Note: the returned text may omit some unneded syntax
   token(expression):
-    self.priorityParse(expression, self.topTokens),
+    self.priorityParse(expression, self.subTokens),
 
   // Return an object containing:
   // - the parsed tokens
   // - the portion of the string that could not be parsed
-  someTokens(expression, prevTokens=[], name=null):
-    local token = self.priorityParse(expression, self.topTokens);
+  someTokens(expression, prevTokens=[], name=null, parsers=self.subTokens):
+    local token = self.priorityParse(expression, parsers);
     local unparsed = if token == null then expression else null;
     local curTokens = prevTokens + if token == null then [] else [token.token];
     if token == null || token.remainder == null then
       self.rawToken(name, curTokens, unparsed)
-    else self.someTokens(token.remainder, curTokens, name),
+    else self.someTokens(token.remainder, curTokens, name, parsers),
 
   // Return an array of all tokens
   // Expression must be a string
   alltokens(expression): (
-    local result = self.someTokens(expression);
+    local result = self.someTokens(expression, parsers=self.ultraTokens);
     if result.remainder == null then result.token.content
     else error 'Unhandled expression: %s' % std.manifestJson(result.remainder)
   ),
@@ -182,7 +185,9 @@ limitations under the License.
     else self.parseUntil(expression, condition, index + 1),
 
   nestingToken(name):
-    function(expression) self.someTokens(expression, name=name),
+    function(expression)
+      local result = self.someTokens(expression, name=name);
+      result,
 
   optionalParser(parser):
     local parseOptional(expression) =

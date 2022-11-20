@@ -79,6 +79,21 @@ local results = {
     ] },
     remainder: null,
   }, tokens.someTokens('`asdf`xyz')),
+  test11: test_eq(
+    tokens.rawToken(null, [
+      { content: 'a', name: 'id' },
+      { content: [{ content: 'b', name: 'id' }], name: 'pipe' },
+    ], null),
+    tokens.someTokens('a|b', parsers=tokens.ultraTokens)
+  ),
+  test12: test_eq(
+    tokens.rawToken(null, [
+      { content: 'a', name: 'id' },
+      { content: [{ content: 'c', name: 'id' }], name: 'subexpression' },
+      { content: [{ content: 'b', name: 'id' }], name: 'pipe' },
+    ], null),
+    tokens.someTokens('a.c|b', parsers=tokens.ultraTokens)
+  ),
   test_parseNaturalNum: test_eq({
     remainder: 'q',
     token: { content: '78', name: 'naturalNum' },

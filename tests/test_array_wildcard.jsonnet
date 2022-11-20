@@ -29,5 +29,13 @@ local results = {
   test5: test_eq([6, 6, 6], jmespath.map(
     '[*]', [1, [2, 3], 4], function(x) 6
   )),
+  test6: test_eq(
+    [2, 3],
+    jmespath.search('h[*].x', { h: [{ x: 2 }, { y: 7 }, { x: 3 }] })
+  ),
+  test7: test_eq(
+    'h[*].x',
+    jmespath.compile('h[*].x').repr()
+  ),
 };
 test.asTest(results)

@@ -46,5 +46,6 @@ local results = {
   test10: test_eq([0, 1, [2, 5]], jmespath.map(
     '[]|[3]', [0, 1, [2, 3]], function(x) 5
   )),
+  test11: test_eq(5, jmespath.search('*.b|[0]', { a: { b: 5 } })),
 };
 test.asTest(results)

@@ -19,7 +19,7 @@ local mapContents(data, func, next) =
   if next == null then func(data)
   else next.map(data, func, null, allow_projection=true);
 
-local tokens = import 'tokens.libsonnet';
+local alltokens = (import 'tokens.libsonnet').alltokens;
 local exprFactory = {
   maybeJoin(prev, value):
     if prev != null then self.joiner(prev, value) else value,
@@ -319,7 +319,7 @@ local exprFactory = {
   // Return an object representing the expression
   // Expression must be a string
   compile(expression, prev=null): (
-    self.compileTokens(tokens.alltokens(expression), prev)
+    self.compileTokens(alltokens(expression), prev)
   ),
   // Return an object representing the expression
   // Expression must be a string
