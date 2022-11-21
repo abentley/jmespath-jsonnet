@@ -1958,7 +1958,7 @@ The expression: a && b && c && d && e && f && g && h && i && j && k && l && m &&
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: Unhandled expression: "&& b && c && d && e && f && g && h && i && j && k && l && m && n && o && p && q && r && s && t && u && v && w && x && y && z"
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:215:10-79	function <alltokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:217:10-79	function <alltokens>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:322:24-45	thunk <tokens>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:329:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
@@ -2002,7 +2002,7 @@ The expression: sum([z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g,
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: Unhandled expression: "([z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a])"
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:215:10-79	function <alltokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:217:10-79	function <alltokens>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:322:24-45	thunk <tokens>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:329:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
@@ -2024,7 +2024,7 @@ The expression: sum([z, sum([y, sum([x, sum([w, sum([v, sum([u, sum([t, sum([s, 
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: Unhandled expression: "([z, sum([y, sum([x, sum([w, sum([v, sum([u, sum([t, sum([s, sum([r, sum([q, sum([p, sum([o, sum([n, sum([m, sum([l, sum([k, sum([j, sum([i, sum([h, sum([g, sum([f, sum([e, sum([d, sum([c, sum([b, a])])])])])])])])])])])])])])])])])])])])])])])])])"
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:215:10-79	function <alltokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:217:10-79	function <alltokens>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:322:24-45	thunk <tokens>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:329:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
@@ -2046,7 +2046,7 @@ The expression: [z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, 
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: Unhandled expression: "[z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a]"
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:215:10-79	function <alltokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:217:10-79	function <alltokens>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:322:24-45	thunk <tokens>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:329:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
@@ -2068,13 +2068,13 @@ The expression: j49.j48.j47.j46.j45.j44.j43.j42.j41.j40.j39.j38.j37.j36.j35.j34.
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: max stack frames exceeded.
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:236:38-48	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:203:38-48	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:270:43-53	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:192:26-36	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:70:33-43	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:231:18-28	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:190:14-24	thunk <indexable>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:238:38-48	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:205:38-48	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:272:43-53	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:194:26-36	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:72:33-43	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:233:18-28	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:192:14-24	thunk <indexable>
 	std.jsonnet:210:25-34	thunk <v>
 	std.jsonnet:28:26	
 	std.jsonnet:28:17-28	thunk <a>
@@ -2096,10 +2096,10 @@ The expression: j49|j48|j47|j46|j45|j44|j43|j42|j41|j40|j39|j38|j37|j36|j35|j34|
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: max stack frames exceeded.
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:205:23-33	thunk <curTokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:208:43-52	thunk <prevTokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:205:23-33	thunk <curTokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:207:27-36	thunk <content>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:207:23-33	thunk <curTokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:210:43-52	thunk <prevTokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:207:23-33	thunk <curTokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:209:27-36	thunk <content>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:20:16-23	object <token>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:328:46-59	thunk <content>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:256:42-49	thunk <tokens>
@@ -2124,8 +2124,8 @@ The expression: a[*].b[*].c[*].d[*].e[*].f[*].g[*].h[*].i[*].j[*].k[*].l[*].m[*]
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: max stack frames exceeded.
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:145:21-31	thunk <end>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:146:46-49	thunk <end>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:147:21-31	thunk <end>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:148:46-49	thunk <end>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:26:54-57	thunk <index>
 	std.jsonnet:197:14-19	thunk <a>
 	std.jsonnet:197:14-27	function <anonymous>
@@ -2146,37 +2146,13 @@ RUNTIME ERROR: max stack frames exceeded.
 	<cmdline>:2:30-56	function <top_level>
 	Top-level function	
 
-.....
-FAIL identifiers,4,0
-The expression: "\tF\uCebb"
-was supposed to give: true
-for the JSON: {"\tF\ucebb": true}
-but instead gave: null
-...............
-FAIL identifiers,20,0
-The expression: "\uaBA1\r"
-was supposed to give: true
-for the JSON: {"\uaba1\r": true}
-but instead gave: null
-..
-FAIL identifiers,23,0
-The expression: "\ubBcE\ufAfB"
-was supposed to give: true
-for the JSON: {"\ubbce\ufafb": true}
-but instead gave: null
-.....................
+..............................................
 FAIL identifiers,45,0
 The expression: "\f󥌳"
 was supposed to give: true
 for the JSON: {"\f\udb54\udf33": true}
 but instead gave: null
-
-FAIL identifiers,46,0
-The expression: "\\\u4FDc"
-was supposed to give: true
-for the JSON: {"\\\u4fdc": true}
-but instead gave: null
-...
+....
 FAIL identifiers,50,0
 The expression: "+\"\""
 was supposed to give: true
@@ -2206,13 +2182,7 @@ The expression: "\""
 was supposed to give: true
 for the JSON: {"\"": true}
 but instead gave: ""
-.......
-FAIL identifiers,63,0
-The expression: "\uEEbF"
-was supposed to give: true
-for the JSON: {"\ueebf": true}
-but instead gave: null
-...............
+.......................
 FAIL identifiers,79,0
 The expression: "󇟇\\ueFAc"
 was supposed to give: true
@@ -2236,13 +2206,7 @@ The expression: "\""
 was supposed to give: true
 for the JSON: {"\"": true}
 but instead gave: ""
-.......
-FAIL identifiers,100,0
-The expression: "\tX$\uABBb"
-was supposed to give: true
-for the JSON: {"\tX$\uabbb": true}
-but instead gave: null
-.
+.........
 FAIL identifiers,102,0
 The expression: "\b%\"򞄏"
 was supposed to give: true
@@ -2260,13 +2224,7 @@ The expression: "!\b\n󑩒\"\""
 was supposed to give: true
 for the JSON: {"!\b\n\udb06\ude52\"\"": true}
 but instead gave: ""
-.............
-FAIL identifiers,124,0
-The expression: "\uD834\uDD1E"
-was supposed to give: true
-for the JSON: {"\ud834\udd1e": true}
-but instead gave: null
-.....
+...................
 FAIL pipe,0,5
 The expression: {"a": foo.bar, "b": foo.other} | *.baz
 was supposed to give: ["subkey", "subkey"]
