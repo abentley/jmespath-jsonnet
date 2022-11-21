@@ -32,7 +32,9 @@ limitations under the License.
 
   isDigit(char): self.between(char, '0', '9'),
 
-  isHexDigit(char): self.isDigit(char) || self.between(char, 'a', 'f'),
+  isHexDigit(char): self.isDigit(char) ||
+                    self.between(char, 'a', 'f') ||
+                    self.between(char, 'A', 'F'),
 
   // Return true if the character can be part of an unquoted identifier.
   // first: if true, this would be the first character of the identifier
@@ -176,7 +178,7 @@ limitations under the License.
 
   // Generic support for parsing strings into tokens.
   stringParser(quote, name):
-    local condition(expression, index) = expression[index] == quote;
+    local condition(expression, index) = expression[index:index + 1] == quote;
     self.delimitParser(quote, quote, function(expression)
       self.parseUntilToken(expression, condition, name)),
 
