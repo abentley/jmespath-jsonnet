@@ -278,6 +278,35 @@ local exprFactory = {
       type: 'pipe',
     },
 
+  ImplBoolean: {
+    bool(value):
+      !std.member([null, [], {}, '', false], value),
+    search(data, next):
+      self.pickSide(data, next).search(data, next),
+    map(data, func, next, allow_projection):
+      self.pickSide(data, next).map(data, func, next, allow_projection),
+  },
+  boolean(content, prev)::
+    local right = self.compileTokens(content); self.ImplBoolean {
+      left: prev,
+      right: right,
+    },
+  ImplOr: {
+    pickSide(data, next):
+      if self.bool(self.left.search(data, next)) then self.left
+      else self.right,
+  },
+  or(content, prev)::
+    self.boolean(content, prev) + self.ImplOr,
+
+  ImplAnd: {
+    pickSide(data, next):
+      if !self.bool(self.left.search(data, next)) then self.left
+      else self.right,
+  },
+  and(content, prev)::
+    self.boolean(content, prev) + self.ImplAnd,
+
   ImplJsonLiteral: {
     search(data, next): self.literal,
     repr():

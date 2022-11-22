@@ -105,6 +105,20 @@ local results = {
     token: { name: null, content: [{ name: 'current', content: '@' }] },
     remainder: null,
   }, tokens.someTokens('@')),
+  test15: test_eq({
+    token: { name: null, content: [
+      { name: 'id', content: 'a' },
+      { name: 'or', content: [{ name: 'id', content: 'b' }] },
+    ] },
+    remainder: null,
+  }, tokens.someTokens('a||b')),
+  test16: test_eq({
+    token: { name: null, content: [
+      { name: 'id', content: 'a' },
+      { name: 'and', content: [{ name: 'id', content: 'b' }] },
+    ] },
+    remainder: null,
+  }, tokens.someTokens('a&&b')),
   test_parseNaturalNum: test_eq({
     remainder: 'q',
     token: { content: '78', name: 'naturalNum' },

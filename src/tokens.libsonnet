@@ -167,15 +167,17 @@ limitations under the License.
       self.constantParser('*', 'arrayWildcard')
     )),
     self.prefixParser('.', self.nestingToken('subexpression')),
+    self.prefixParser('||', self.nestingToken('or')),
+    self.prefixParser('&&', self.nestingToken('and')),
     self.stringParser("'", 'rawString'),
     self.delimitParser('"', '"', self.parseIdString),
     self.stringParser('`', 'jsonLiteral'),
     self.parseWhitespace,
   ],
 
-  ultraTokens: [
+  ultraTokens: self.subTokens + [
     self.prefixParser('|', self.nestingToken('pipe')),
-  ] + self.subTokens,
+  ],
 
   // Generic support for parsing strings into tokens.
   stringParser(quote, name):
