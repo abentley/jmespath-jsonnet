@@ -351,21 +351,18 @@ local exprFactory = {
     ),
     search(data, next): self.evaluate(data),
     map(data, next, value, allow_projection): data,
+    local makeCompareFunc(basefunc) =
+      function(l, r)
+        if std.type(l) != 'number' || std.type(r) != 'number' then null
+        else basefunc(l, r),
+
     opFunc: {
       '==': function(l, r) l == r,
       '!=': function(l, r) l != r,
-      '<': function(l, r)
-        if std.type(l) != 'number' || std.type(r) != 'number' then false
-        else l < r,
-      '<=': function(l, r)
-        if std.type(l) != 'number' || std.type(r) != 'number' then false
-        else l <= r,
-      '>': function(l, r)
-        if std.type(l) != 'number' || std.type(r) != 'number' then false
-        else l > r,
-      '>=': function(l, r)
-        if std.type(l) != 'number' || std.type(r) != 'number' then false
-        else l >= r,
+      '<': makeCompareFunc(function(l, r) l < r),
+      '<=': makeCompareFunc(function(l, r) l <= r),
+      '>': makeCompareFunc(function(l, r) l > r),
+      '>=': makeCompareFunc(function(l, r) l >= r),
     },
     repr(): '%s%s%s' % [self.left.repr(), self.op, self.right.repr()],
   },

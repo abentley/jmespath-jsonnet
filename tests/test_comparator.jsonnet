@@ -30,5 +30,9 @@ local results = {
   test10: test_eq(
     ['a', 'b'], jmespath.set('`2`<=`2`', ['a', 'b'], function(x) null)
   ),
+  test11: test_eq(null, jmespath.search('`null`<`2`', [])),
+  test12: test_eq(null, jmespath.search('`null`>`2`', [])),
+  test13: test_eq(null, jmespath.search('`null`>=`2`', [])),
+  test14: test_eq(null, jmespath.search('`null`<=`2`', [])),
 };
 test.asTest(results)
