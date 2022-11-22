@@ -37,11 +37,6 @@ local results = {
     local data = { foo: { bar: { baz: 'spam' } } };
     local expected = { foo: { bar: { baz: 'eggs' } } };
     test_eq(expected, jmespath.set('foo.bar.baz', data, 'eggs')),
-  test8::
-    test_eq(
-      [jmespath.compile('foo.bar'), jmespath.compile('baz')],
-      jmespath.extractLast(jmespath.compile('foo.bar.baz'))
-    ),
   test9:
     test_eq('ab.cd', jmespath.compile('ab.cd').repr()),
   test10:
