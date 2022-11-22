@@ -46,14 +46,16 @@ limitations under the License.
     )
   ),
 
-  parseComparator(expression): if std.member('=<>!', expression[0:1]) then
+  parseComparator(expression):
     local op =
-      if expression[1:2] == '=' then expression[0:2] else expression[0:1];
+      if std.member(['!=', '=='], expression[0:2]) then expression[0:2] else
+        if std.member('<>', expression[0:1]) then
+          if expression[1:2] == '=' then expression[0:2] else expression[0:1];
     local tokens = self.someTokens(expression[std.length(op):]);
     local token = self.rawToken(
       'comparator', { op: op, tokens: tokens.token.content }, tokens.remainder
     );
-    token,
+    if op != null then token,
 
   rename(parser, name):
     local wrapper(expression) = (
@@ -169,6 +171,7 @@ limitations under the License.
     self.prefixParser('.', self.nestingToken('subexpression')),
     self.prefixParser('||', self.nestingToken('or')),
     self.prefixParser('&&', self.nestingToken('and')),
+    self.prefixParser('!', self.nestingToken('not')),
     self.stringParser("'", 'rawString'),
     self.delimitParser('"', '"', self.parseIdString),
     self.stringParser('`', 'jsonLiteral'),

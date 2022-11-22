@@ -119,6 +119,25 @@ local results = {
     ] },
     remainder: null,
   }, tokens.someTokens('a&&b')),
+  test17: test_eq({
+    token: { name: null, content: [
+      { name: 'not', content: [{ name: 'id', content: 'a' }] },
+    ] },
+    remainder: null,
+  }, tokens.someTokens('!a')),
+  test18: test_eq({
+    token: { name: null, content: [
+      { name: 'id', content: 'a' },
+      { name: 'comparator', content: { op: '!=', tokens: [{ name: 'id', content: 'b' }] } },
+    ] },
+    remainder: null,
+  }, tokens.someTokens('a!=b')),
+  test19: test_eq({
+    token: { name: null, content: [
+      { name: 'id', content: 'a' },
+    ] },
+    remainder: '=b',
+  }, tokens.someTokens('a=b')),
   test_parseNaturalNum: test_eq({
     remainder: 'q',
     token: { content: '78', name: 'naturalNum' },
