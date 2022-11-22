@@ -134,6 +134,10 @@ local results = {
     null,
     tokens.parseEscapedString(@'\u123g"')
   ),
+  test_parseEscapedString10: test_eq(
+    { result: '"', remainder: '"' },
+    tokens.parseEscapedString(@'\""')
+  ),
   test_parseNaturalNum2: test_eq(null, tokens.parseNaturalNum('q78q')),
   test_parseNaturalNum3: test_eq(null, tokens.parseNaturalNum('-78q')),
   test_parseIntToken: test_eq({

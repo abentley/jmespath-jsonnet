@@ -89,6 +89,7 @@ limitations under the License.
   escapes: {
     @'\': @'\',
     '/': '/',
+    '"': '"',
     b: '\b',
     f: '\f',
     n: '\n',
@@ -167,7 +168,6 @@ limitations under the License.
     self.prefixParser('.', self.nestingToken('subexpression')),
     self.stringParser("'", 'rawString'),
     self.delimitParser('"', '"', self.parseIdString),
-    self.stringParser('"', 'idString'),
     self.stringParser('`', 'jsonLiteral'),
     self.parseWhitespace,
   ],

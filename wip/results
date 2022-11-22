@@ -2124,8 +2124,8 @@ The expression: a[*].b[*].c[*].d[*].e[*].f[*].g[*].h[*].i[*].j[*].k[*].l[*].m[*]
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: max stack frames exceeded.
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:147:21-31	thunk <end>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:148:46-49	thunk <end>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:148:21-31	thunk <end>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:149:46-49	thunk <end>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:26:54-57	thunk <index>
 	std.jsonnet:197:14-19	thunk <a>
 	std.jsonnet:197:14-27	function <anonymous>
@@ -2151,74 +2151,38 @@ FAIL identifiers,45,0
 The expression: "\f󥌳"
 was supposed to give: true
 for the JSON: {"\f\udb54\udf33": true}
-but instead gave: null
-....
-FAIL identifiers,50,0
-The expression: "+\"\""
-was supposed to give: true
-for the JSON: {"+\"\"": true}
 but instead gave: ""
-.
-FAIL identifiers,52,0
-The expression: "\"!\/"
-was supposed to give: true
-for the JSON: {"\"!/": true}
-but instead gave: ""
-
-FAIL identifiers,53,0
-The expression: "7\""
-was supposed to give: true
-for the JSON: {"7\"": true}
-but instead gave: ""
-
+........
 FAIL identifiers,54,0
 The expression: "\\󞢤S"
 was supposed to give: true
 for the JSON: {"\\\udb3a\udca4S": true}
-but instead gave: null
-
-FAIL identifiers,55,0
-The expression: "\""
-was supposed to give: true
-for the JSON: {"\"": true}
 but instead gave: ""
-.......................
+........................
 FAIL identifiers,79,0
 The expression: "󇟇\\ueFAc"
 was supposed to give: true
 for the JSON: {"\udadd\udfc7\\ueFAc": true}
-but instead gave: null
+but instead gave: ""
 ...
 FAIL identifiers,83,0
 The expression: "􃰂"
 was supposed to give: true
 for the JSON: {"\udbcf\udc02": true}
-but instead gave: null
+but instead gave: ""
 ..
 FAIL identifiers,86,0
 The expression: "󵅁"
 was supposed to give: true
 for the JSON: {"\udb94\udd41": true}
-but instead gave: null
-.....
-FAIL identifiers,92,0
-The expression: "\""
-was supposed to give: true
-for the JSON: {"\"": true}
 but instead gave: ""
-.........
+...............
 FAIL identifiers,102,0
 The expression: "\b%\"򞄏"
 was supposed to give: true
 for the JSON: {"\b%\"\uda38\udd0f": true}
 but instead gave: ""
-..
-FAIL identifiers,105,0
-The expression: "\"!"
-was supposed to give: true
-for the JSON: {"\"!": true}
-but instead gave: ""
-....
+.......
 FAIL identifiers,110,0
 The expression: "!\b\n󑩒\"\""
 was supposed to give: true
@@ -2278,19 +2242,7 @@ The expression: @.foo[0]
 was supposed to give: {"name": "a"}
 for the JSON: {"foo": [{"name": "a"}, {"name": "b"}], "bar": {"baz": "qux"}}
 but instead gave: ""
-...
-FAIL escape,0,3
-The expression: "foo\"bar"
-was supposed to give: "doublequote"
-for the JSON: {"foo.bar": "dot", "foo bar": "space", "foo\nbar": "newline", "foo\"bar": "doublequote", "c:\\\\windows\\path": "windows", "/unix/path": "unix", "\"\"\"": "threequotes", "bar": {"baz": "qux"}}
-but instead gave: ""
-..
-FAIL escape,0,6
-The expression: "\"\"\""
-was supposed to give: "threequotes"
-for the JSON: {"foo.bar": "dot", "foo bar": "space", "foo\nbar": "newline", "foo\"bar": "doublequote", "c:\\\\windows\\path": "windows", "/unix/path": "unix", "\"\"\"": "threequotes", "bar": {"baz": "qux"}}
-but instead gave: ""
-.......
+..............
 FAIL syntax,0,6
 The expression: foo..bar
 was supposed to have non zero for error error: syntax
@@ -2500,13 +2452,7 @@ The expression: twolen[].threelen[].`"bar"`
 was supposed to have non zero for error error: syntax
 but instead gave rc of: 0, stderr: 
 
-.....
-FAIL syntax,14,3
-The expression: "\u"
-was supposed to have non zero for error error: syntax
-but instead gave rc of: 0, stderr: 
-
-.
+......
 FAIL syntax,15,0
 The expression: *||*|*|*
 was supposed to give: null
