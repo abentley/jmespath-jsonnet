@@ -26,6 +26,18 @@ local exprFactory = {
 
   local maybeJoin = self.maybeJoin,
 
+  ImplCurrent: {
+    search(data, next)::
+      if next != null then next.search(data, null)
+      else data,
+    map(data, func, next, allow_projection)::
+      if next != null then next.map(data, func, null, allow_projection)
+      else func(data),
+  },
+
+  current(value, prev=null): self.ImplCurrent {
+  },
+
   ImplMember: {
     searchNext(result, next)::
       if next == null || result == null then result
@@ -54,7 +66,6 @@ local exprFactory = {
 
   // A segment of an identifier.
   idString(id, prev=null):
-    //TODO unescape characters such as \
     self.id(id, prev),
 
   ImplIndex: self.ImplMember {

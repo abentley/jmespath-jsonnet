@@ -158,6 +158,7 @@ limitations under the License.
     self.delimitParser('[?', ']', self.nestingToken('filterProjection')),
     self.rename(self.delimitParser('[', ']', self.parseIntToken), 'index'),
     self.delimitParser('[', ']', self.parseSliceInner),
+    self.constantParser('@', 'current'),
     self.constantParser('*', 'objectWildcard'),
     self.delimitParser('[', ']', self.whitespaceParser(
       self.constantParser('', 'flatten')

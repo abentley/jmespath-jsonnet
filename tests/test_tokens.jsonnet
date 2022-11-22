@@ -101,6 +101,10 @@ local results = {
     ] },
     remainder: null,
   }, tokens.someTokens('`asdf`_x_yz')),
+  test14: test_eq({
+    token: { name: null, content: [{ name: 'current', content: '@' }] },
+    remainder: null,
+  }, tokens.someTokens('@')),
   test_parseNaturalNum: test_eq({
     remainder: 'q',
     token: { content: '78', name: 'naturalNum' },

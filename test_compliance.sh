@@ -2,7 +2,7 @@
 : ${jp=$(realpath jp)}
 : ${RUNNER_DIR=../jmespath.test/}
 : ${TEST_DIR=$RUNNER_DIR/tests}
-: ${TESTS=basic slice escape}
+: ${TESTS=basic current escape slice}
 if [ -n "$TESTS" ]; then
     TEST_ARGS="--tests $TESTS"
 else
