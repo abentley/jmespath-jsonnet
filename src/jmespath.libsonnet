@@ -65,7 +65,9 @@ local exprFactory = {
 
     searchResult(data)::
       local index = self.dataIndex(data);
-      if std.type(data) == 'array' && index < std.length(data) && index >= 0 then
+      if std.type(data) == 'array'
+         && index < std.length(data)
+         && index >= 0 then
         data[index],
 
     map(data, func, next, allow_projection)::
