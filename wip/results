@@ -826,79 +826,19 @@ The expression: foo[?@ == @]
 was supposed to give: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 for the JSON: {"foo": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}
 but instead gave: ""
-....
-FAIL wildcard,0,4
-The expression: foo.*.notbaz[-1]
-was supposed to give: ["c", "c"]
-for the JSON: {"foo": {"bar": {"baz": "val"}, "other": {"baz": "val"}, "other2": {"baz": "val"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["a", "b", "c"]}, "other5": {"other": {"a": 1, "b": 1, "c": 1}}}}
-but instead gave: ""
-........
+.............
 FAIL wildcard,3,3
 The expression: *.*.foo[]
 was supposed to give: ["one", "one"]
 for the JSON: {"top1": {"sub1": {"foo": "one"}}, "top2": {"sub1": {"foo": "one"}}}
 but instead gave: [[["o", "n", "e"]], [["o", "n", "e"]]]
-..........
-FAIL wildcard,6,4
-The expression: foo.bar[*].baz[3]
-was supposed to give: []
-for the JSON: {"foo": {"bar": [{"baz": ["one", "two", "three"]}, {"baz": ["four", "five", "six"]}, {"baz": ["seven", "eight", "nine"]}]}}
-but instead gave: ""
-......
+.................
 FAIL wildcard,8,0
 The expression: foo[*].bar[*].kind
 was supposed to give: [["basic", "intermediate"], ["advanced", "expert"]]
 for the JSON: {"foo": [{"bar": [{"kind": "basic"}, {"kind": "intermediate"}]}, {"bar": [{"kind": "advanced"}, {"kind": "expert"}]}, {"bar": "string"}]}
 but instead gave: ""
-...
-FAIL wildcard,10,1
-The expression: foo[*].bar[1]
-was supposed to give: ["two", "four"]
-for the JSON: {"foo": [{"bar": ["one", "two"]}, {"bar": ["three", "four"]}, {"bar": ["five"]}]}
-but instead gave: ""
-
-FAIL wildcard,10,2
-The expression: foo[*].bar[2]
-was supposed to give: []
-for the JSON: {"foo": [{"bar": ["one", "two"]}, {"bar": ["three", "four"]}, {"bar": ["five"]}]}
-but instead gave: ""
-
-FAIL wildcard,11,0
-The expression: foo[*].bar[0]
-was supposed to give: []
-for the JSON: {"foo": [{"bar": []}, {"bar": []}, {"bar": []}]}
-but instead gave: ""
-.
-FAIL wildcard,12,1
-The expression: foo[*][1]
-was supposed to give: ["two", "four"]
-for the JSON: {"foo": [["one", "two"], ["three", "four"], ["five"]]}
-but instead gave: ""
-....
-FAIL wildcard,13,4
-The expression: foo[*][0][1]
-was supposed to give: ["two", "six"]
-for the JSON: {"foo": [[["one", "two"], ["three", "four"]], [["five", "six"], ["seven", "eight"]], [["nine"], ["ten"]]]}
-but instead gave: ""
-
-FAIL wildcard,13,5
-The expression: foo[*][1][1]
-was supposed to give: ["four", "eight"]
-for the JSON: {"foo": [[["one", "two"], ["three", "four"]], [["five", "six"], ["seven", "eight"]], [["nine"], ["ten"]]]}
-but instead gave: ""
-
-FAIL wildcard,13,6
-The expression: foo[*][2]
-was supposed to give: []
-for the JSON: {"foo": [[["one", "two"], ["three", "four"]], [["five", "six"], ["seven", "eight"]], [["nine"], ["ten"]]]}
-but instead gave: ""
-
-FAIL wildcard,13,7
-The expression: foo[*][2][2]
-was supposed to give: []
-for the JSON: {"foo": [[["one", "two"], ["three", "four"]], [["five", "six"], ["seven", "eight"]], [["nine"], ["ten"]]]}
-but instead gave: ""
-..
+..................
 FAIL wildcard,14,0
 The expression: string[*]
 was supposed to give: null
@@ -982,61 +922,7 @@ The expression: 'foo\'bar'
 was supposed to give: "foo'bar"
 for the JSON: {}
 but instead gave: ""
-.....
-FAIL indices,0,3
-The expression: foo.bar[3]
-was supposed to give: null
-for the JSON: {"foo": {"bar": ["zero", "one", "two"]}}
-but instead gave: ""
-
-FAIL indices,0,4
-The expression: foo.bar[-1]
-was supposed to give: "two"
-for the JSON: {"foo": {"bar": ["zero", "one", "two"]}}
-but instead gave: ""
-
-FAIL indices,0,5
-The expression: foo.bar[-2]
-was supposed to give: "one"
-for the JSON: {"foo": {"bar": ["zero", "one", "two"]}}
-but instead gave: ""
-
-FAIL indices,0,6
-The expression: foo.bar[-3]
-was supposed to give: "zero"
-for the JSON: {"foo": {"bar": ["zero", "one", "two"]}}
-but instead gave: ""
-
-FAIL indices,0,7
-The expression: foo.bar[-4]
-was supposed to give: null
-for the JSON: {"foo": {"bar": ["zero", "one", "two"]}}
-but instead gave: ""
-..........
-FAIL indices,1,10
-The expression: foo[4]
-was supposed to give: null
-for the JSON: {"foo": [{"bar": "one"}, {"bar": "two"}, {"bar": "three"}, {"notbar": "four"}]}
-but instead gave: ""
-...
-FAIL indices,2,3
-The expression: [-1]
-was supposed to give: "three"
-for the JSON: ["one", "two", "three"]
-but instead gave: ""
-
-FAIL indices,2,4
-The expression: [-2]
-was supposed to give: "two"
-for the JSON: ["one", "two", "three"]
-but instead gave: ""
-
-FAIL indices,2,5
-The expression: [-3]
-was supposed to give: "one"
-for the JSON: ["one", "two", "three"]
-but instead gave: ""
-
+...........................
 FAIL indices,3,0
 The expression: reservations[].instances[].foo
 was supposed to give: [1, 2]
@@ -1102,19 +988,7 @@ The expression: reservations[].instances[].qux[].baz[]
 was supposed to give: [1, 2, 3, 4, 1, 2, 3, 4]
 for the JSON: {"reservations": [{"instances": [{"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"foo": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"foo": "bar"}, {"notfoo": [{"bar": 20}, {"bar": 21}, {"notbar": [7]}, {"bar": 22}]}, {"bar": [{"baz": [1]}, {"baz": [2]}, {"baz": [3]}, {"baz": [4]}]}, {"baz": [{"baz": [1, 2]}, {"baz": []}, {"baz": []}, {"baz": [3, 4]}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}, {"instances": [{"a": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}, {"b": [{"bar": 5}, {"bar": 6}, {"notbar": [7]}, {"bar": 8}]}, {"c": "bar"}, {"notfoo": [{"bar": 23}, {"bar": 24}, {"notbar": [7]}, {"bar": 25}]}, {"qux": [{"baz": []}, {"baz": [1, 2, 3]}, {"baz": [4]}, {"baz": []}]}], "otherkey": {"foo": [{"bar": 1}, {"bar": 2}, {"notbar": 3}, {"bar": 4}]}}]}
 but instead gave: [[[[], [1, 2, 3], [4], []]], [[[], [1, 2, 3], [4], []]]]
-..
-FAIL indices,5,2
-The expression: foo[][1]
-was supposed to give: ["two", "four", "six", "eight"]
-for the JSON: {"foo": [[["one", "two"], ["three", "four"]], [["five", "six"], ["seven", "eight"]], [["nine"], ["ten"]]]}
-but instead gave: ""
-.
-FAIL indices,5,4
-The expression: foo[][2][2]
-was supposed to give: []
-for the JSON: {"foo": [[["one", "two"], ["three", "four"]], [["five", "six"], ["seven", "eight"]], [["nine"], ["ten"]]]}
-but instead gave: ""
-....
+.........
 FAIL indices,6,3
 The expression: foo[].bar[]
 was supposed to give: [{"qux": 2, "baz": 1}, {"qux": 4, "baz": 3}, {"qux": 6, "baz": 5}, {"qux": 8, "baz": 7}]
@@ -1936,9 +1810,9 @@ The expression: not_there || b
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: can only index objects, strings, and arrays, got null.
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:244:7-24	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:243:45-73	thunk <rdata>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:244:25-30	thunk <data>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:252:7-24	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:251:45-73	thunk <rdata>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:252:25-30	thunk <data>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:34:41-45	thunk <data>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:38:19-23	
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:38:10-24	thunk <a>
@@ -1947,8 +1821,8 @@ RUNTIME ERROR: can only index objects, strings, and arrays, got null.
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:34:23-46	thunk <result>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:31:46-52	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:34:7-53	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:244:7-37	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:339:5-32	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:252:7-37	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:347:5-32	function <anonymous>
 	<cmdline>:2:30-56	function <top_level>
 	Top-level function	
 
@@ -1959,18 +1833,18 @@ was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: Unhandled expression: "&& b && c && d && e && f && g && h && i && j && k && l && m && n && o && p && q && r && s && t && u && v && w && x && y && z"
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:217:10-79	function <alltokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:322:24-45	thunk <tokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:329:7-13	thunk <arr>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:330:24-45	thunk <tokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:337:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
 	std.jsonnet:786:28-31	
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(327:5)-(331:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:322:5-52	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:351:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:351:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:338:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:339:5-13	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(335:5)-(339:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:330:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:359:15-46	thunk <x>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:359:48	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:346:22-46	thunk <compiled>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:347:5-13	function <anonymous>
 	<cmdline>:2:30-56	function <top_level>
 	Top-level function	
 
@@ -1980,9 +1854,9 @@ The expression: z || y || x || w || v || u || t || s || r || q || p || o || n ||
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: can only index objects, strings, and arrays, got null.
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:244:7-24	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:243:45-73	thunk <rdata>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:244:25-30	thunk <data>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:252:7-24	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:251:45-73	thunk <rdata>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:252:25-30	thunk <data>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:34:41-45	thunk <data>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:38:19-23	
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:38:10-24	thunk <a>
@@ -1991,8 +1865,8 @@ RUNTIME ERROR: can only index objects, strings, and arrays, got null.
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:34:23-46	thunk <result>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:31:46-52	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:34:7-53	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:244:7-37	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:339:5-32	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:252:7-37	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:347:5-32	function <anonymous>
 	<cmdline>:2:30-56	function <top_level>
 	Top-level function	
 
@@ -2003,18 +1877,18 @@ was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: Unhandled expression: "([z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a])"
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:217:10-79	function <alltokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:322:24-45	thunk <tokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:329:7-13	thunk <arr>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:330:24-45	thunk <tokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:337:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
 	std.jsonnet:786:28-31	
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(327:5)-(331:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:322:5-52	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:351:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:351:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:338:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:339:5-13	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(335:5)-(339:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:330:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:359:15-46	thunk <x>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:359:48	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:346:22-46	thunk <compiled>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:347:5-13	function <anonymous>
 	<cmdline>:2:30-56	function <top_level>
 	Top-level function	
 
@@ -2025,18 +1899,18 @@ was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: Unhandled expression: "([z, sum([y, sum([x, sum([w, sum([v, sum([u, sum([t, sum([s, sum([r, sum([q, sum([p, sum([o, sum([n, sum([m, sum([l, sum([k, sum([j, sum([i, sum([h, sum([g, sum([f, sum([e, sum([d, sum([c, sum([b, a])])])])])])])])])])])])])])])])])])])])])])])])])"
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:217:10-79	function <alltokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:322:24-45	thunk <tokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:329:7-13	thunk <arr>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:330:24-45	thunk <tokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:337:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
 	std.jsonnet:786:28-31	
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(327:5)-(331:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:322:5-52	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:351:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:351:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:338:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:339:5-13	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(335:5)-(339:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:330:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:359:15-46	thunk <x>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:359:48	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:346:22-46	thunk <compiled>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:347:5-13	function <anonymous>
 	<cmdline>:2:30-56	function <top_level>
 	Top-level function	
 
@@ -2047,18 +1921,18 @@ was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: Unhandled expression: "[z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a]"
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:217:10-79	function <alltokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:322:24-45	thunk <tokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:329:7-13	thunk <arr>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:330:24-45	thunk <tokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:337:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
 	std.jsonnet:786:28-31	
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(327:5)-(331:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:322:5-52	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:351:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:351:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:338:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:339:5-13	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(335:5)-(339:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:330:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:359:15-46	thunk <x>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:359:48	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:346:22-46	thunk <compiled>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:347:5-13	function <anonymous>
 	<cmdline>:2:30-56	function <top_level>
 	Top-level function	
 
@@ -2081,12 +1955,12 @@ RUNTIME ERROR: max stack frames exceeded.
 	...
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(327:5)-(331:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:322:5-52	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:351:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:351:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:338:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:339:5-13	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(335:5)-(339:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:330:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:359:15-46	thunk <x>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:359:48	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:346:22-46	thunk <compiled>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:347:5-13	function <anonymous>
 	<cmdline>:2:30-56	function <top_level>
 	Top-level function	
 
@@ -2101,9 +1975,9 @@ RUNTIME ERROR: max stack frames exceeded.
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:207:23-33	thunk <curTokens>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:209:27-36	thunk <content>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:20:16-23	object <token>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:328:46-59	thunk <content>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:256:42-49	thunk <tokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:329:7-13	thunk <arr>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:336:46-59	thunk <content>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:264:42-49	thunk <tokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:337:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
 	std.jsonnet:786:28-31	
 	...
@@ -2113,8 +1987,8 @@ RUNTIME ERROR: max stack frames exceeded.
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:34:23-46	thunk <result>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:31:46-52	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:34:7-53	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:244:7-37	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:339:5-32	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:252:7-37	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:347:5-32	function <anonymous>
 	<cmdline>:2:30-56	function <top_level>
 	Top-level function	
 
@@ -2137,12 +2011,12 @@ RUNTIME ERROR: max stack frames exceeded.
 	...
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(327:5)-(331:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:322:5-52	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:351:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:351:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:338:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:339:5-13	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(335:5)-(339:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:330:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:359:15-46	thunk <x>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:359:48	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:346:22-46	thunk <compiled>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:347:5-13	function <anonymous>
 	<cmdline>:2:30-56	function <top_level>
 	Top-level function	
 

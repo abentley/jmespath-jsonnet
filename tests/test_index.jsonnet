@@ -70,5 +70,23 @@ local results = {
   test7_map: map_test(
     json_tests[0], 0, { a: [4, { b: 6 }] }, function(x) x + 1
   ),
+  test8_search: test_eq('b', jmespath.search(
+    '[-5]', ['a', 'b', 'c', 'd', 'e', 'f']
+  )),
+  test8_set: test_eq(['a', 'z', 'c', 'd', 'e', 'f'], jmespath.set(
+    '[-5]', ['a', 'b', 'c', 'd', 'e', 'f'], 'z'
+  )),
+  test9_search: test_eq(null, jmespath.search(
+    '[6]', ['a', 'b', 'c', 'd', 'e', 'f']
+  )),
+  test9_set: test_eq(['a', 'b', 'c', 'd', 'e', 'f'], jmespath.set(
+    '[6]', ['a', 'b', 'c', 'd', 'e', 'f'], 'z'
+  )),
+  test10_search: test_eq(null, jmespath.search(
+    '[-7]', ['a', 'b', 'c', 'd', 'e', 'f']
+  )),
+  test10_set: test_eq(['a', 'b', 'c', 'd', 'e', 'f'], jmespath.set(
+    '[-7]', ['a', 'b', 'c', 'd', 'e', 'f'], 'z'
+  )),
 };
 test.asTest(results)

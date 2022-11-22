@@ -58,13 +58,21 @@ local exprFactory = {
     self.id(id, prev),
 
   ImplIndex: self.ImplMember {
+    dataIndex(data)::
+      if self.index < 0
+      then std.length(data) + self.index
+      else self.index,
+
     searchResult(data)::
-      if std.type(data) != 'array' then null else data[self.index],
+      local index = self.dataIndex(data);
+      if std.type(data) == 'array' && index < std.length(data) && index >= 0 then
+        data[index],
 
     map(data, func, next, allow_projection)::
+      local index = self.dataIndex(data);
       if std.type(data) != 'array' then data else std.mapWithIndex(
         function(i, e)
-          if i == self.index then mapContents(e, func, next) else e,
+          if i == index then mapContents(e, func, next) else e,
         data,
       ),
     repr():: '[%d]' % self.index,
