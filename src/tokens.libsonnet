@@ -281,10 +281,22 @@ limitations under the License.
       null
     ),
 
-  prefixParser(prefix, bodyParser):
+  pairParser(firstParser, secondParser):
     function(expression)
-      local result = self.constantParser(prefix, null)(expression);
-      if result != null then bodyParser(result.remainder),
+      local first = firstParser(expression);
+      local second = if first != null then secondParser(first.remainder);
+      if second != null then
+        self.rawToken('pair', { first: first.token, second: second.token }, second.remainder),
+
+  prefixParser(prefix, bodyParser):
+    local subparser = self.pairParser(
+      self.constantParser(prefix, null), bodyParser
+    );
+    function(expression)
+      local pair = subparser(expression);
+      local second = if pair != null then pair.token.content.second;
+      if second != null then
+        self.rawToken(second.name, second.content, pair.remainder),
 
   suffixParser(suffix, bodyParser):
     function(expression)
