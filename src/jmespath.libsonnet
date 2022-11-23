@@ -375,6 +375,18 @@ local exprFactory = {
       right: right,
       op: expr.op,
     },
+  ImplFunction: {
+    search(data, next)::
+      local resolved = [a.search(data, null) for a in self.args];
+      if self.name == 'abs' then std.abs(resolved[0]),
+    map(data, func, next, allow_projection):: data,
+  },
+  'function'(content, prev):
+    local args = [self[a.name](a.content, prev=null) for a in content.args];
+    self.ImplFunction {
+      name: content.name,
+      args: args,
+    },
   // Return an object representing the expression
   // Expression must be a string
   compile(expression, prev=null): (
