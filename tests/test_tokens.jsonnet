@@ -138,6 +138,29 @@ local results = {
     ] },
     remainder: '=b',
   }, tokens.someTokens('a=b')),
+  test20: test_eq({
+    token: { name: null, content: [
+      { name: 'function', content: { name: 'f', args: [] } },
+    ] },
+    remainder: null,
+  }, tokens.someTokens('f()')),
+  test21: test_eq({
+    token: { name: null, content: [
+      { name: 'function', content: { name: 'f', args: [
+        { name: 'id', content: 'a' },
+      ] } },
+    ] },
+    remainder: null,
+  }, tokens.someTokens('f(a)')),
+  test22: test_eq({
+    token: { name: null, content: [
+      { name: 'function', content: { name: 'f', args: [
+        { name: 'id', content: 'a' },
+        { name: 'id', content: 'b' },
+      ] } },
+    ] },
+    remainder: null,
+  }, tokens.someTokens('f(a,b)')),
   test_parseNaturalNum: test_eq({
     remainder: 'q',
     token: { content: '78', name: 'naturalNum' },

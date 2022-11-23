@@ -146,7 +146,7 @@ limitations under the License.
 
   constantParser(constant, name)::
     function(expression)
-      if std.startsWith(expression, constant) then
+      if expression != null && std.startsWith(expression, constant) then
         local end = std.length(constant);
         self.indexRawToken(name, expression, end),
 
@@ -155,6 +155,7 @@ limitations under the License.
 
   // The tokens that may be encountered as part of top-level parsing
   subTokens: [
+    self.functionParser,
     self.idToken,
     self.parseComparator,
     self.delimitParser('[?', ']', self.nestingToken('filterProjection')),
@@ -286,7 +287,10 @@ limitations under the License.
       local first = firstParser(expression);
       local second = if first != null then secondParser(first.remainder);
       if second != null then
-        self.rawToken('pair', { first: first.token, second: second.token }, second.remainder),
+        self.rawToken('pair', {
+          first: first.token,
+          second: second.token,
+        }, second.remainder),
 
   prefixParser(prefix, bodyParser):
     local subparser = self.pairParser(
@@ -307,4 +311,25 @@ limitations under the License.
       local first = if pair != null then pair.token.content.first;
       if first != null then
         self.rawToken(first.name, first.content, pair.remainder),
+
+  functionParser(expression):
+    local result = self.pairParser(
+      self.idToken, self.delimitParser('(', ')', self.argsParser),
+    )(expression);
+    if result != null then
+      local content = result.token.content;
+      self.rawToken('function', {
+        name: content.first.content,
+        args: content.second.content,
+      }, result.remainder),
+
+  argsParser(expression, pastArgs=[]):
+    if expression != null && expression[:1] == ')' then
+      self.rawToken('args', pastArgs, expression)
+    else
+      local arg = self.priorityParse(expression, self.subTokens);
+      if arg != null
+      then local subExpr = if arg.remainder[:1] == ','
+      then arg.remainder[1:] else arg.remainder;
+           self.argsParser(subExpr, pastArgs + [arg.token]),
 }
