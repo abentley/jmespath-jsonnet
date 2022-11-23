@@ -299,13 +299,12 @@ limitations under the License.
         self.rawToken(second.name, second.content, pair.remainder),
 
   suffixParser(suffix, bodyParser):
+    local subparser = self.pairParser(
+      bodyParser, self.constantParser(suffix, null)
+    );
     function(expression)
-      local result = bodyParser(expression);
-      if result != null && result.remainder != null then
-        if std.startsWith(result.remainder, suffix) then
-          self.rawToken(
-            result.token.name,
-            result.token.content,
-            result.remainder[std.length(suffix):]
-          ),
+      local pair = subparser(expression);
+      local first = if pair != null then pair.token.content.first;
+      if first != null then
+        self.rawToken(first.name, first.content, pair.remainder),
 }
