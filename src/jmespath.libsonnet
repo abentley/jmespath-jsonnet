@@ -102,7 +102,7 @@ local exprFactory = {
 
     searchResult(data):
       local matching = self.getMatching(data);
-      [data[i] for i in countUp(data) if matching[i]],
+      [data[i] for i in countUp(data) if bool(matching[i])],
 
     searchNext(result, next):
       if result == null || next == null then result else [
@@ -117,7 +117,8 @@ local exprFactory = {
     map(data, func, next, allow_projection)::
       local matching = self.getMatching(data);
       if allow_projection then std.mapWithIndex(
-        function(i, e) if matching[i] then mapContents(e, func, next) else e,
+        function(i, e)
+          if bool(matching[i]) then mapContents(e, func, next) else e,
         data,
       ) else mapContents(data, func, next),
   },
