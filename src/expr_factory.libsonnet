@@ -389,10 +389,84 @@ local mapContents(data, func, next) =
     else error '%s %s' % [result.err.kind, result.err.value],
   local unwrap = self.unwrap,
   ImplFunction: {
+    local typeCheck(sType) =
+      function(i, v)
+        local vType = std.type(v);
+        if vType != sType then err(
+          'invalid-type',
+          'Argument %d had type "%s" instead of "%s"' % [
+            i,
+            vType,
+            sType,
+          ]
+        ),
+    local typesCheck(types) =
+      function(i, v)
+        if !std.member(types, std.type(v))
+        then err(
+          'invalid-type', 'Invalid type: %s' % std.type(v)
+        ),
+    local arrayCheck(sType) =
+      function(i, v)
+        if std.type(v) != 'array' then err(
+          'invalid-type', 'Invalid type: %s' % std.type(v)
+        ) else if v == [] then null else
+          local aTypes = std.set([std.type(a) for a in v]);
+          if aTypes != [sType] then err(
+            'invalid-type',
+            'Argument %d had types "%s" instead of "%s"' % [
+              i,
+              std.join(', ', aTypes),
+              sType,
+            ]
+          ),
     functions: {
       abs: {
         callable(args): std.abs(args[0]),
-        argSignature: ['number'],
+        argChecks: [typeCheck('number')],
+      },
+      avg: {
+        callable(args):
+          local elements = args[0];
+          if elements != [] then
+            std.foldl(function(l, r) l + r, elements, 0) / std.length(elements),
+        argChecks: [arrayCheck('number')],
+      },
+      contains: {
+        callable(args):
+          local subject = args[0];
+          local search = args[1];
+          if std.type(subject) == 'string' && std.type(search) != 'string'
+          then false
+          else std.member(subject, search),
+        argChecks: [
+          typesCheck(['string', 'array']),
+          function(i, v) null,
+        ],
+      },
+      ceil: {
+        callable(args): std.ceil(args[0]),
+        argChecks: [typeCheck('number')],
+      },
+      ends_with: {
+        argChecks: [typeCheck('string'), typeCheck('string')],
+        callable(args): std.endsWith(args[0], args[1]),
+      },
+      floor: {
+        callable(args): std.floor(args[0]),
+        argChecks: [typeCheck('number')],
+      },
+      join: {
+        argChecks: [typeCheck('string'), arrayCheck('string')],
+        callable(args): std.join(args[0], args[1]),
+      },
+      keys: {
+        argChecks: [typeCheck('object')],
+        callable(args): std.objectFields(args[0]),
+      },
+      length: {
+        argChecks: [typesCheck(['string', 'array', 'object'])],
+        callable(args): std.length(args[0]),
       },
     },
     call(name, args)::
@@ -400,23 +474,16 @@ local mapContents(data, func, next) =
       then err('Unknown function', name)
       else
         local info = self.functions[name];
-        if std.length(args) != std.length(info.argSignature) then err(
+        if std.length(args) != std.length(info.argChecks) then err(
           'invalid-arity',
-          'Wrong number of arguments'
+          'Expected %d arguments, got %d' % [
+            std.length(info.argChecks),
+            std.length(args),
+          ]
         )
         else
           local argErrors = [e for e in std.mapWithIndex(
-            function(i, v)
-              local vType = std.type(v);
-              local sType = info.argSignature[i];
-              if vType != sType then err(
-                'invalid-type',
-                'Argument %d had type "%s" instead of "%s"' % [
-                  i,
-                  vType,
-                  sType,
-                ]
-              ), args
+            function(i, v) info.argChecks[i](i, v), args
           ) if e != null];
           if std.length(argErrors) > 0 then argErrors[0]
           else ok(info.callable(args)),

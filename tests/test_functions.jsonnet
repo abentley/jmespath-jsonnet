@@ -19,6 +19,7 @@ local err = exprFactory.err;
 local jmespath = import 'jmespath.libsonnet';
 local test = import 'test.libsonnet';
 local test_eq = test.test_eq;
+local call = exprFactory.ImplFunction.call;
 
 local results = {
   test1_search: test_eq(4, jmespath.search(
@@ -36,14 +37,67 @@ local results = {
     test_eq(err('Unknown function', 'asdf'),
             exprFactory.ImplFunction.call('asdf', [-6])),
   test4:
-    test_eq(err('invalid-arity', 'Wrong number of arguments'),
+    test_eq(err('invalid-arity', 'Expected 1 arguments, got 0'),
             exprFactory.ImplFunction.call('abs', [])),
   test5:
-    test_eq(err('invalid-arity', 'Wrong number of arguments'),
+    test_eq(err('invalid-arity', 'Expected 1 arguments, got 2'),
             exprFactory.ImplFunction.call('abs', [-6, -6])),
   test6:
     test_eq(err('invalid-type',
                 'Argument 0 had type "string" instead of "number"'),
             exprFactory.ImplFunction.call('abs', ['-6'])),
+  test7:
+    test_eq(ok(4.5),
+            exprFactory.ImplFunction.call('avg', [[4, 5]])),
+  test8:
+    test_eq(ok(null),
+            exprFactory.ImplFunction.call('avg', [[]])),
+  test9:
+    test_eq(ok(true),
+            exprFactory.ImplFunction.call('contains', ['ab', 'a'])),
+  test10:
+    test_eq(ok(false),
+            exprFactory.ImplFunction.call('contains', ['ab', 'q'])),
+  test11:
+    test_eq(ok(true),
+            exprFactory.ImplFunction.call('contains', ['abc', 'ab'])),
+  test12:
+    test_eq(ok(true),
+            exprFactory.ImplFunction.call('contains', [['ab', 'c'], 'ab'])),
+  test13:
+    test_eq(err('invalid-type', 'Invalid type: number'),
+            exprFactory.ImplFunction.call('contains', [6, 'ab'])),
+  test14:
+    test_eq(ok(false),
+            exprFactory.ImplFunction.call('contains', ['abc', 6])),
+  test15:
+    test_eq(ok(6),
+            exprFactory.ImplFunction.call('ceil', [5.9])),
+  test16:
+    test_eq(ok(5),
+            exprFactory.ImplFunction.call('floor', [5.9])),
+  test17:
+    test_eq(ok(true),
+            exprFactory.ImplFunction.call('ends_with', ['fasd', 'asd'])),
+  test18:
+    test_eq(ok(false),
+            exprFactory.ImplFunction.call('ends_with', ['fasd', 'gasd'])),
+  test19:
+    test_eq(ok('foo, bar'),
+            exprFactory.ImplFunction.call('join', [', ', ['foo', 'bar']])),
+  test20:
+    test_eq(std.set(['foo', 'baz']),
+            std.set(
+              exprFactory.ImplFunction.call('keys', [{
+                foo: 'bar',
+                baz: 'qux',
+              }]).ok
+            )),
+  test21:
+    test_eq(ok(5), call('length', [[1, 1, 1, 1, 1]])),
+  test22:
+    test_eq(ok(3), call('length', ['111'])),
+  test23:
+    test_eq(ok(2), call('length', [{ foo: 'foo', bar: 'bar' }])),
 };
 test.asTest(results)
