@@ -420,23 +420,24 @@ local mapContents(data, func, next) =
               sType,
             ]
           ),
-    local apply(callable, args) = [function() callable()][std.length(args)]()
+    local apply(callable, args) = [
+      function() callable(),
+      function() callable(args[0]),
+      function() callable(args[0], args[1]),
+    ][std.length(args)](),
     functions: {
       abs: {
-        callable(args): std.abs(args[0]),
+        callable: std.abs,
         argChecks: [typeCheck('number')],
       },
       avg: {
-        callable(args):
-          local elements = args[0];
+        callable(elements):
           if elements != [] then
             std.foldl(function(l, r) l + r, elements, 0) / std.length(elements),
         argChecks: [arrayCheck('number')],
       },
       contains: {
-        callable(args):
-          local subject = args[0];
-          local search = args[1];
+        callable(subject, search):
           if std.type(subject) == 'string' && std.type(search) != 'string'
           then false
           else std.member(subject, search),
@@ -446,32 +447,32 @@ local mapContents(data, func, next) =
         ],
       },
       ceil: {
-        callable(args): std.ceil(args[0]),
+        callable: std.ceil,
         argChecks: [typeCheck('number')],
       },
       ends_with: {
         argChecks: [typeCheck('string'), typeCheck('string')],
-        callable(args): std.endsWith(args[0], args[1]),
+        callable: std.endsWith,
       },
       floor: {
-        callable(args): std.floor(args[0]),
+        callable: std.floor,
         argChecks: [typeCheck('number')],
       },
       join: {
         argChecks: [typeCheck('string'), arrayCheck('string')],
-        callable(args): std.join(args[0], args[1]),
+        callable: std.join,
       },
       keys: {
         argChecks: [typeCheck('object')],
-        callable(args): std.objectFields(args[0]),
+        callable: std.objectFields,
       },
       length: {
         argChecks: [typesCheck(['string', 'array', 'object'])],
-        callable(args): std.length(args[0]),
+        callable: std.length,
       },
       max: {
         argChecks: [arrayCheck('number')],
-        callable(args): std.foldl(std.max, args[0][1:], args[0][0]),
+        callable(collection): std.foldl(std.max, collection[1:], collection[0]),
       },
     },
     call(name, args)::
@@ -491,7 +492,7 @@ local mapContents(data, func, next) =
             function(i, v) info.argChecks[i](i, v), args
           ) if e != null];
           if std.length(argErrors) > 0 then argErrors[0]
-          else ok(info.callable(args)),
+          else ok(apply(info.callable, args)),
     search(data, next)::
       unwrap(self.call(self.name, [a.search(data, null) for a in self.args])),
     map(data, func, next, allow_projection):: data,
