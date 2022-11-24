@@ -420,6 +420,7 @@ local mapContents(data, func, next) =
               sType,
             ]
           ),
+    local apply(callable, args) = [function() callable()][std.length(args)]()
     functions: {
       abs: {
         callable(args): std.abs(args[0]),
