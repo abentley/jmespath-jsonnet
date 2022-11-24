@@ -494,6 +494,29 @@ local mapContents(data, func, next) =
           if std.type(argument) == 'string' then std.join('', result)
           else result,
       },
+      starts_with: {
+        argChecks: [typeCheck('string'), typeCheck('string')],
+        callable: std.startsWith,
+      },
+      to_array: {
+        argChecks: [anyCheck],
+        callable(arg): if std.type(arg) == 'array' then arg else [arg],
+      },
+      to_number: {
+        argChecks: [anyCheck],
+        callable(arg):
+          local type = std.type(arg);
+          if type == 'string' then std.parseJson(arg)
+          else if type == 'number' then arg,
+      },
+      type: {
+        argChecks: [anyCheck],
+        callable: std.type,
+      },
+      values: {
+        argChecks: [typeCheck('object')],
+        callable: std.objectValues,
+      },
     },
     call(name, args)::
       if !std.objectHas(self.functions, name)

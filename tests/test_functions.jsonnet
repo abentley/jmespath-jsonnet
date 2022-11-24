@@ -114,5 +114,29 @@ local results = {
     test_eq(ok([4, 3, 2, 1]), call('reverse', [[1, 2, 3, 4]])),
   test29:
     test_eq(ok('4321'), call('reverse', ['1234'])),
+  test30:
+    test_eq(ok(true), call('starts_with', ['1234', '123'])),
+  test31:
+    test_eq(ok(false), call('starts_with', ['1234', '234'])),
+  test32:
+    test_eq(ok(['1234', '234']), call('to_array', [['1234', '234']])),
+  test33:
+    test_eq(ok(['1234']), call('to_array', ['1234'])),
+  test34:
+    test_eq(ok(123.4), call('to_number', ['123.4'])),
+  test35:
+    test_eq(ok(123.4), call('to_number', [123.4])),
+  test36:
+    test_eq(ok(null), call('to_number', [{}])),
+  test37:
+    test_eq(ok('object'), call('type', [{}])),
+  test38:
+    test_eq(std.set(['bar', 'qux']),
+            std.set(
+              call('values', [{
+                foo: 'bar',
+                baz: 'qux',
+              }]).ok
+            )),
 };
 test.asTest(results)
