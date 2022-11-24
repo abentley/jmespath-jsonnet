@@ -474,6 +474,12 @@ local mapContents(data, func, next) =
         argChecks: [arrayCheck('number')],
         callable(collection): std.foldl(std.max, collection[1:], collection[0]),
       },
+      merge: {
+        argChecks: [arrayCheck('object')],
+        callable(collection): std.foldl(
+          function(l, r) l + r, collection[1:], collection[0]
+        ),
+      },
     },
     call(name, args)::
       if !std.objectHas(self.functions, name)

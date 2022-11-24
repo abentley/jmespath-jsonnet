@@ -101,5 +101,10 @@ local results = {
     test_eq(ok(2), call('length', [{ foo: 'foo', bar: 'bar' }])),
   test24:
     test_eq(ok(9), call('max', [[1, 9, 5, 7]])),
+  test25:
+    test_eq(
+      ok({ a: 'b', c: 'e' }),
+      call('merge', [[{ a: 'b', c: 'd' }, { c: 'e' }]])
+    ),
 };
 test.asTest(results)
