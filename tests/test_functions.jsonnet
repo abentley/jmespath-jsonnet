@@ -106,5 +106,13 @@ local results = {
       ok({ a: 'b', c: 'e' }),
       call('merge', [[{ a: 'b', c: 'd' }, { c: 'e' }]])
     ),
+  test26:
+    test_eq(ok('foo'), call('not_null', ['foo'])),
+  test27:
+    test_eq(ok(null), call('not_null', [null, null])),
+  test28:
+    test_eq(ok([4, 3, 2, 1]), call('reverse', [[1, 2, 3, 4]])),
+  test29:
+    test_eq(ok('4321'), call('reverse', ['1234'])),
 };
 test.asTest(results)

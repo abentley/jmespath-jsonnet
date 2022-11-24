@@ -420,6 +420,7 @@ local mapContents(data, func, next) =
               sType,
             ]
           ),
+    local anyCheck(i, v) = null,
     local apply(callable, args) = [
       function() callable(),
       function() callable(args[0]),
@@ -443,7 +444,7 @@ local mapContents(data, func, next) =
           else std.member(subject, search),
         argChecks: [
           typesCheck(['string', 'array']),
-          function(i, v) null,
+          anyCheck,
         ],
       },
       ceil: {
@@ -480,13 +481,27 @@ local mapContents(data, func, next) =
           function(l, r) l + r, collection[1:], collection[0]
         ),
       },
+      not_null: {
+        argChecks: null,
+        callable(args):
+          local comp = [x for x in args if x != null];
+          if comp != [] then comp[0],
+      },
+      reverse: {
+        argChecks: [typesCheck(['array', 'string'])],
+        callable(argument):
+          local result = std.reverse(argument);
+          if std.type(argument) == 'string' then std.join('', result)
+          else result,
+      },
     },
     call(name, args)::
       if !std.objectHas(self.functions, name)
       then err('Unknown function', name)
       else
         local info = self.functions[name];
-        if std.length(args) != std.length(info.argChecks) then err(
+        if info.argChecks == null then ok(info.callable(args))
+        else if std.length(args) != std.length(info.argChecks) then err(
           'invalid-arity',
           'Expected %d arguments, got %d' % [
             std.length(info.argChecks),
