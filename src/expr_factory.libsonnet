@@ -468,6 +468,10 @@ local mapContents(data, func, next) =
         argChecks: [typesCheck(['string', 'array', 'object'])],
         callable(args): std.length(args[0]),
       },
+      max: {
+        argChecks: [arrayCheck('number')],
+        callable(args): std.foldl(std.max, args[0][1:], args[0][0]),
+      },
     },
     call(name, args)::
       if !std.objectHas(self.functions, name)
