@@ -1036,19 +1036,7 @@ The expression: number[].foo
 was supposed to give: null
 for the JSON: {"string": "string", "hash": {"foo": "bar", "bar": "baz"}, "number": 23, "nullvalue": null}
 but instead gave: ""
-......
-FAIL functions,0,0
-The expression: abs(foo)
-was supposed to give: 1
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,1
-The expression: abs(foo)
-was supposed to give: 1
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-.
+.........
 FAIL functions,0,3
 The expression: abs(array[1])
 was supposed to give: 3
@@ -1060,37 +1048,7 @@ The expression: abs(array[1])
 was supposed to give: 3
 for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
 but instead gave: ""
-.
-FAIL functions,0,6
-The expression: abs(`-24`)
-was supposed to give: 24
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,7
-The expression: abs(`-24`)
-was supposed to give: 24
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-...
-FAIL functions,0,11
-The expression: avg(numbers)
-was supposed to give: 2.75
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-.....
-FAIL functions,0,17
-The expression: avg(empty_list)
-was supposed to give: null
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,18
-The expression: ceil(`1.2`)
-was supposed to give: 2
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
+..............
 FAIL functions,0,19
 The expression: ceil(decimals[0])
 was supposed to give: 2
@@ -1168,103 +1126,37 @@ The expression: ends_with(str, 'foo')
 was supposed to give: false
 for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
 but instead gave: ""
-.
-FAIL functions,0,35
-The expression: floor(`1.2`)
-was supposed to give: 1
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-.
+...
 FAIL functions,0,37
 The expression: floor(decimals[0])
 was supposed to give: 1
 for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
 but instead gave: ""
-
-FAIL functions,0,38
-The expression: floor(foo)
-was supposed to give: -1
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-.
-FAIL functions,0,40
-The expression: length('abc')
-was supposed to give: 3
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,41
-The expression: length('✓foo')
-was supposed to give: 4
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
+....
 FAIL functions,0,42
 The expression: length('')
 was supposed to give: 0
 for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
 but instead gave: ""
-
-FAIL functions,0,43
-The expression: length(@)
-was supposed to give: 12
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
+.
 FAIL functions,0,44
 The expression: length(strings[0])
 was supposed to give: 1
 for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
 but instead gave: ""
-
-FAIL functions,0,45
-The expression: length(str)
-was supposed to give: 3
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,46
-The expression: length(array)
-was supposed to give: 6
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,47
-The expression: length(objects)
-was supposed to give: 2
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-..
+.....
 FAIL functions,0,50
 The expression: length(strings[0])
 was supposed to give: 1
 for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
 but instead gave: ""
-
-FAIL functions,0,51
-The expression: max(numbers)
-was supposed to give: 5
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,52
-The expression: max(decimals)
-was supposed to give: 1.2
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
+..
 FAIL functions,0,53
 The expression: max(strings)
 was supposed to give: "c"
 for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
 but instead gave: ""
-..
-FAIL functions,0,56
-The expression: max(decimals)
-was supposed to give: 1.2
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
+...
 FAIL functions,0,57
 The expression: max(empty_list)
 was supposed to give: null
@@ -1330,61 +1222,7 @@ The expression: min(strings)
 was supposed to give: "a"
 for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
 but instead gave: ""
-
-FAIL functions,0,70
-The expression: type('abc')
-was supposed to give: "string"
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,71
-The expression: type(`1.0`)
-was supposed to give: "number"
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,72
-The expression: type(`2`)
-was supposed to give: "number"
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,73
-The expression: type(`true`)
-was supposed to give: "boolean"
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,74
-The expression: type(`false`)
-was supposed to give: "boolean"
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,75
-The expression: type(`null`)
-was supposed to give: "null"
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,76
-The expression: type(`[0]`)
-was supposed to give: "array"
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,77
-The expression: type(`{"a": "b"}`)
-was supposed to give: "object"
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,78
-The expression: type(@)
-was supposed to give: "object"
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
+.........
 FAIL functions,0,79
 The expression: sort(keys(objects))
 was supposed to give: ["bar", "foo"]
@@ -1396,13 +1234,7 @@ The expression: sort(values(objects))
 was supposed to give: ["bar", "baz"]
 for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
 but instead gave: ""
-
-FAIL functions,0,84
-The expression: keys(empty_hash)
-was supposed to give: []
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-.
+..
 FAIL functions,0,86
 The expression: join(', ', strings)
 was supposed to give: "a, b, c"
@@ -1432,31 +1264,7 @@ The expression: join('|', decimals[].to_string(@))
 was supposed to give: "1.01|1.2|-1.5"
 for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
 but instead gave: ""
-.
-FAIL functions,0,96
-The expression: reverse(numbers)
-was supposed to give: [5, 4, 3, -1]
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,97
-The expression: reverse(array)
-was supposed to give: ["100", "a", 5, 4, 3, -1]
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,98
-The expression: reverse(`[]`)
-was supposed to give: []
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-.
-FAIL functions,0,100
-The expression: reverse('hello world')
-was supposed to give: "dlrow olleh"
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
+......
 FAIL functions,0,101
 The expression: starts_with(str, 'S')
 was supposed to give: true
@@ -1504,37 +1312,7 @@ The expression: sum(`[]`)
 was supposed to give: 0
 for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
 but instead gave: ""
-
-FAIL functions,0,111
-The expression: to_array('foo')
-was supposed to give: ["foo"]
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,112
-The expression: to_array(`0`)
-was supposed to give: [0]
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,113
-The expression: to_array(objects)
-was supposed to give: [{"foo": "bar", "bar": "baz"}]
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,114
-The expression: to_array(`[1, 2, 3]`)
-was supposed to give: [1, 2, 3]
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,115
-The expression: to_array(false)
-was supposed to give: [false]
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
+.....
 FAIL functions,0,116
 The expression: to_string('foo')
 was supposed to give: "foo"
@@ -1552,61 +1330,13 @@ The expression: to_string(`[0, 1]`)
 was supposed to give: "[0,1]"
 for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
 but instead gave: ""
-
-FAIL functions,0,119
-The expression: to_number('1.0')
-was supposed to give: 1.0
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,120
-The expression: to_number('1e21')
-was supposed to give: 1e+21
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,121
-The expression: to_number('1.1')
-was supposed to give: 1.1
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,122
-The expression: to_number('4')
-was supposed to give: 4
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
+....
 FAIL functions,0,123
 The expression: to_number('notanumber')
 was supposed to give: null
 for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
 but instead gave: ""
-
-FAIL functions,0,124
-The expression: to_number(`false`)
-was supposed to give: null
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,125
-The expression: to_number(`null`)
-was supposed to give: null
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,126
-The expression: to_number(`[0]`)
-was supposed to give: null
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,127
-The expression: to_number(`{"foo": 0}`)
-was supposed to give: null
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-.
+.....
 FAIL functions,0,129
 The expression: sort(numbers)
 was supposed to give: [-1, 3, 4, 5]
@@ -1654,6 +1384,12 @@ The expression: not_null(all, expressions, are_null)
 was supposed to give: null
 for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
 but instead gave: ""
+
+FAIL functions,0,140
+The expression: not_null()
+was supposed to have non zero for error error: invalid-arity
+but instead gave rc of: 0, stderr: 
+
 .
 FAIL functions,0,141
 The expression: numbers[].to_string(@)
@@ -1804,31 +1540,59 @@ The expression: map(&[], array)
 was supposed to give: [[1, 2, 3, 4], [5, 6, 7, 8, 9]]
 for the JSON: {"array": [[1, 2, 3, [4]], [5, 6, 7, [8, 9]]]}
 but instead gave: ""
-.....
+..
+FAIL benchmarks,0,2
+The expression: a.b.c.d.e.f.g.h.i.j.k.l.m.n.o.p.q.r.s
+was supposed to have a zero RC for test type 'bench',
+but instead gave rc of: 1, stderr: 
+RUNTIME ERROR: max stack frames exceeded.
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:26:54-57	thunk <index>
+	std.jsonnet:197:14-19	thunk <a>
+	std.jsonnet:197:14-27	function <anonymous>
+	std.jsonnet:197:14-27	object <invar>
+	std.jsonnet:208:12-23	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:26:43-59	thunk <remainder>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-28	thunk <a>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	object <first>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:288:57-72	thunk <expression>
+	...
+	std.jsonnet:786:17-32	function <aux>
+	std.jsonnet:790:5-28	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(558:5)-(562:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:553:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:21:5-13	function <anonymous>
+	<cmdline>:2:30-56	function <top_level>
+	Top-level function	
+
+..
 FAIL benchmarks,1,0
 The expression: a && b && c && d && e && f && g && h && i && j && k && l && m && n && o && p && q && r && s && t && u && v && w && x && y && z
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: max stack frames exceeded.
-	std.jsonnet:208:12-17	function <anonymous>
+	std.jsonnet:197:14-27	function <anonymous>
+	std.jsonnet:197:14-27	object <invar>
+	std.jsonnet:208:12-23	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:26:43-59	thunk <remainder>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-28	thunk <a>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	object <result>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:287:41-57	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:244:38-48	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:211:38-48	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:278:43-53	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:200:26-36	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	object <first>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:288:57-72	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:245:38-48	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:212:38-48	thunk <expression>
 	...
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(385:5)-(389:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:380:5-52	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:409:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:409:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:396:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:397:5-13	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(558:5)-(562:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:553:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:21:5-13	function <anonymous>
 	<cmdline>:2:30-56	function <top_level>
 	Top-level function	
 
@@ -1838,25 +1602,25 @@ The expression: z || y || x || w || v || u || t || s || r || q || p || o || n ||
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: max stack frames exceeded.
-	std.jsonnet:208:12-17	function <anonymous>
+	std.jsonnet:197:14-27	function <anonymous>
+	std.jsonnet:197:14-27	object <invar>
+	std.jsonnet:208:12-23	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:26:43-59	thunk <remainder>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-28	thunk <a>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	object <result>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:287:41-57	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:244:38-48	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:211:38-48	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:278:43-53	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:200:26-36	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	object <first>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:288:57-72	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:245:38-48	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:212:38-48	thunk <expression>
 	...
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(385:5)-(389:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:380:5-52	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:409:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:409:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:396:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:397:5-13	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(558:5)-(562:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:553:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:21:5-13	function <anonymous>
 	<cmdline>:2:30-56	function <top_level>
 	Top-level function	
 
@@ -1866,19 +1630,19 @@ The expression: sum([z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g,
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: Unhandled expression: "([z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a])"
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:223:10-79	function <alltokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:380:24-45	thunk <tokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:387:7-13	thunk <arr>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:224:10-79	function <alltokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:553:24-45	thunk <tokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:560:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
 	std.jsonnet:786:28-31	
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(385:5)-(389:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:380:5-52	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:409:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:409:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:396:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:397:5-13	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(558:5)-(562:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:553:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:21:5-13	function <anonymous>
 	<cmdline>:2:30-56	function <top_level>
 	Top-level function	
 
@@ -1888,19 +1652,19 @@ The expression: sum([z, sum([y, sum([x, sum([w, sum([v, sum([u, sum([t, sum([s, 
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: Unhandled expression: "([z, sum([y, sum([x, sum([w, sum([v, sum([u, sum([t, sum([s, sum([r, sum([q, sum([p, sum([o, sum([n, sum([m, sum([l, sum([k, sum([j, sum([i, sum([h, sum([g, sum([f, sum([e, sum([d, sum([c, sum([b, a])])])])])])])])])])])])])])])])])])])])])])])])])"
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:223:10-79	function <alltokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:380:24-45	thunk <tokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:387:7-13	thunk <arr>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:224:10-79	function <alltokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:553:24-45	thunk <tokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:560:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
 	std.jsonnet:786:28-31	
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(385:5)-(389:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:380:5-52	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:409:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:409:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:396:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:397:5-13	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(558:5)-(562:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:553:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:21:5-13	function <anonymous>
 	<cmdline>:2:30-56	function <top_level>
 	Top-level function	
 
@@ -1910,19 +1674,19 @@ The expression: [z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, 
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: Unhandled expression: "[z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a]"
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:223:10-79	function <alltokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:380:24-45	thunk <tokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:387:7-13	thunk <arr>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:224:10-79	function <alltokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:553:24-45	thunk <tokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:560:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
 	std.jsonnet:786:28-31	
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(385:5)-(389:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:380:5-52	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:409:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:409:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:396:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:397:5-13	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(558:5)-(562:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:553:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:21:5-13	function <anonymous>
 	<cmdline>:2:30-56	function <top_level>
 	Top-level function	
 
@@ -1932,25 +1696,25 @@ The expression: j49.j48.j47.j46.j45.j44.j43.j42.j41.j40.j39.j38.j37.j36.j35.j34.
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: max stack frames exceeded.
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:244:38-48	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:211:38-48	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:278:43-53	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:200:26-36	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:74:33-43	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:239:18-28	thunk <expression>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:198:14-24	thunk <indexable>
-	std.jsonnet:210:25-34	thunk <v>
-	std.jsonnet:28:26	
-	std.jsonnet:28:17-28	thunk <a>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:26:54-57	thunk <index>
+	std.jsonnet:197:14-19	thunk <a>
+	std.jsonnet:197:14-27	function <anonymous>
+	std.jsonnet:197:14-27	object <invar>
+	std.jsonnet:208:12-23	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:26:43-59	thunk <remainder>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-28	thunk <a>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	object <first>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:288:57-72	thunk <expression>
 	...
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(385:5)-(389:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:380:5-52	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:409:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:409:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:396:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:397:5-13	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(558:5)-(562:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:553:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:21:5-13	function <anonymous>
 	<cmdline>:2:30-56	function <top_level>
 	Top-level function	
 
@@ -1960,25 +1724,25 @@ The expression: j49|j48|j47|j46|j45|j44|j43|j42|j41|j40|j39|j38|j37|j36|j35|j34|
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: max stack frames exceeded.
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:213:23-33	thunk <curTokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:216:43-52	thunk <prevTokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:213:23-33	thunk <curTokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:215:27-36	thunk <content>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:214:23-33	thunk <curTokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:216:27-36	thunk <content>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:20:16-23	object <second>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:303:36-50	thunk <content>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:20:16-23	object <token>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:386:46-59	thunk <content>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:277:42-49	thunk <tokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:387:7-13	thunk <arr>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:559:46-59	thunk <content>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:279:42-49	thunk <tokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:560:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
 	std.jsonnet:786:28-31	
 	...
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:50:10-24	thunk <a>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:50:10-36	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:50:10-36	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:46:23-46	thunk <result>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:43:46-52	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:46:7-53	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:265:7-37	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:397:5-32	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:51:10-24	thunk <a>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:51:10-36	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:51:10-36	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:47:23-46	thunk <result>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:44:46-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:47:7-53	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:267:7-37	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:21:5-32	function <anonymous>
 	<cmdline>:2:30-56	function <top_level>
 	Top-level function	
 
@@ -1988,25 +1752,25 @@ The expression: a[*].b[*].c[*].d[*].e[*].f[*].g[*].h[*].i[*].j[*].k[*].l[*].m[*]
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: max stack frames exceeded.
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:150:21-31	thunk <end>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:151:46-49	thunk <end>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:26:54-57	thunk <index>
-	std.jsonnet:197:14-19	thunk <a>
-	std.jsonnet:197:14-27	function <anonymous>
-	std.jsonnet:197:14-27	object <invar>
-	std.jsonnet:208:12-23	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:26:43-59	thunk <remainder>
+		thunk <remainder>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-28	thunk <a>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	object <first>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:288:57-72	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:310:30-40	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:287:33-43	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:260:36-46	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:250:31-41	thunk <expr>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:138:46-50	thunk <expression>
 	...
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:(385:5)-(389:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:380:5-52	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:409:15-46	thunk <x>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:409:48	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:396:22-46	thunk <compiled>
-	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:397:5-13	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(558:5)-(562:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:553:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
+	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:21:5-13	function <anonymous>
 	<cmdline>:2:30-56	function <top_level>
 	Top-level function	
 
