@@ -506,7 +506,9 @@ local mapContents(data, func, next) =
         argChecks: [anyCheck],
         callable(arg):
           local type = std.type(arg);
-          if type == 'string' then std.parseJson(arg)
+          if type == 'string' then
+            local json = std.parseJson(arg);
+            if std.type(json) == 'number' then json else null
           else if type == 'number' then arg,
       },
       type: {

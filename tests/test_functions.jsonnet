@@ -128,6 +128,8 @@ local results = {
     test_eq(ok(123.4), call('to_number', [123.4])),
   test36:
     test_eq(ok(null), call('to_number', [{}])),
+  test39:
+    test_eq(ok(null), call('to_number', ['{}'])),
   test37:
     test_eq(ok('object'), call('type', [{}])),
   test38:
