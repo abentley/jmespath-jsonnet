@@ -327,9 +327,11 @@ limitations under the License.
     if expression != null && expression[:1] == ')' then
       self.rawToken('args', pastArgs, expression)
     else
-      local arg = self.priorityParse(expression, self.subTokens);
+      local arg = self.someTokens(expression, parsers=self.subTokens);
       if arg != null
-      then local subExpr = if arg.remainder[:1] == ','
-      then arg.remainder[1:] else arg.remainder;
-           self.argsParser(subExpr, pastArgs + [arg.token]),
+      then local subExpr =
+        if arg.remainder[:1] == ','
+        then arg.remainder[1:] else arg.remainder;
+           local content = arg.token.content;
+           self.argsParser(subExpr, pastArgs + [content]),
 }

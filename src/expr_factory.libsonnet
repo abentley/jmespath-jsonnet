@@ -544,7 +544,7 @@ local mapContents(data, func, next) =
     map(data, func, next, allow_projection):: data,
   },
   'function'(content, prev):
-    local args = [self[a.name](a.content, prev=null) for a in content.args];
+    local args = [self.compileTokens(a) for a in content.args];
     self.ImplFunction {
       name: content.name,
       args: args,

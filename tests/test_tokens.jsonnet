@@ -147,7 +147,7 @@ local results = {
   test21: test_eq({
     token: { name: null, content: [
       { name: 'function', content: { name: 'f', args: [
-        { name: 'id', content: 'a' },
+        [{ name: 'id', content: 'a' }],
       ] } },
     ] },
     remainder: null,
@@ -155,8 +155,8 @@ local results = {
   test22: test_eq({
     token: { name: null, content: [
       { name: 'function', content: { name: 'f', args: [
-        { name: 'id', content: 'a' },
-        { name: 'id', content: 'b' },
+        [{ name: 'id', content: 'a' }],
+        [{ name: 'id', content: 'b' }],
       ] } },
     ] },
     remainder: null,
