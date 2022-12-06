@@ -101,18 +101,18 @@ local mapContents(data, func, next) =
 
   ImplProjection: {
 
-    searchResult(data):
+    searchResult(data)::
       local matching = self.getMatching(data);
       [data[i] for i in countUp(data) if bool(matching[i])],
 
-    searchNext(result, next):
+    searchNext(result, next)::
       if result == null || next == null then result else [
         r
         for r in [next.search(v, null) for v in result]
         if r != null
       ],
 
-    search(data, next):
+    search(data, next)::
       self.searchNext(self.searchResult(data), next),
 
     map(data, func, next, allow_projection)::
@@ -125,7 +125,7 @@ local mapContents(data, func, next) =
   },
 
   ImplSlice: self.ImplProjection {
-    searchResult(data):
+    searchResult(data)::
       local length = std.length(data);
       local integerStep = if self.step == null then 1 else self.step;
       local stepStart = if integerStep < 0 then self.stop else self.start;
@@ -150,7 +150,7 @@ local mapContents(data, func, next) =
       local included = std.set(self.searchResult(dataIndices));
       [std.setMember(di, included) for di in dataIndices],
 
-    repr(): '[%s:%s%s]' % [
+    repr():: '[%s:%s%s]' % [
       if self.start == null then '' else self.start,
       if self.stop == null then '' else self.stop,
       if self.step == null then '' else ':%d' % self.step,
@@ -184,7 +184,7 @@ local mapContents(data, func, next) =
 
   arrayWildcard(expr, prev):: self.maybeJoin(prev, self.ImplProjection {
     searchResult(data):: data,
-    getMatching(data): std.repeat([true], std.length(data)),
+    getMatching(data):: std.repeat([true], std.length(data)),
     repr():: '[*]',
   }),
 
@@ -218,9 +218,9 @@ local mapContents(data, func, next) =
     }),
 
   ImplFilterProjection:: self.ImplProjection {
-    getMatching(data):
+    getMatching(data)::
       [self.comparator.evaluate(d) for d in data],
-    repr(): '[?%s]' % self.comparator.repr(),
+    repr():: '[?%s]' % self.comparator.repr(),
   },
 
   filterProjection(sliceExpr, prev=null)::
@@ -284,9 +284,9 @@ local mapContents(data, func, next) =
     !std.member([null, [], {}, '', false], value),
 
   ImplBoolean: {
-    search(data, next):
+    search(data, next)::
       self.pickSide(data, next).search(data, next),
-    map(data, func, next, allow_projection):
+    map(data, func, next, allow_projection)::
       self.pickSide(data, next).map(data, func, next, allow_projection),
   },
   boolean(content, prev)::
@@ -295,7 +295,7 @@ local mapContents(data, func, next) =
       right: right,
     },
   ImplOr: {
-    pickSide(data, next):
+    pickSide(data, next)::
       if bool(self.left.search(data, next)) then self.left
       else self.right,
   },
@@ -303,7 +303,7 @@ local mapContents(data, func, next) =
     self.boolean(content, prev) + self.ImplOr,
 
   ImplAnd: {
-    pickSide(data, next):
+    pickSide(data, next)::
       if !bool(self.left.search(data, next)) then self.left
       else self.right,
   },
@@ -311,7 +311,7 @@ local mapContents(data, func, next) =
     self.boolean(content, prev) + self.ImplAnd,
 
   ImplNot: {
-    search(data, next): !bool(self.expression.search(data, next)),
+    search(data, next):: !bool(self.expression.search(data, next)),
   },
 
   not(content, prev)::
@@ -321,8 +321,8 @@ local mapContents(data, func, next) =
     },
 
   ImplJsonLiteral: {
-    search(data, next): self.literal,
-    repr():
+    search(data, next):: self.literal,
+    repr()::
       local contents =
         if std.type(self.literal) == 'string' then std.escapeStringJson(
           self.literal
@@ -336,7 +336,7 @@ local mapContents(data, func, next) =
   },
 
   ImplRawString: self.ImplJsonLiteral {
-    repr():
+    repr()::
       local escaped = std.escapeStringJson(self.literal);
       "'%s'" % escaped[1:std.length(escaped) - 1],
   },
@@ -348,17 +348,17 @@ local mapContents(data, func, next) =
   whitespace(string, prev): prev,
 
   ImplComparator:: {
-    evaluate(data): self.opFunc[self.op](
+    evaluate(data):: self.opFunc[self.op](
       self.left.search(data, null), self.right.search(data, null)
     ),
-    search(data, next): self.evaluate(data),
-    map(data, next, value, allow_projection): data,
+    search(data, next):: self.evaluate(data),
+    map(data, next, value, allow_projection):: data,
     local makeCompareFunc(basefunc) =
       function(l, r)
         if std.type(l) != 'number' || std.type(r) != 'number' then null
         else basefunc(l, r),
 
-    opFunc: {
+    opFunc:: {
       '==': function(l, r) l == r,
       '!=': function(l, r) l != r,
       '<': makeCompareFunc(function(l, r) l < r),
@@ -426,7 +426,7 @@ local mapContents(data, func, next) =
       function() callable(args[0]),
       function() callable(args[0], args[1]),
     ][std.length(args)](),
-    functions: {
+    functions:: {
       abs: {
         callable: std.abs,
         argChecks: [typeCheck('number')],
@@ -542,10 +542,15 @@ local mapContents(data, func, next) =
     search(data, next)::
       unwrap(self.call(self.name, [a.search(data, null) for a in self.args])),
     map(data, func, next, allow_projection):: data,
+    repr():: '%s(%s)' % [
+      self.name,
+      std.join(', ', [a.repr() for a in self.args]),
+    ],
   },
   'function'(content, prev):
     local args = [self.compileTokens(a) for a in content.args];
     self.ImplFunction {
+      type: 'function',
       name: content.name,
       args: args,
     },
