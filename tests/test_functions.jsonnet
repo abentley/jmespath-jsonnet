@@ -154,5 +154,9 @@ local results = {
     test_eq(ok(6), call('sum', [[1, 2, 3]])),
   test46:
     test_eq(ok(0), call('sum', [[]])),
+  test47:
+    test_eq(ok('0'), call('to_string', [0])),
+  test48:
+    test_eq(ok('q'), call('to_string', ['q'])),
 };
 test.asTest(results)

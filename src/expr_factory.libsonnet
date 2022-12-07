@@ -530,6 +530,10 @@ local mapContents(data, func, next) =
             if std.type(json) == 'number' then json else null
           else if type == 'number' then arg,
       },
+      to_string: {
+        argChecks: [anyCheck],
+        callable: std.toString,
+      },
       type: {
         argChecks: [anyCheck],
         callable: std.type,
