@@ -108,7 +108,7 @@ local results = {
   test25:
     test_eq(
       ok({ a: 'b', c: 'e' }),
-      call('merge', [[{ a: 'b', c: 'd' }, { c: 'e' }]])
+      call('merge', [{ a: 'b', c: 'd' }, { c: 'e' }])
     ),
   test26:
     test_eq(ok('foo'), call('not_null', ['foo'])),
