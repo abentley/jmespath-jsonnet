@@ -150,5 +150,9 @@ local results = {
                 baz: 'qux',
               }]).ok
             )),
+  test45:
+    test_eq(ok(6), call('sum', [[1, 2, 3]])),
+  test46:
+    test_eq(ok(0), call('sum', [[]])),
 };
 test.asTest(results)
