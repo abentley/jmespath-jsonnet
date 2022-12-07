@@ -486,7 +486,7 @@ local mapContents(data, func, next) =
             std.sort(collection)[std.length(collection) - 1],
       },
       merge: {
-        argChecks: [arrayCheck('object')],
+        argChecks: null,
         callable(collection): std.foldl(
           function(l, r) l + r, collection[1:], collection[0]
         ),

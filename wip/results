@@ -1276,37 +1276,7 @@ The expression: foo.bam || foo.bar | baz
 was supposed to give: "one"
 for the JSON: {"foo": {"bar": {"baz": "one"}, "other": {"baz": "two"}, "other2": {"baz": "three"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["d", "e", "f"]}}}
 but instead gave: null
-............................................................
-FAIL functions,0,58
-The expression: merge(`{}`)
-was supposed to give: {}
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,59
-The expression: merge(`{}`, `{}`)
-was supposed to give: {}
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,60
-The expression: merge(`{"a": 1}`, `{"b": 2}`)
-was supposed to give: {"a": 1, "b": 2}
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,61
-The expression: merge(`{"a": 1}`, `{"a": 2}`)
-was supposed to give: {"a": 2}
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
-FAIL functions,0,62
-The expression: merge(`{"a": 1, "b": 2}`, `{"a": 2, "c": 3}`, `{"d": 4}`)
-was supposed to give: {"a": 2, "b": 2, "c": 3, "d": 4}
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
+.................................................................
 FAIL functions,0,63
 The expression: min(numbers)
 was supposed to give: -1
