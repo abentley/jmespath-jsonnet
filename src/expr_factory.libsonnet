@@ -420,6 +420,11 @@ local mapContents(data, func, next) =
               sType,
             ]
           ),
+    local arrayCheckNumString() =
+      function(i, v)
+        local result = arrayCheck('number')(i, v);
+        if result == null then result
+        else arrayCheck('string')(i, v),
     local anyCheck(i, v) = null,
     local apply(callable, args) = [
       function() callable(),
@@ -472,8 +477,12 @@ local mapContents(data, func, next) =
         callable: std.length,
       },
       max: {
-        argChecks: [arrayCheck('number')],
-        callable(collection): std.foldl(std.max, collection[1:], collection[0]),
+        argChecks: [arrayCheckNumString()],
+        callable(collection):
+          if std.type(collection[0]) == 'number' then
+            std.foldl(std.max, collection[1:], collection[0])
+          else
+            std.sort(collection)[std.length(collection) - 1],
       },
       merge: {
         argChecks: [arrayCheck('object')],

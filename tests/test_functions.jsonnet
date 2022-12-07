@@ -101,6 +101,8 @@ local results = {
     test_eq(ok(2), call('length', [{ foo: 'foo', bar: 'bar' }])),
   test24:
     test_eq(ok(9), call('max', [[1, 9, 5, 7]])),
+  test40:
+    test_eq(ok('d'), call('max', [['a', 'd', 'b', 'c']])),
   test25:
     test_eq(
       ok({ a: 'b', c: 'e' }),
