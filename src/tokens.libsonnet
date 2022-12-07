@@ -68,11 +68,12 @@ limitations under the License.
     local condition(expression, index) =
       local remainder = expression[index:index + 1];
       remainder == '' || !self.isDigit(remainder);
-    self.parseUntilToken(expression, condition, 'naturalNum'),
+    if !condition(expression, 0) then
+      self.parseUntilToken(expression, condition, 'naturalNum'),
 
   parseUntilToken(expression, condition, name):
     local end = self.parseUntil(expression, condition, 0);
-    if end != 0 then self.indexRawToken(name, expression, end),
+    self.indexRawToken(name, expression, end),
 
   skipWhitespace(expression):
     self.optionalParser(self.parseWhitespace)(expression).remainder,
@@ -198,7 +199,8 @@ limitations under the License.
     local condition(expression, index) = !std.member(
       ' \n', expression[index:index + 1]
     );
-    self.parseUntilToken(expression, condition, 'whitespace'),
+    if !condition(expression, 0) then
+      self.parseUntilToken(expression, condition, 'whitespace'),
 
   // Return a token name, text, and remainder
   // Note: the returned text may omit some unneded syntax
@@ -214,7 +216,11 @@ limitations under the License.
     local curTokens = prevTokens + if token == null then [] else [token.token];
     if token == null || token.remainder == null then
       self.rawToken(name, curTokens, unparsed)
-    else self.someTokens(token.remainder, curTokens, name, parsers),
+    else
+      assert token.remainder != expression :
+             'Parsing did not consume any characters: %s' %
+             std.manifestJson(token);
+      self.someTokens(token.remainder, curTokens, name, parsers),
 
   // Return an array of all tokens
   // Expression must be a string

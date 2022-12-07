@@ -161,6 +161,13 @@ local results = {
     ] },
     remainder: null,
   }, tokens.someTokens('f(a,b)')),
+  test23: test_eq({
+    token: {
+      name: 'rawString',
+      content: '',
+    },
+    remainder: null,
+  }, tokens.token("''")),
   test_parseNaturalNum: test_eq({
     remainder: 'q',
     token: { content: '78', name: 'naturalNum' },
