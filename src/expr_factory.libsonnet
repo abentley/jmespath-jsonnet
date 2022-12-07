@@ -491,6 +491,15 @@ local mapContents(data, func, next) =
           function(l, r) l + r, collection[1:], collection[0]
         ),
       },
+      min: {
+        argChecks: [arrayCheckNumString()],
+        callable(collection):
+          if std.length(collection) == 0 then null
+          else if std.type(collection[0]) == 'number' then
+            std.foldl(std.min, collection[1:], collection[0])
+          else
+            std.sort(collection)[0],
+      },
       not_null: {
         argChecks: null,
         callable(args):
