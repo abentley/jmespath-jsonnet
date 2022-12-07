@@ -479,7 +479,8 @@ local mapContents(data, func, next) =
       max: {
         argChecks: [arrayCheckNumString()],
         callable(collection):
-          if std.type(collection[0]) == 'number' then
+          if std.length(collection) == 0 then null
+          else if std.type(collection[0]) == 'number' then
             std.foldl(std.max, collection[1:], collection[0])
           else
             std.sort(collection)[std.length(collection) - 1],

@@ -113,8 +113,8 @@ RUNTIME ERROR: max stack frames exceeded.
 	...
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(574:5)-(578:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:569:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(575:5)-(579:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:570:5-52	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
@@ -141,8 +141,8 @@ RUNTIME ERROR: max stack frames exceeded.
 	...
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(574:5)-(578:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:569:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(575:5)-(579:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:570:5-52	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
@@ -169,8 +169,8 @@ RUNTIME ERROR: max stack frames exceeded.
 	...
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(574:5)-(578:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:569:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(575:5)-(579:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:570:5-52	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
@@ -197,8 +197,8 @@ RUNTIME ERROR: max stack frames exceeded.
 	...
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(574:5)-(578:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:569:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(575:5)-(579:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:570:5-52	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
@@ -225,8 +225,8 @@ RUNTIME ERROR: max stack frames exceeded.
 	...
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(574:5)-(578:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:569:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(575:5)-(579:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:570:5-52	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
@@ -241,14 +241,14 @@ was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: Unhandled expression: "[z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a]"
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:230:10-79	function <alltokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:569:24-45	thunk <tokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:576:7-13	thunk <arr>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:570:24-45	thunk <tokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:577:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
 	std.jsonnet:786:28-31	
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(574:5)-(578:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:569:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(575:5)-(579:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:570:5-52	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
@@ -275,8 +275,8 @@ RUNTIME ERROR: max stack frames exceeded.
 	...
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(574:5)-(578:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:569:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(575:5)-(579:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:570:5-52	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
@@ -295,9 +295,9 @@ RUNTIME ERROR: max stack frames exceeded.
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:20:16-23	object <second>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:309:36-50	thunk <content>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:20:16-23	object <token>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:575:46-59	thunk <content>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:576:46-59	thunk <content>
 	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:279:42-49	thunk <tokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:576:7-13	thunk <arr>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:577:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
 	std.jsonnet:786:28-31	
 	...
@@ -331,8 +331,8 @@ RUNTIME ERROR: max stack frames exceeded.
 	...
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(574:5)-(578:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:569:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(575:5)-(579:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:570:5-52	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
@@ -1276,13 +1276,7 @@ The expression: foo.bam || foo.bar | baz
 was supposed to give: "one"
 for the JSON: {"foo": {"bar": {"baz": "one"}, "other": {"baz": "two"}, "other2": {"baz": "three"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["d", "e", "f"]}}}
 but instead gave: null
-...........................................................
-FAIL functions,0,57
-The expression: max(empty_list)
-was supposed to give: null
-for the JSON: {"foo": -1, "zero": 0, "numbers": [-1, 3, 4, 5], "array": [-1, 3, 4, 5, "a", "100"], "strings": ["a", "b", "c"], "decimals": [1.01, 1.2, -1.5], "str": "Str", "false": false, "empty_list": [], "empty_hash": {}, "objects": {"foo": "bar", "bar": "baz"}, "null_key": null}
-but instead gave: ""
-
+............................................................
 FAIL functions,0,58
 The expression: merge(`{}`)
 was supposed to give: {}
