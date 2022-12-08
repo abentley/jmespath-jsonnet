@@ -150,5 +150,9 @@ local results = {
                 baz: 'qux',
               }]).ok
             )),
+  test45:
+    test_eq(ok(['a', 'b', 'c', 'd']), call('sort', [['b', 'a', 'd', 'c']])),
+  test46:
+    test_eq(ok(['1', '2', '3', '4']), call('sort', [['2', '1', '4', '3']])),
 };
 test.asTest(results)

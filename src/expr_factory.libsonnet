@@ -513,6 +513,11 @@ local mapContents(data, func, next) =
           if std.type(argument) == 'string' then std.join('', result)
           else result,
       },
+      sort: {
+        argChecks: [arrayCheckNumString()],
+        callable(list):
+          std.sort(list),
+      },
       starts_with: {
         argChecks: [typeCheck('string'), typeCheck('string')],
         callable: std.startsWith,
