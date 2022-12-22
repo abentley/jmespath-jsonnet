@@ -154,5 +154,9 @@ local results = {
     test_eq(ok(['a', 'b', 'c', 'd']), call('sort', [['b', 'a', 'd', 'c']])),
   test46:
     test_eq(ok(['1', '2', '3', '4']), call('sort', [['2', '1', '4', '3']])),
+  test47:
+    test_eq(ok(33), call('sum', [[10, 3, 20]])),
+  test48:
+    test_eq(ok(0), call('sum', [[]])),
 };
 test.asTest(results)

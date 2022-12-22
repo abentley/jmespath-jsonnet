@@ -522,6 +522,11 @@ local mapContents(data, func, next) =
         argChecks: [typeCheck('string'), typeCheck('string')],
         callable: std.startsWith,
       },
+      sum: {
+        argChecks: [arrayCheck('number')],
+        callable(collection):
+          std.foldl(function(l, r) l + r, collection, 0),
+      },
       to_array: {
         argChecks: [anyCheck],
         callable(arg): if std.type(arg) == 'array' then arg else [arg],
