@@ -69,11 +69,13 @@ including:
  * pipes
  * json literals
  * single-quoted strings
+ * functions (except those that require expression type)
 
 missing:
 
- * functions
- * string-escapes
+ * or-expressions
+ * and-expressions
+ * expression type (&foo.bar)
  * multiselect
    * This is a lower priority because Jsonnet is already quite good at
      generating JSON.
