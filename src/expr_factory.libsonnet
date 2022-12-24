@@ -34,6 +34,7 @@ local mapContents(data, func, next) =
     map(data, func, next, allow_projection)::
       if next != null then next.map(data, func, null, allow_projection)
       else func(data),
+    repr():: '@',
   },
 
   current(value, prev=null): self.ImplCurrent {
@@ -225,9 +226,10 @@ local mapContents(data, func, next) =
 
   filterProjection(sliceExpr, prev=null)::
     local comparator = self.compileTokens(sliceExpr);
-    self.ImplFilterProjection {
+    maybeJoin(prev, self.ImplFilterProjection {
+      type: 'filterProjection',
       comparator: comparator,
-    },
+    }),
 
   ImplJoiner: {
     search(data, next)::

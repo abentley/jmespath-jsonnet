@@ -208,5 +208,8 @@ local results = {
       { keep: 2, value: 3 },
     ], function(x) 5),
   ),
+  test21: test_eq(
+    [1], jmespath.search('rules[?@==`1`]', { rules: [1, 2] })
+  ),
 };
 test.asTest(results)
