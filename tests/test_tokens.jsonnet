@@ -217,5 +217,61 @@ local results = {
     token: { content: -78, name: 'int' },
   }, tokens.parseIntToken('-78:')),
   test_parseIntToken4: test_eq(null, tokens.parseIntToken('q-78q')),
+  test_parseMultiSelect1: test_eq(
+    tokens.rawToken(
+      'multiSelectHash',
+      { foo: tokens.someTokens(' bar').token },
+      null
+    ),
+    tokens.token('{foo: bar}')
+  ),
+  msTest(expression, expected):: test_eq(
+    if expected != null then tokens.rawToken(
+      'multiSelectHash',
+      expected,
+      null,
+    ),
+    tokens.parseMultiSelectHash(expression)
+  ),
+  test_parseMultiSelect2:
+    self.msTest('{foo: bar}', { foo: tokens.someTokens(' bar').token }),
+  test_parseMultiSelect3:
+    self.msTest('{foo: bar,}', null),
+  test_parseMultiSelect4:
+    self.msTest('{foo: bar,baz}', null),
+  test_parseMultiSelect5:
+    local expression = '{foo: bar,baz:}';
+    local expected = null;
+    test_eq(
+      tokens.rawToken(
+        'multiSelectHash',
+        {
+          foo: tokens.someTokens(' bar').token,
+          baz: tokens.someTokens('').token,
+        },
+        null,
+      ),
+      tokens.parseMultiSelectHash(expression)
+    ),
+  test_parseMultiSelect6:
+    self.msTest('{foo: bar,baz: }', {
+      foo: tokens.someTokens(' bar').token,
+      baz: tokens.someTokens(' ').token,
+    }),
+  test_parseMultiSelect7:
+    self.msTest('{foo: bar,baz: qux}', {
+      foo: tokens.someTokens(' bar').token,
+      baz: tokens.someTokens(' qux').token,
+    }),
+  test_parseMultiSelect8:
+    self.msTest('{ foo : bar, baz : qux}', {
+      foo: tokens.someTokens(' bar').token,
+      baz: tokens.someTokens(' qux').token,
+    }),
+  test_parseMultiSelect9:
+    self.msTest('{ "foo" : bar, baz : qux}', {
+      foo: tokens.someTokens(' bar').token,
+      baz: tokens.someTokens(' qux').token,
+    }),
 };
 test.asTest(results)

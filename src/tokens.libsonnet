@@ -151,6 +151,29 @@ limitations under the License.
         local end = std.length(constant);
         self.indexRawToken(name, expression, end),
 
+  parseKey:
+    local parseId(expression) =
+      self.priorityParse(expression, [self.idToken, self.parseIdString]);
+    self.whitespaceParser(parseId),
+
+  parseMultiSelectHash:
+    self.delimitParser('{', '}', self.parseMultiSelectHashInner),
+
+  parseMultiSelectHashInner(expression, pending={})::
+    local idParsed = self.parseKey(expression);
+    if idParsed != null && idParsed.remainder[:1] == ':' then
+      local key = idParsed.token.content;
+      local valueParsed = self.someTokens(idParsed.remainder[1:]);
+      if valueParsed != null then
+        local newPending = pending {
+          [key]: valueParsed.token,
+        };
+        if valueParsed.remainder[:1] == '}' then
+          self.rawToken('multiSelectHash', newPending, valueParsed.remainder)
+        else if valueParsed.remainder[:1] == ',' then
+          self.parseMultiSelectHashInner(valueParsed.remainder[1:], newPending)
+  ,
+
   delimitParser(prefix, suffix, parser):
     self.prefixParser(prefix, self.suffixParser(suffix, parser)),
 
@@ -170,12 +193,13 @@ limitations under the License.
     self.delimitParser('[', ']', self.whitespaceParser(
       self.constantParser('*', 'arrayWildcard')
     )),
+    self.parseMultiSelectHash,
     self.prefixParser('.', self.nestingToken('subexpression')),
     self.prefixParser('||', self.nestingToken('or')),
     self.prefixParser('&&', self.nestingToken('and')),
     self.prefixParser('!', self.nestingToken('not')),
     self.stringParser("'", 'rawString'),
-    self.delimitParser('"', '"', self.parseIdString),
+    self.parseIdString,
     self.stringParser('`', 'jsonLiteral'),
     self.parseWhitespace,
   ],
@@ -190,7 +214,10 @@ limitations under the License.
     self.delimitParser(quote, quote, function(expression)
       self.parseUntilToken(expression, condition, name)),
 
-  parseIdString(str):
+  parseIdString:
+    self.delimitParser('"', '"', self.parseIdStringInner),
+
+  parseIdStringInner(str):
     local content = self.parseEscapedString(str);
     if content != null then
       self.rawToken('idString', content.result, content.remainder),
