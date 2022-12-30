@@ -46,9 +46,7 @@ local arrayCheckNumString() =
     if result == null then result
     else arrayCheck('string')(i, v);
 
-{
-  err:: err,
-  ok:: ok,
+local functionMap = {
   abs: {
     callable: std.abs,
     argChecks: [typeCheck('number')],
@@ -170,16 +168,22 @@ local arrayCheckNumString() =
       sum(elements),
     argChecks: [arrayCheck('number')],
   },
+};
+
+{
   local apply(callable, args) = [
     function() callable(),
     function() callable(args[0]),
     function() callable(args[0], args[1]),
   ][std.length(args)](),
+  err:: err,
+  ok:: ok,
+  functionMap: functionMap,
   call(name, args)::
-    if !std.objectHas(self, name)
+    if !std.objectHas(self.functionMap, name)
     then err('Unknown function', name)
     else
-      local info = self[name];
+      local info = self.functionMap[name];
       if info.argChecks == null then ok(info.callable(args))
       else if std.length(args) != std.length(info.argChecks) then err(
         'invalid-arity',
