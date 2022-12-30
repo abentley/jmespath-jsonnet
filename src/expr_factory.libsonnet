@@ -441,7 +441,7 @@ local mapContents(data, func, next) =
       avg: {
         callable(elements):
           if elements != [] then
-            std.foldl(function(l, r) l + r, elements, 0) / std.length(elements),
+            sum(elements) / std.length(elements),
         argChecks: [arrayCheck('number')],
       },
       contains: {
@@ -524,11 +524,6 @@ local mapContents(data, func, next) =
         argChecks: [typeCheck('string'), typeCheck('string')],
         callable: std.startsWith,
       },
-      sum: {
-        argChecks: [arrayCheck('number')],
-        callable(collection):
-          std.foldl(function(l, r) l + r, collection, 0),
-      },
       to_array: {
         argChecks: [anyCheck],
         callable(arg): if std.type(arg) == 'array' then arg else [arg],
@@ -542,6 +537,10 @@ local mapContents(data, func, next) =
             if std.type(json) == 'number' then json else null
           else if type == 'number' then arg,
       },
+      to_string: {
+        argChecks: [anyCheck],
+        callable: std.toString,
+      },
       type: {
         argChecks: [anyCheck],
         callable: std.type,
@@ -549,6 +548,12 @@ local mapContents(data, func, next) =
       values: {
         argChecks: [typeCheck('object')],
         callable: std.objectValues,
+      },
+      local sum(collection) = std.foldl(function(l, r) l + r, collection, 0),
+      sum: {
+        callable(elements):
+          sum(elements),
+        argChecks: [arrayCheck('number')],
       },
     },
     call(name, args)::
