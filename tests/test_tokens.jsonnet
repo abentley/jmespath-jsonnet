@@ -225,7 +225,7 @@ local results = {
     ),
     tokens.token('{foo: bar}')
   ),
-  msTest(expression, expected):: test_eq(
+  mshTest(expression, expected):: test_eq(
     if expected != null then tokens.rawToken(
       'multiSelectHash',
       expected,
@@ -233,13 +233,13 @@ local results = {
     ),
     tokens.parseMultiSelectHash(expression)
   ),
-  test_parseMultiSelect2:
-    self.msTest('{foo: bar}', { foo: tokens.someTokens(' bar').token }),
-  test_parseMultiSelect3:
-    self.msTest('{foo: bar,}', null),
-  test_parseMultiSelect4:
-    self.msTest('{foo: bar,baz}', null),
-  test_parseMultiSelect5:
+  test_parseMultiSelectHash2:
+    self.mshTest('{foo: bar}', { foo: tokens.someTokens(' bar').token }),
+  test_parseMultiSelectHash3:
+    self.mshTest('{foo: bar,}', null),
+  test_parseMultiSelectHash4:
+    self.mshTest('{foo: bar,baz}', null),
+  test_parseMultiSelectHash5:
     local expression = '{foo: bar,baz:}';
     local expected = null;
     test_eq(
@@ -253,23 +253,23 @@ local results = {
       ),
       tokens.parseMultiSelectHash(expression)
     ),
-  test_parseMultiSelect6:
-    self.msTest('{foo: bar,baz: }', {
+  test_parseMultiSelectHash6:
+    self.mshTest('{foo: bar,baz: }', {
       foo: tokens.someTokens(' bar').token,
       baz: tokens.someTokens(' ').token,
     }),
-  test_parseMultiSelect7:
-    self.msTest('{foo: bar,baz: qux}', {
+  test_parseMultiSelectHash7:
+    self.mshTest('{foo: bar,baz: qux}', {
       foo: tokens.someTokens(' bar').token,
       baz: tokens.someTokens(' qux').token,
     }),
-  test_parseMultiSelect8:
-    self.msTest('{ foo : bar, baz : qux}', {
+  test_parseMultiSelectHash8:
+    self.mshTest('{ foo : bar, baz : qux}', {
       foo: tokens.someTokens(' bar').token,
       baz: tokens.someTokens(' qux').token,
     }),
-  test_parseMultiSelect9:
-    self.msTest('{ "foo" : bar, baz : qux}', {
+  test_parseMultiSelectHash9:
+    self.mshTest('{ "foo" : bar, baz : qux}', {
       foo: tokens.someTokens(' bar').token,
       baz: tokens.someTokens(' qux').token,
     }),
