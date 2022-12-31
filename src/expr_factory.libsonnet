@@ -415,6 +415,19 @@ local mapContents(data, func, next) =
         for f in std.objectFields(content)
       },
     },
+  ImplMultiSelectList: {
+    search(data, next): local content = self.content; [
+      i.search(data, next)
+      for i in content
+    ],
+    map(data, func, next, allow_projection):: null,
+  },
+  multiSelectList(content, prev):
+    local compileTokens = self.compileTokens;
+    self.ImplMultiSelectList {
+      content: [compileTokens(i) for i in content],
+    },
+
   // Return an object representing the expression
   // Expression must be a string
   compile(expression, prev=null): (

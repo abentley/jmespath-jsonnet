@@ -174,6 +174,18 @@ limitations under the License.
           self.parseMultiSelectHashInner(valueParsed.remainder[1:], newPending)
   ,
 
+  parseMultiSelectList:
+    self.delimitParser('[', ']', parseMultiSelectListInner),
+
+  local parseMultiSelectListInner(expression, pending=[]) =
+    local item = self.someTokens(expression);
+    if item != null && item.remainder != expression then
+      local newPending = pending + [item.token.content];
+      if item.remainder[:1] == ',' then
+        parseMultiSelectListInner(item.remainder[1:], newPending)
+      else if item.remainder[:1] == ']' then
+        self.rawToken('multiSelectList', newPending, item.remainder),
+
   delimitParser(prefix, suffix, parser):
     self.prefixParser(prefix, self.suffixParser(suffix, parser)),
 
@@ -194,6 +206,7 @@ limitations under the License.
       self.constantParser('*', 'arrayWildcard')
     )),
     self.parseMultiSelectHash,
+    self.parseMultiSelectList,
     self.prefixParser('.', self.nestingToken('subexpression')),
     self.prefixParser('||', self.nestingToken('or')),
     self.prefixParser('&&', self.nestingToken('and')),

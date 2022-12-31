@@ -22,7 +22,6 @@ local results = {
     remainder: null,
     token: { content: 1234, name: 'index' },
   }, tokens.token('[1234]')),
-  test2: test_eq(null, tokens.token('[abcd]')),
   test3: test_eq({
     remainder: null,
     token: {
@@ -217,7 +216,7 @@ local results = {
     token: { content: -78, name: 'int' },
   }, tokens.parseIntToken('-78:')),
   test_parseIntToken4: test_eq(null, tokens.parseIntToken('q-78q')),
-  test_parseMultiSelect1: test_eq(
+  test_parseMultiSelectHash1: test_eq(
     tokens.rawToken(
       'multiSelectHash',
       { foo: tokens.someTokens(' bar').token },
@@ -273,5 +272,35 @@ local results = {
       foo: tokens.someTokens(' bar').token,
       baz: tokens.someTokens(' qux').token,
     }),
+  test_parseMultiSelectList1: test_eq(
+    tokens.rawToken(
+      'multiSelectList',
+      [
+        tokens.someTokens('foo').token.content,
+        tokens.someTokens(' bar').token.content,
+      ],
+      null
+    ),
+    tokens.token('[foo, bar]')
+  ),
+  mslTest(expression, expected)::
+    local expectedToken = if expected != null then tokens.rawToken(
+      'multiSelectList',
+      [
+        tokens.someTokens(i).token.content
+        for i in expected
+      ],
+      null
+    );
+    test_eq(
+      expectedToken,
+      tokens.token(expression)
+    ),
+  test_parseMultiSelectList2:
+    self.mslTest('[foo,bar]', ['foo', 'bar']),
+  test_parseMultiSelectList3:
+    self.mslTest('[foo,bar,]', null),
+  test_parseMultiSelectList4:
+    self.mslTest('[,foo,bar]', null),
 };
 test.asTest(results)
