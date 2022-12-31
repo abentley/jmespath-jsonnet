@@ -113,8 +113,8 @@ RUNTIME ERROR: max stack frames exceeded.
 	...
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(601:5)-(605:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:596:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(426:5)-(430:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:421:5-52	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
@@ -137,12 +137,12 @@ RUNTIME ERROR: max stack frames exceeded.
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-28	thunk <a>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	object <first>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:294:57-72	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:321:57-72	thunk <expression>
 	...
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(601:5)-(605:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:596:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(426:5)-(430:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:421:5-52	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
@@ -165,12 +165,12 @@ RUNTIME ERROR: max stack frames exceeded.
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-28	thunk <a>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:22:19-34	object <first>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:294:57-72	thunk <expression>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:321:57-72	thunk <expression>
 	...
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(601:5)-(605:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:596:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(426:5)-(430:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:421:5-52	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
@@ -197,8 +197,8 @@ RUNTIME ERROR: max stack frames exceeded.
 	...
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(601:5)-(605:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:596:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(426:5)-(430:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:421:5-52	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
@@ -225,8 +225,8 @@ RUNTIME ERROR: max stack frames exceeded.
 	...
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(601:5)-(605:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:596:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(426:5)-(430:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:421:5-52	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
@@ -240,15 +240,15 @@ The expression: [z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, 
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: Unhandled expression: "[z, y, x, w, v, u, t, s, r, q, p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a]"
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:230:10-79	function <alltokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:596:24-45	thunk <tokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:603:7-13	thunk <arr>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:257:10-79	function <alltokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:421:24-45	thunk <tokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:428:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
 	std.jsonnet:786:28-31	
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(601:5)-(605:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:596:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(426:5)-(430:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:421:5-52	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
@@ -275,8 +275,8 @@ RUNTIME ERROR: max stack frames exceeded.
 	...
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(601:5)-(605:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:596:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(426:5)-(430:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:421:5-52	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
@@ -290,24 +290,24 @@ The expression: j49|j48|j47|j46|j45|j44|j43|j42|j41|j40|j39|j38|j37|j36|j35|j34|
 was supposed to have a zero RC for test type 'bench',
 but instead gave rc of: 1, stderr: 
 RUNTIME ERROR: max stack frames exceeded.
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:216:23-33	thunk <curTokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:218:27-36	thunk <content>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:243:23-33	thunk <curTokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:245:27-36	thunk <content>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:20:16-23	object <second>
-	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:309:36-50	thunk <content>
+	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:336:36-50	thunk <content>
 	/home/abentley/hacking/jmespath-jsonnet/src/tokens.libsonnet:20:16-23	object <token>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:602:46-59	thunk <content>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:281:42-49	thunk <tokens>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:603:7-13	thunk <arr>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:427:46-59	thunk <content>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:282:42-49	thunk <tokens>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:428:7-13	thunk <arr>
 	std.jsonnet:790:15-18	thunk <arr>
 	std.jsonnet:786:28-31	
 	...
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:52:10-24	thunk <a>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:52:10-36	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:52:10-36	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:48:23-46	thunk <result>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:45:46-52	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:48:7-53	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:269:7-37	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:53:10-24	thunk <a>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:53:10-36	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:53:10-36	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:49:23-46	thunk <result>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:46:46-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:49:7-53	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:270:7-37	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:21:5-32	function <anonymous>
 	<cmdline>:2:30-56	function <top_level>
 	Top-level function	
@@ -331,8 +331,8 @@ RUNTIME ERROR: max stack frames exceeded.
 	...
 	std.jsonnet:786:17-32	function <aux>
 	std.jsonnet:790:5-28	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(601:5)-(605:6)	function <anonymous>
-	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:596:5-52	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:(426:5)-(430:6)	function <anonymous>
+	/home/abentley/hacking/jmespath-jsonnet/src/expr_factory.libsonnet:421:5-52	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:15-46	thunk <x>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:33:48	function <anonymous>
 	/home/abentley/hacking/jmespath-jsonnet/src/jmespath.libsonnet:20:22-46	thunk <compiled>
@@ -406,25 +406,25 @@ The expression: foo.[abc, def]
 was supposed to give: null
 for the JSON: {"type": "object"}
 but instead gave: ""
-..................
-FAIL syntax,10,14
-The expression: a.{foo: bar}
-was supposed to give: null
-for the JSON: {"type": "object"}
-but instead gave: ""
+............
+FAIL syntax,10,8
+The expression: a{foo: bar}
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
 
-FAIL syntax,10,15
-The expression: a.{foo: bar, baz: bam}
-was supposed to give: null
-for the JSON: {"type": "object"}
-but instead gave: ""
 ....
-FAIL syntax,10,20
-The expression: {"\\":{" ":*}}
-was supposed to give: {"\\": {" ": ["object"]}}
-for the JSON: {"type": "object"}
-but instead gave: ""
-...
+FAIL syntax,10,12
+The expression: a.{foo:}
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+......
+FAIL syntax,10,18
+The expression: a.{foo: bar, baz:}
+was supposed to have non zero for error error: syntax
+but instead gave rc of: 0, stderr: 
+
+......
 FAIL syntax,11,2
 The expression: foo.|| bar
 was supposed to have non zero for error error: syntax
@@ -838,31 +838,13 @@ The expression: foo[?!key]
 was supposed to give: [{"key": false}, {"key": []}, {"key": {}}, {"key": null}, {"notkey": true}]
 for the JSON: {"foo": [{"key": true}, {"key": false}, {"key": []}, {"key": {}}, {"key": [0]}, {"key": {"a": "b"}}, {"key": 0}, {"key": 1}, {"key": null}, {"notkey": true}]}
 but instead gave: ""
-.........
-FAIL pipe,0,5
-The expression: {"a": foo.bar, "b": foo.other} | *.baz
-was supposed to give: ["subkey", "subkey"]
-for the JSON: {"foo": {"bar": {"baz": "subkey"}, "other": {"baz": "subkey"}, "other2": {"baz": "subkey"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["a", "b", "c"]}}}
-but instead gave: ""
-.....
+...............
 FAIL pipe,1,5
 The expression: [foo.bar, foo.other] | [0]
 was supposed to give: {"baz": "one"}
 for the JSON: {"foo": {"bar": {"baz": "one"}, "other": {"baz": "two"}, "other2": {"baz": "three"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["d", "e", "f"]}}}
 but instead gave: ""
-
-FAIL pipe,1,6
-The expression: {"a": foo.bar, "b": foo.other} | a
-was supposed to give: {"baz": "one"}
-for the JSON: {"foo": {"bar": {"baz": "one"}, "other": {"baz": "two"}, "other2": {"baz": "three"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["d", "e", "f"]}}}
-but instead gave: ""
-
-FAIL pipe,1,7
-The expression: {"a": foo.bar, "b": foo.other} | b
-was supposed to give: {"baz": "two"}
-for the JSON: {"foo": {"bar": {"baz": "one"}, "other": {"baz": "two"}, "other2": {"baz": "three"}, "other3": {"notbaz": ["a", "b", "c"]}, "other4": {"notbaz": ["d", "e", "f"]}}}
-but instead gave: ""
-
+..
 FAIL pipe,1,8
 The expression: foo.bam || foo.bar | baz
 was supposed to give: "one"
@@ -1047,7 +1029,7 @@ FAIL literal,0,21
 The expression: `"\\"`.{a:`"b"`}
 was supposed to give: {"a": "b"}
 for the JSON: {"foo": [{"name": "a"}, {"name": "b"}], "bar": {"baz": "qux"}}
-but instead gave: ""
+but instead gave: "\\"
 
 FAIL literal,0,22
 The expression: `{"a": "b"}`.a
@@ -1078,121 +1060,7 @@ The expression: 'foo\'bar'
 was supposed to give: "foo'bar"
 for the JSON: {}
 but instead gave: ""
-..
-FAIL multiselect,0,0
-The expression: foo.{bar: bar}
-was supposed to give: {"bar": "bar"}
-for the JSON: {"foo": {"bar": "bar", "baz": "baz", "qux": "qux", "nested": {"one": {"a": "first", "b": "second", "c": "third"}, "two": {"a": "first", "b": "second", "c": "third"}, "three": {"a": "first", "b": "second", "c": {"inner": "third"}}}}, "bar": 1, "baz": 2, "qux\"": 3}
-but instead gave: ""
-
-FAIL multiselect,0,1
-The expression: foo.{"bar": bar}
-was supposed to give: {"bar": "bar"}
-for the JSON: {"foo": {"bar": "bar", "baz": "baz", "qux": "qux", "nested": {"one": {"a": "first", "b": "second", "c": "third"}, "two": {"a": "first", "b": "second", "c": "third"}, "three": {"a": "first", "b": "second", "c": {"inner": "third"}}}}, "bar": 1, "baz": 2, "qux\"": 3}
-but instead gave: ""
-
-FAIL multiselect,0,2
-The expression: foo.{"foo.bar": bar}
-was supposed to give: {"foo.bar": "bar"}
-for the JSON: {"foo": {"bar": "bar", "baz": "baz", "qux": "qux", "nested": {"one": {"a": "first", "b": "second", "c": "third"}, "two": {"a": "first", "b": "second", "c": "third"}, "three": {"a": "first", "b": "second", "c": {"inner": "third"}}}}, "bar": 1, "baz": 2, "qux\"": 3}
-but instead gave: ""
-
-FAIL multiselect,0,3
-The expression: foo.{bar: bar, baz: baz}
-was supposed to give: {"bar": "bar", "baz": "baz"}
-for the JSON: {"foo": {"bar": "bar", "baz": "baz", "qux": "qux", "nested": {"one": {"a": "first", "b": "second", "c": "third"}, "two": {"a": "first", "b": "second", "c": "third"}, "three": {"a": "first", "b": "second", "c": {"inner": "third"}}}}, "bar": 1, "baz": 2, "qux\"": 3}
-but instead gave: ""
-
-FAIL multiselect,0,4
-The expression: foo.{"bar": bar, "baz": baz}
-was supposed to give: {"bar": "bar", "baz": "baz"}
-for the JSON: {"foo": {"bar": "bar", "baz": "baz", "qux": "qux", "nested": {"one": {"a": "first", "b": "second", "c": "third"}, "two": {"a": "first", "b": "second", "c": "third"}, "three": {"a": "first", "b": "second", "c": {"inner": "third"}}}}, "bar": 1, "baz": 2, "qux\"": 3}
-but instead gave: ""
-
-FAIL multiselect,0,5
-The expression: {"baz": baz, "qux\"": "qux\""}
-was supposed to give: {"baz": 2, "qux\"": 3}
-for the JSON: {"foo": {"bar": "bar", "baz": "baz", "qux": "qux", "nested": {"one": {"a": "first", "b": "second", "c": "third"}, "two": {"a": "first", "b": "second", "c": "third"}, "three": {"a": "first", "b": "second", "c": {"inner": "third"}}}}, "bar": 1, "baz": 2, "qux\"": 3}
-but instead gave: ""
-
-FAIL multiselect,0,6
-The expression: foo.{bar:bar,baz:baz}
-was supposed to give: {"bar": "bar", "baz": "baz"}
-for the JSON: {"foo": {"bar": "bar", "baz": "baz", "qux": "qux", "nested": {"one": {"a": "first", "b": "second", "c": "third"}, "two": {"a": "first", "b": "second", "c": "third"}, "three": {"a": "first", "b": "second", "c": {"inner": "third"}}}}, "bar": 1, "baz": 2, "qux\"": 3}
-but instead gave: ""
-
-FAIL multiselect,0,7
-The expression: foo.{bar: bar,qux: qux}
-was supposed to give: {"bar": "bar", "qux": "qux"}
-for the JSON: {"foo": {"bar": "bar", "baz": "baz", "qux": "qux", "nested": {"one": {"a": "first", "b": "second", "c": "third"}, "two": {"a": "first", "b": "second", "c": "third"}, "three": {"a": "first", "b": "second", "c": {"inner": "third"}}}}, "bar": 1, "baz": 2, "qux\"": 3}
-but instead gave: ""
-
-FAIL multiselect,0,8
-The expression: foo.{bar: bar, noexist: noexist}
-was supposed to give: {"bar": "bar", "noexist": null}
-for the JSON: {"foo": {"bar": "bar", "baz": "baz", "qux": "qux", "nested": {"one": {"a": "first", "b": "second", "c": "third"}, "two": {"a": "first", "b": "second", "c": "third"}, "three": {"a": "first", "b": "second", "c": {"inner": "third"}}}}, "bar": 1, "baz": 2, "qux\"": 3}
-but instead gave: ""
-
-FAIL multiselect,0,9
-The expression: foo.{noexist: noexist, alsonoexist: alsonoexist}
-was supposed to give: {"noexist": null, "alsonoexist": null}
-for the JSON: {"foo": {"bar": "bar", "baz": "baz", "qux": "qux", "nested": {"one": {"a": "first", "b": "second", "c": "third"}, "two": {"a": "first", "b": "second", "c": "third"}, "three": {"a": "first", "b": "second", "c": {"inner": "third"}}}}, "bar": 1, "baz": 2, "qux\"": 3}
-but instead gave: ""
-
-FAIL multiselect,0,10
-The expression: foo.badkey.{nokey: nokey, alsonokey: alsonokey}
-was supposed to give: null
-for the JSON: {"foo": {"bar": "bar", "baz": "baz", "qux": "qux", "nested": {"one": {"a": "first", "b": "second", "c": "third"}, "two": {"a": "first", "b": "second", "c": "third"}, "three": {"a": "first", "b": "second", "c": {"inner": "third"}}}}, "bar": 1, "baz": 2, "qux\"": 3}
-but instead gave: ""
-
-FAIL multiselect,0,11
-The expression: foo.nested.*.{a: a,b: b}
-was supposed to give: [{"a": "first", "b": "second"}, {"a": "first", "b": "second"}, {"a": "first", "b": "second"}]
-for the JSON: {"foo": {"bar": "bar", "baz": "baz", "qux": "qux", "nested": {"one": {"a": "first", "b": "second", "c": "third"}, "two": {"a": "first", "b": "second", "c": "third"}, "three": {"a": "first", "b": "second", "c": {"inner": "third"}}}}, "bar": 1, "baz": 2, "qux\"": 3}
-but instead gave: ""
-
-FAIL multiselect,0,12
-The expression: foo.nested.three.{a: a, cinner: c.inner}
-was supposed to give: {"a": "first", "cinner": "third"}
-for the JSON: {"foo": {"bar": "bar", "baz": "baz", "qux": "qux", "nested": {"one": {"a": "first", "b": "second", "c": "third"}, "two": {"a": "first", "b": "second", "c": "third"}, "three": {"a": "first", "b": "second", "c": {"inner": "third"}}}}, "bar": 1, "baz": 2, "qux\"": 3}
-but instead gave: ""
-
-FAIL multiselect,0,13
-The expression: foo.nested.three.{a: a, c: c.inner.bad.key}
-was supposed to give: {"a": "first", "c": null}
-for the JSON: {"foo": {"bar": "bar", "baz": "baz", "qux": "qux", "nested": {"one": {"a": "first", "b": "second", "c": "third"}, "two": {"a": "first", "b": "second", "c": "third"}, "three": {"a": "first", "b": "second", "c": {"inner": "third"}}}}, "bar": 1, "baz": 2, "qux\"": 3}
-but instead gave: ""
-
-FAIL multiselect,0,14
-The expression: foo.{a: nested.one.a, b: nested.two.b}
-was supposed to give: {"a": "first", "b": "second"}
-for the JSON: {"foo": {"bar": "bar", "baz": "baz", "qux": "qux", "nested": {"one": {"a": "first", "b": "second", "c": "third"}, "two": {"a": "first", "b": "second", "c": "third"}, "three": {"a": "first", "b": "second", "c": {"inner": "third"}}}}, "bar": 1, "baz": 2, "qux\"": 3}
-but instead gave: ""
-
-FAIL multiselect,0,15
-The expression: {bar: bar, baz: baz}
-was supposed to give: {"bar": 1, "baz": 2}
-for the JSON: {"foo": {"bar": "bar", "baz": "baz", "qux": "qux", "nested": {"one": {"a": "first", "b": "second", "c": "third"}, "two": {"a": "first", "b": "second", "c": "third"}, "three": {"a": "first", "b": "second", "c": {"inner": "third"}}}}, "bar": 1, "baz": 2, "qux\"": 3}
-but instead gave: ""
-
-FAIL multiselect,0,16
-The expression: {bar: bar}
-was supposed to give: {"bar": 1}
-for the JSON: {"foo": {"bar": "bar", "baz": "baz", "qux": "qux", "nested": {"one": {"a": "first", "b": "second", "c": "third"}, "two": {"a": "first", "b": "second", "c": "third"}, "three": {"a": "first", "b": "second", "c": {"inner": "third"}}}}, "bar": 1, "baz": 2, "qux\"": 3}
-but instead gave: ""
-
-FAIL multiselect,0,17
-The expression: {otherkey: bar}
-was supposed to give: {"otherkey": 1}
-for the JSON: {"foo": {"bar": "bar", "baz": "baz", "qux": "qux", "nested": {"one": {"a": "first", "b": "second", "c": "third"}, "two": {"a": "first", "b": "second", "c": "third"}, "three": {"a": "first", "b": "second", "c": {"inner": "third"}}}}, "bar": 1, "baz": 2, "qux\"": 3}
-but instead gave: ""
-
-FAIL multiselect,0,18
-The expression: {no: no, exist: exist}
-was supposed to give: {"no": null, "exist": null}
-for the JSON: {"foo": {"bar": "bar", "baz": "baz", "qux": "qux", "nested": {"one": {"a": "first", "b": "second", "c": "third"}, "two": {"a": "first", "b": "second", "c": "third"}, "three": {"a": "first", "b": "second", "c": {"inner": "third"}}}}, "bar": 1, "baz": 2, "qux\"": 3}
-but instead gave: ""
-
+.....................
 FAIL multiselect,0,19
 The expression: foo.[bar]
 was supposed to give: ["bar"]
@@ -1222,13 +1090,7 @@ The expression: foo.[noexist,alsonoexist]
 was supposed to give: [null, null]
 for the JSON: {"foo": {"bar": "bar", "baz": "baz", "qux": "qux", "nested": {"one": {"a": "first", "b": "second", "c": "third"}, "two": {"a": "first", "b": "second", "c": "third"}, "three": {"a": "first", "b": "second", "c": {"inner": "third"}}}}, "bar": 1, "baz": 2, "qux\"": 3}
 but instead gave: ""
-
-FAIL multiselect,1,0
-The expression: foo.{bar:bar,baz:baz}
-was supposed to give: {"bar": 1, "baz": [2, 3, 4]}
-for the JSON: {"foo": {"bar": 1, "baz": [2, 3, 4]}}
-but instead gave: ""
-
+.
 FAIL multiselect,1,1
 The expression: foo.[bar,baz[0]]
 was supposed to give: [1, 2]
@@ -1258,31 +1120,13 @@ The expression: foo.[bar[0],baz[3]]
 was supposed to give: [null, null]
 for the JSON: {"foo": {"bar": 1, "baz": [2, 3, 4]}}
 but instead gave: ""
-
-FAIL multiselect,2,0
-The expression: foo.{bar: bar, baz: baz}
-was supposed to give: {"bar": 1, "baz": 2}
-for the JSON: {"foo": {"bar": 1, "baz": 2}}
-but instead gave: ""
-
+.
 FAIL multiselect,2,1
 The expression: foo.[bar,baz]
 was supposed to give: [1, 2]
 for the JSON: {"foo": {"bar": 1, "baz": 2}}
 but instead gave: ""
-
-FAIL multiselect,3,0
-The expression: foo.{bar: bar.baz[1],includeme: includeme}
-was supposed to give: {"bar": {"common": "second", "two": 2}, "includeme": true}
-for the JSON: {"foo": {"bar": {"baz": [{"common": "first", "one": 1}, {"common": "second", "two": 2}]}, "ignoreme": 1, "includeme": true}}
-but instead gave: ""
-
-FAIL multiselect,3,1
-The expression: foo.{"bar.baz.two": bar.baz[1].two, includeme: includeme}
-was supposed to give: {"bar.baz.two": 2, "includeme": true}
-for the JSON: {"foo": {"bar": {"baz": [{"common": "first", "one": 1}, {"common": "second", "two": 2}]}, "ignoreme": 1, "includeme": true}}
-but instead gave: ""
-
+..
 FAIL multiselect,3,2
 The expression: foo.[includeme, bar.baz[*].common]
 was supposed to give: [true, ["first", "second"]]
@@ -1300,18 +1144,12 @@ The expression: foo.[includeme, bar.baz[].common]
 was supposed to give: [true, ["first", "second"]]
 for the JSON: {"foo": {"bar": {"baz": [{"common": "first", "one": 1}, {"common": "second", "two": 2}]}, "ignoreme": 1, "includeme": true}}
 but instead gave: ""
-
-FAIL multiselect,4,0
-The expression: reservations[*].instances[*].{id: id, name: name}
-was supposed to give: [[{"id": "id1", "name": "first"}, {"id": "id2", "name": "second"}], [{"id": "id3", "name": "third"}, {"id": "id4", "name": "fourth"}]]
-for the JSON: {"reservations": [{"instances": [{"id": "id1", "name": "first"}, {"id": "id2", "name": "second"}]}, {"instances": [{"id": "id3", "name": "third"}, {"id": "id4", "name": "fourth"}]}]}
-but instead gave: ""
-
+.
 FAIL multiselect,4,1
 The expression: reservations[].instances[].{id: id, name: name}
 was supposed to give: [{"id": "id1", "name": "first"}, {"id": "id2", "name": "second"}, {"id": "id3", "name": "third"}, {"id": "id4", "name": "fourth"}]
 for the JSON: {"reservations": [{"instances": [{"id": "id1", "name": "first"}, {"id": "id2", "name": "second"}]}, {"instances": [{"id": "id3", "name": "third"}, {"id": "id4", "name": "fourth"}]}]}
-but instead gave: ""
+but instead gave: [[{"id": "id1", "name": "first"}, {"id": "id2", "name": "second"}], [{"id": "id3", "name": "third"}, {"id": "id4", "name": "fourth"}]]
 
 FAIL multiselect,4,2
 The expression: reservations[].instances[].[id, name]
@@ -1372,11 +1210,5 @@ The expression: [[*]]
 was supposed to give: [[]]
 for the JSON: []
 but instead gave: ""
-
-FAIL multiselect,10,1
-The expression: missing.{foo: bar}
-was supposed to give: null
-for the JSON: []
-but instead gave: ""
-...........................................................
+............................................................
 FAIL

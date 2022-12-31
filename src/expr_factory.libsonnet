@@ -400,6 +400,21 @@ local mapContents(data, func, next) =
       name: content.name,
       args: args,
     },
+  ImplMultiSelectHash: {
+    search(data, next): local content = self.content; {
+      [f]: content[f].search(data, next)
+      for f in std.objectFields(content)
+    },
+    map(data, func, next, allow_projection):: null,
+  },
+  multiSelectHash(content, prev):
+    local compileTokens = self.compileTokens;
+    self.ImplMultiSelectHash {
+      content: {
+        [f]: compileTokens(content[f].content)
+        for f in std.objectFields(content)
+      },
+    },
   // Return an object representing the expression
   // Expression must be a string
   compile(expression, prev=null): (
